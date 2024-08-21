@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->wantsJson()) {
                 return new JsonResponse([
-                    'status' => 401,
+                    'status' => 404,
                     'error' => 'unauthorized',
                     'message' => 'Unauthorized'
                 ], 401);
@@ -37,7 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->wantsJson()) {
                 return new JsonResponse([
-                    'status' => 401,
+                    'status' => 404,
                     'error' => 'not_found',
                     'message' => 'Not found'
                 ], 404);
