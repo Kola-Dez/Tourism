@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api\V1\Category\Services;
 
 use App\Models\Category\Category;
+use App\Models\Tours\GroupTour;
+use Carbon\Carbon;
 
 class CategoryService
 {
@@ -17,9 +19,7 @@ class CategoryService
     {
         return Category::all()->map(function ($category) {
             return [
-                'id' => $category->id,
-                'original_title' => $category->title,
-                'translated_title' => $category->translated_title,
+                'title' => $category->translated_title,
                 'slug' => $category->slug,
                 'image' => $category->image,
             ];
@@ -28,7 +28,7 @@ class CategoryService
 
     public function getPopular(): array
     {
-        $categories = Category::with(['tours'])->get();
+        $categories = Category::with(['groupTours'])->get();
 
         $allTours = collect();
 
@@ -42,5 +42,28 @@ class CategoryService
         $topTours = $allTours->sortByDesc('hits')->take(3);
 
         return $topTours->values()->all();
+    }
+
+    public function show(Category $category): array
+    {
+        $data = [
+            'title' => $category->translated_title,
+            'slug' => $category->slug,
+            'image' => $category->image,
+        ];
+        $data['group_tours'] = GroupTour::all()->where('category_id', $category->id)->where('status', 'available')->map(function ($groupTour) {
+            $startDate = Carbon::parse($groupTour->departing);
+            $endDate = Carbon::parse($groupTour->finishing);
+            $duration = intval($startDate->diffInDays($endDate));
+            return [
+                'title' => $groupTour->title,
+                'description' => $groupTour->description,
+                'price' => $groupTour->price,
+                'how_many_peoples' => $groupTour->how_many_peoples,
+                'date' => $duration . 'D/' . $duration -1 . 'N',
+//                'destination' => $groupTour->travel_destination_id->destination_id,
+            ];
+        });
+        return $data;
     }
 }

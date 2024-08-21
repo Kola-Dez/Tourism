@@ -15,21 +15,28 @@ use Illuminate\Support\Str;
 
 /**
  * @method static create(array $array)
+ * @property mixed $title
+ * @property mixed $translated_title
+ * @property mixed $slug
+ * @property mixed $image
+ * @property mixed $id
  */
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'thumbnail'];
-
-    public function getTranslatedTitleAttribute(): Application|array|string|Translator|null
-    {
-        return __('messages.categories.' . $this->getAttribute('title'));
-    }
+    protected $fillable = ['title', 'slug', 'image'];
 
     public function groupTours(): HasMany
     {
         return $this->hasMany(GroupTour::class);
+    }
+
+
+
+    public function getTranslatedTitleAttribute(): Application|array|string|Translator|null
+    {
+        return __('messages.categories.' . $this->getAttribute('title'));
     }
 
     public function getSlugAttribute(): string

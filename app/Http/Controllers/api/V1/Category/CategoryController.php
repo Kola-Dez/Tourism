@@ -35,7 +35,9 @@ class CategoryController extends Controller
     {
         $category = $this->service->getCategoryBySlug($slug);
 
-        return Response::json(['status' => 200, 'success' => true, 'data' => $category]);
+        $data = $this->service->show($category);
+
+        return Response::json(['status' => 200, 'success' => true, 'data' => $data]);
     }
 
 }

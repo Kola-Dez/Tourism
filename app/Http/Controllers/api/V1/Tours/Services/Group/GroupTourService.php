@@ -65,8 +65,8 @@ class GroupTourService
         $tour->hits++;
         $tour->save();
 
-        $startDate = Carbon::parse($tour->start_date);
-        $endDate = Carbon::parse($tour->end_date);
+        $startDate = Carbon::parse($tour->departing);
+        $endDate = Carbon::parse($tour->finishing);
         $duration = intval($startDate->diffInDays($endDate));
 
         return [

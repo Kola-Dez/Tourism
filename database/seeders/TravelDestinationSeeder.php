@@ -15,14 +15,14 @@ class TravelDestinationSeeder extends Seeder
             [
                 'destination_id' => Destination::where('code', 'KG')->first()->id,
                 'cities' => [
-                    ['name' => 'Altyn Arashan', 'slug' => 'altyn-arashan'],
+                    ['name' => 'Altyn Arashan', 'slug' => 'altyn arashan'],
                     ['name' => 'Arslanbob', 'slug' => 'arslanbob'],
                     ['name' => 'Batken', 'slug' => 'batken'],
                     ['name' => 'Bishkek', 'slug' => 'bishkek'],
-                    ['name' => 'Burana Tower', 'slug' => 'burana-tower'],
-                    ['name' => 'Cholpon-Ata', 'slug' => 'cholpon-ata'],
-                    ['name' => 'Chon-Kemin', 'slug' => 'chon-kemin'],
-                    ['name' => 'Issyk-Kul', 'slug' => 'issyk-kul'],
+                    ['name' => 'Burana Tower', 'slug' => 'burana tower'],
+                    ['name' => 'Cholpon-Ata', 'slug' => 'cholpon ata'],
+                    ['name' => 'Chon-Kemin', 'slug' => 'chon kemin'],
+                    ['name' => 'Issyk-Kul', 'slug' => 'issyk kul'],
                     ['name' => 'Jalalabad', 'slug' => 'jalalabad'],
                     ['name' => 'Karakol', 'slug' => 'karakol'],
                 ],
@@ -61,7 +61,7 @@ class TravelDestinationSeeder extends Seeder
                 'cities' => [
                     ['name' => 'Dushanbe', 'slug' => 'dushanbe'],
                     ['name' => 'Khujand', 'slug' => 'khujand'],
-                    ['name' => 'Kurgan-Tyube', 'slug' => 'kurgan-tyube'],
+                    ['name' => 'Kurgan-Tyube', 'slug' => 'kurgan tyube'],
                     ['name' => 'Istravshan', 'slug' => 'istravshan'],
                     ['name' => 'Garm', 'slug' => 'garm'],
                     ['name' => 'Panjakent', 'slug' => 'panjakent'],
