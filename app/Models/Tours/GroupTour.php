@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @method static create(array $data)
  * @method static findOrFail($id)
+ * @method static find($id)
  */
 class GroupTour extends Model
 {

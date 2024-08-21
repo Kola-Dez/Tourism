@@ -1,14 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\api\V1\Tours\Services\Group;
+namespace App\Http\Controllers\admin\Tours\Service;
 
 use App\Models\Tours\GroupTour;
-use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class GroupTourService
+class AdminGroupTourService
 {
+    public function show($id): array
+    {
+        $tour = GroupTour::findOrFail($id);
+
+        return [
+            'category' => __('messages.categories.' . $tour->category->title),
+            'peoples' => $tour->how_many_peoples,
+            'price' => intval($tour->price),
+
+        ];
+    }
+
     public function create(array $data): array
     {
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
@@ -56,24 +67,5 @@ class GroupTourService
             }
         }
         $tour->delete();
-    }
-
-    public function show($id): array
-    {
-        $tour = GroupTour::findOrFail($id);
-
-        $tour->hits++;
-        $tour->save();
-
-        $startDate = Carbon::parse($tour->departing);
-        $endDate = Carbon::parse($tour->finishing);
-        $duration = intval($startDate->diffInDays($endDate));
-
-        return [
-            'category' => __('messages.categories.' . $tour->category->title),
-            'peoples' => $tour->how_many_peoples,
-            'price' => intval($tour->price),
-            'date' => $duration . 'D/' . $duration -1 . 'N',
-        ];
     }
 }

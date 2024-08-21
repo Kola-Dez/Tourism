@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\api\V1\Tours\Services\Private;
+namespace App\Http\Controllers\admin\Tours\Service;
 
-use App\Models\api\V1\Tours\PrivateTour;
-use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+use App\Models\Tours\PrivateTour;
+use Carbon\Carbon;
 
-class PrivateTourService
+class AdminPrivateTourService
 {
     public function create(array $data): array
     {
@@ -61,17 +61,9 @@ class PrivateTourService
     {
         $tour = PrivateTour::findOrFail($id);
 
-        $tour->hits++;
-        $tour->save();
-
-        $startDate = Carbon::parse($tour->start_date);
-        $endDate = Carbon::parse($tour->end_date);
-        $duration = intval($startDate->diffInDays($endDate));
-
         return [
             'category' => __('messages.categories.' . $tour->category->title),
             'price' => intval($tour->price),
-            'date' => $duration . 'D/' . $duration -1 . 'N',
         ];
     }
 }

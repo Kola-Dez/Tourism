@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Category;
+namespace App\Providers\api\Category;
 
 use App\Http\Controllers\api\V1\Category\Services\CategoryService;
 use Illuminate\Support\ServiceProvider;

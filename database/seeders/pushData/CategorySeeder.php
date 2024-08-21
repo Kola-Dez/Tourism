@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\pushData;
 
 use App\Models\Category\Category;
 use Illuminate\Database\Seeder;

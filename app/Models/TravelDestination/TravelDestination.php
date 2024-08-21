@@ -13,6 +13,11 @@ use Illuminate\Support\Str;
 
 /**
  * @method static create(array $array)
+ * @property mixed $translated_name
+ * @property mixed $image
+ * @property mixed $description
+ * @property mixed $destination_id
+ * @property mixed $destination
  */
 class TravelDestination extends Model
 {
@@ -30,6 +35,7 @@ class TravelDestination extends Model
     {
         return $this->belongsTo(Destination::class);
     }
+
 
 
 

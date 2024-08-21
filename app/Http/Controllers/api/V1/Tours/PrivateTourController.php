@@ -2,66 +2,25 @@
 
 namespace App\Http\Controllers\api\V1\Tours;
 
-use App\Http\Controllers\api\V1\Tours\Services\Group\GroupTourService;
+use App\Http\Controllers\api\V1\Tours\Services\PrivateTourService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tour\Private\StoreRequest;
-use App\Http\Requests\Tour\Private\UpdateRequest;
-use App\Models\Tours\PrivateTour;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
 class PrivateTourController extends Controller
 {
-    private GroupTourService $service;
+    private PrivateTourService $service;
 
-    public function __construct(GroupTourService $service)
+    public function __construct(PrivateTourService $service)
     {
         $this->service = $service;
-    }
-
-    public function index(): JsonResponse
-    {
-        $tours = PrivateTour::all();
-
-        return Response::json($tours);
     }
 
     public function show($id): JsonResponse
     {
         $tour = $this->service->show($id);
 
-        return Response::json($tour);
+        return Response::json(['status' => 200, 'success' => true, 'data' => $tour]);
     }
 
-    public function store(StoreRequest $request): JsonResponse
-    {
-        $data = $request->all();
-
-        $tour = $this->service->create($data);
-
-        return Response::json($tour);
-    }
-
-
-    public function update(UpdateRequest $request, $id): JsonResponse
-    {
-        $data = $request->all();
-
-        $tour = $this->service->edit($data, $id);
-
-        return Response::json($tour);
-    }
-
-    public function destroy($id): JsonResponse
-    {
-        $tour = PrivateTour::find($id);
-
-        if (!$tour) {
-            return Response::json(['status' => 404, 'success' => false, 'message' => 'tour not found.'], 404);
-        }
-
-        $this->service->delete($tour);
-
-        return Response::json(['status' => 204, 'success' => true]);
-    }
 }

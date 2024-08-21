@@ -3,8 +3,8 @@
 namespace App\Models\Tours;
 
 use App\Models\Category\Category;
-use App\Models\Country\Country;
 use App\Models\Destination\Destination;
+use App\Models\TravelDestination\TravelDestination;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,14 +17,13 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property string $image
  * @property string $description
- * @property float $price
- * @property int $how_many_peoples
- * @property int $hits
- * @property string $status
- * @property Carbon $start_date
- * @property Carbon $end_date
+ * @property mixed $category
+ * @property mixed $travelDestination
+ * @property mixed $departing
+ * @property mixed $finishing
  * @method static static create(array $data)
  * @method static static findOrFail(string $id)
+ * @method static find($id)
  */
 class PrivateTour extends Model
 {
@@ -34,6 +33,7 @@ class PrivateTour extends Model
         'image',
         'description',
         'category_id',
+        'travel_destination_id',
         'inclusions',
         'exclusions',
         'departing',
@@ -49,13 +49,14 @@ class PrivateTour extends Model
         'status' => 'string',
     ];
 
-    // Отношения
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-    public function destinations(): BelongsToMany
+
+    public function travelDestination(): BelongsTo
     {
-        return $this->belongsToMany(Destination::class, 'tour_destinations', 'tour_id', 'destination_id');
+        return $this->belongsTo(TravelDestination::class);
     }
 }

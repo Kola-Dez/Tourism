@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers\Tours;
+namespace App\Providers\api\Tours;
 
-use App\Http\Controllers\api\V1\Tours\Services\Private\PrivateTourService;
+use App\Http\Controllers\api\V1\Tours\Services\PrivateTourService;
 use Illuminate\Support\ServiceProvider;
 
 class PrivateTourServiceProvider extends ServiceProvider

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers\Tours;
+namespace App\Providers\api\Tours;
 
-use App\Http\Controllers\api\V1\Tours\Services\Group\GroupTourService;
+use App\Http\Controllers\api\V1\Tours\Services\GroupTourService;
 use Illuminate\Support\ServiceProvider;
 
 class GroupTourServiceProvider extends ServiceProvider

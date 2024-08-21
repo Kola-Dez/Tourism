@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\pushData;
 
 use App\Models\Destination\Destination;
 use App\Models\TravelDestination\TravelDestination;
