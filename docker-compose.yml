@@ -1,0 +1,36 @@
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            - ./:/app/backend
+        depends_on:
+            - database
+        container_name: tours_app
+
+    nginx:
+        image: nginx:latest
+        restart: unless-stopped
+        volumes:
+            - ./:/app/backend
+            - ./_docker/nginx/conf.d/:/etc/nginx/conf.d
+        ports:
+            - "8000:8080"
+        depends_on:
+            - backend
+        container_name: tours_nginx
+
+    database:
+        image: mysql:8.0
+        restart: unless-stopped
+        volumes:
+            - ./db_data:/var/lib/mysql
+        ports:
+            - "8001:3306"
+        environment:
+            MYSQL_DATABASE: database_dev
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: root_password
+        container_name: tours_database

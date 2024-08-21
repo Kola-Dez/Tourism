@@ -1,0 +1,137 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.header h1 {
+    margin-bottom: 10px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.actions {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.action-button {
+    background-color: #6c63ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.action-button:hover {
+    background-color: #534bbf;
+    transform: translateY(-3px);
+}
+
+/* Таблицы и текстовые стили */
+.tours-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tours-table th, .tours-table td {
+    padding: 15px;
+    text-align: left;
+    word-wrap: break-word; /* Разрыв длинных слов */
+    overflow-wrap: break-word; /* Перенос слов */
+    white-space: normal; /* Нормальное поведение переноса текста */
+}
+
+.tours-table th {
+    background-color: #343a40;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.tours-table td {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.tours-table tbody tr:hover td {
+    background-color: #e9ecef;
+}
+
+.edit-button, .delete-button {
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.edit-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
+}
+
+.back-button {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #23272b;
+    transform: translateY(-3px);
+}
