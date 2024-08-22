@@ -11,6 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // TODO: Throttle 60 requests per minute
         //
     }
 

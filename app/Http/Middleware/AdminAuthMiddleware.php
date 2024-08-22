@@ -10,7 +10,7 @@ class AdminAuthMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->session()->get('admin_logged_in')) {
+        if (!$request->session()->get('admin_logged_in')) { // TODO: чекай роль
             return redirect()->route('admin.login');
         }
 

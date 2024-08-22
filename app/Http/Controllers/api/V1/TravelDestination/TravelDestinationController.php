@@ -19,10 +19,10 @@ class TravelDestinationController extends Controller
     {
         $travel = $this->service->index();
 
-        return response()->json(['status' => 200, 'success' => true ,'data' => $travel]);
+        return response()->json(['status' => 200, 'success' => true ,'data' => $travel]); // TODO: Используй Resource
     }
 
-    public function show(string $slug): JsonResponse
+    public function show(string $slug): JsonResponse // Todo: Route model binding
     {
         $travel = $this->service->getTravelBySlug($slug);
 

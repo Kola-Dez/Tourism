@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\V1\Category;
 
 use App\Http\Controllers\api\V1\Category\Services\CategoryService;
 use App\Http\Controllers\Controller;
+use App\Models\Category\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
@@ -31,7 +32,7 @@ class CategoryController extends Controller
     }
 
 
-    public function show(string $slug): JsonResponse
+    public function show(Category $slug): JsonResponse // TODO: Route model binding
     {
         $category = $this->service->getCategoryBySlug($slug);
 

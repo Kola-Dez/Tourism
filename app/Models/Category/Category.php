@@ -32,8 +32,6 @@ class Category extends Model
         return $this->hasMany(GroupTour::class);
     }
 
-
-
     public function getTranslatedTitleAttribute(): Application|array|string|Translator|null
     {
         return __('messages.categories.' . $this->getAttribute('title'));

@@ -23,7 +23,6 @@ class TravelDestinationService
 
     public function show(TravelDestination $travel): array
     {
-        $travel->load('destination');
         return [
             'name' => $travel->translated_name,
             'image' => $travel->image,

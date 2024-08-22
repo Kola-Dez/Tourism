@@ -19,7 +19,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', [AdminTourController::class, 'index'])->name('index');
             Route::get('/{id}', [AdminTourController::class, 'show'])->name('show');
             Route::post('/', [AdminTourController::class, 'store'])->name('store');
-            Route::post('/{id}', [AdminTourController::class, 'update'])->name('update');
+            Route::post('/{id}', [AdminTourController::class, 'update'])->name('update'); // TODO: Patch
             Route::delete('/{id}', [AdminTourController::class, 'destroy'])->name('destroy');
         });
     });

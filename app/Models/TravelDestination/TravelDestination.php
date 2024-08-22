@@ -36,9 +36,6 @@ class TravelDestination extends Model
         return $this->belongsTo(Destination::class);
     }
 
-
-
-
     public function getTranslatedNameAttribute(): string
     {
         return __('messages.travel_destination.' . $this->getAttribute('name'));

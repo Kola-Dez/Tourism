@@ -30,8 +30,8 @@ return new class extends Migration
 
             $table->enum('status', ['available', 'unavailable', 'pending'])->default('available');
 
-            $table->date('departing');
-            $table->date('finishing');
+            $table->date('departing'); // Todo: Type timestamp
+            $table->date('finishing'); // Todo: Type timestamp
 
 
             $table->timestamps();

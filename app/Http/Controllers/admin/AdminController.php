@@ -35,7 +35,7 @@ class AdminController
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget('admin_logged_in');
+        $request->session()->forget('admin_logged_in'); // TODO: Auth::logout();
         return Redirect::route('admin.login')->with('message', 'You have been logged out');
     }
 }
