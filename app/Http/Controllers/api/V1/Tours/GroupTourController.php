@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\api\V1\Tours;
 
-use App\Http\Controllers\api\V1\Tours\Services\GroupTourService;
 use App\Http\Controllers\Controller;
+use App\Models\Destination\Destination;
+use App\Models\Itineraries\GroupTourItinerary;
 use App\Models\Tours\GroupTour;
+use App\Resources\Itinerary\ItineraryResource;
+use App\Resources\Tours\GroupTourResource;
+use App\Services\Tours\GroupTourService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
@@ -17,10 +21,24 @@ class GroupTourController extends Controller
         $this->service = $service;
     }
 
-    public function show($id): JsonResponse
+    public function index(): JsonResponse
     {
-        $tour = $this->service->show($id);
+        $groupTours = GroupTour::all();
 
-        return Response::json(['status' => 200, 'success' => true, 'data' => $tour]);
+        $groupTours = GroupTourResource::collection($groupTours)->toArray(request());
+
+        return Response::json(['status' => 200,'success' => true, 'data' => $groupTours]);
     }
+
+    public function show(GroupTour $groupTour): JsonResponse
+    {
+        $itinerary = GroupTourItinerary::all()->where('tour_id', $groupTour->id);
+
+        $itinerary = ItineraryResource::collection($itinerary)->toArray(request());
+
+        $groupTour = (new GroupTourResource($groupTour))->toArray(request());
+
+        return Response::json(['status' => 200, 'success' => true, 'data' => $groupTour, 'itinerary' => $itinerary]);
+    }
+
 }

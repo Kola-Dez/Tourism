@@ -5,11 +5,10 @@ namespace App\Models\Tours;
 use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\TravelDestination\TravelDestination;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -24,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @method static static create(array $data)
  * @method static static findOrFail(string $id)
  * @method static find($id)
+ * @method static where(string $string, $id)
  */
 class PrivateTour extends Model
 {
@@ -38,6 +38,7 @@ class PrivateTour extends Model
         'exclusions',
         'departing',
         'finishing',
+        'hits',
     ];
 
     protected $casts = [
@@ -58,5 +59,14 @@ class PrivateTour extends Model
     public function travelDestination(): BelongsTo
     {
         return $this->belongsTo(TravelDestination::class);
+    }
+
+    public function getDurationAttribute(): string
+    {
+        $startDate = Carbon::parse($this->departing);
+        $endDate = Carbon::parse($this->finishing);
+        $duration = intval($startDate->diffInDays($endDate));
+
+        return $duration . 'D/' . ($duration - 1) . 'N';
     }
 }

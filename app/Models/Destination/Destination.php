@@ -17,10 +17,11 @@ use Illuminate\Support\Str;
  * @method static create(array $array)
  * @method static where(string $string, string $string1)
  * @property mixed $id
- * @property mixed $slug
  * @property mixed $translated_code
  * @property mixed $image
  * @property mixed $description
+ * @property mixed $travelDestination
+ * @property mixed $slug
  */
 class Destination extends Model
 {
@@ -28,8 +29,8 @@ class Destination extends Model
 
     protected $fillable = [
         'code',
-        'slug',
         'image',
+        'slug',
         'description',
     ];
 
@@ -37,7 +38,6 @@ class Destination extends Model
     {
         return $this->hasMany(TravelDestination::class);
     }
-
 
 
 
@@ -58,12 +58,13 @@ class Destination extends Model
         if (!$model) {
             throw (new ModelNotFoundException)->setModel(static::class, $value);
         }
+
         return $model;
     }
 
     public function resolveRouteBindingQuery($query, $value, $field = null): Model|Relation|Builder
     {
-        [$id]  = explode('-', $value);
+        [$id] = explode('-', $value);
 
         return $query->where($field ?? $this->getRouteKeyName(), $id);
     }

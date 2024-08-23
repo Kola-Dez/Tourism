@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('travel_destination_id')->constrained('travel_destinations')->onDelete('cascade');
 
+            $table->decimal('price');
+            $table->integer('how_many_peoples');
+            $table->Integer('hits')->default(0);
+
             $table->string('title');
             $table->string('image');
 
@@ -24,14 +28,10 @@ return new class extends Migration
             $table->text('inclusions');
             $table->text('exclusions');
 
-            $table->decimal('price');
-            $table->integer('how_many_peoples');
-            $table->Integer('hits')->default(0);
-
             $table->enum('status', ['available', 'unavailable', 'pending'])->default('available');
 
-            $table->date('departing'); // Todo: Type timestamp
-            $table->date('finishing'); // Todo: Type timestamp
+            $table->timestamp('departing');
+            $table->timestamp('finishing');
 
 
             $table->timestamps();

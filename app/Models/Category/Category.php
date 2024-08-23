@@ -3,6 +3,7 @@
 namespace App\Models\Category;
 
 use App\Models\Tours\GroupTour;
+use App\Models\Tours\PrivateTour;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,9 +18,9 @@ use Illuminate\Support\Str;
  * @method static create(array $array)
  * @property mixed $title
  * @property mixed $translated_title
- * @property mixed $slug
  * @property mixed $image
  * @property mixed $id
+ * @property mixed $slug
  */
 class Category extends Model
 {
@@ -30,6 +31,11 @@ class Category extends Model
     public function groupTours(): HasMany
     {
         return $this->hasMany(GroupTour::class);
+    }
+
+    public function privateTours(): HasMany
+    {
+        return $this->hasMany(PrivateTour::class);
     }
 
     public function getTranslatedTitleAttribute(): Application|array|string|Translator|null

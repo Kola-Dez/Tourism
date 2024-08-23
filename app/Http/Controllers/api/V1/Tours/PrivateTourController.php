@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\api\V1\Tours;
 
-use App\Http\Controllers\api\V1\Tours\Services\PrivateTourService;
 use App\Http\Controllers\Controller;
+use App\Models\Itineraries\PrivateTourItinerary;
+use App\Models\Tours\PrivateTour;
+use App\Resources\Itinerary\ItineraryResource;
+use App\Resources\Tours\PrivateTourResource;
+use App\Services\Tours\PrivateTourService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
@@ -16,11 +20,24 @@ class PrivateTourController extends Controller
         $this->service = $service;
     }
 
-    public function show($id): JsonResponse
+    public function index(): JsonResponse
     {
-        $tour = $this->service->show($id);
+        $privateTour = PrivateTour::all();
 
-        return Response::json(['status' => 200, 'success' => true, 'data' => $tour]);
+        $privateTour = PrivateTourResource::collection($privateTour)->toArray(request());
+
+        return Response::json(['status' => 200,'success' => true, 'data' => $privateTour]);
+    }
+
+    public function show(PrivateTour $privateTour): JsonResponse
+    {
+        $itinerary = PrivateTourItinerary::all()->where('tour_id', $privateTour->id);
+
+        $itinerary = ItineraryResource::collection($itinerary)->toArray(request());
+
+        $privateTour = (new PrivateTourResource($privateTour))->toArray(request());
+
+        return Response::json(['status' => 200, 'success' => true, 'data' => $privateTour, 'itinerary' => $itinerary]);
     }
 
 }

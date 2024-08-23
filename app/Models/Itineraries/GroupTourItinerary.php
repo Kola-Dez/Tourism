@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PublicTourItinerary extends Model
+/**
+ * @method static create(array $array)
+ */
+class GroupTourItinerary extends Model
 {
     use HasFactory;
 
-    protected $table = 'public_tour_itineraries';
+    protected $table = 'group_tour_itineraries';
 
     protected $fillable = ['tour_id', 'day_number', 'description'];
 

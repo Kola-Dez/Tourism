@@ -5,6 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'categories', 'middleware' => 'api'], function () {
     Route::get('/', [CategoryController::class, 'index']);
-    Route::get('/{slug}', [CategoryController::class, 'show']);
-    Route::get('/popular', [CategoryController::class, 'mostPopularTours']);
+    Route::get('/{category}', [CategoryController::class, 'show']);
+    Route::get('/tours/{category}', [CategoryController::class, 'getTours']);
 });

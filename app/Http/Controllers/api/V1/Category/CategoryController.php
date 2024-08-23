@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\api\V1\Category;
 
-use App\Http\Controllers\api\V1\Category\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use App\Models\Category\Category;
+use App\Resources\Category\CategoryResource;
+use App\Services\Category\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
@@ -19,26 +20,17 @@ class CategoryController extends Controller
 
     public function index(): JsonResponse
     {
-        $categories = $this->service->nested();
+        $categories = Category::all();
+
+        $categories = CategoryResource::collection($categories)->toArray(request());
 
         return Response::json(['status' => 200, 'success' => true, 'data' => $categories]);
     }
 
-    public function mostPopularTours(): JsonResponse
+    public function show(Category $category): JsonResponse
     {
-        $popular = $this->service->getPopular();
+        $category = (new CategoryResource($category))->toArray(request());
 
-        return Response::json(['status' => 200, 'success' => true, 'data' => $popular]);
+        return Response::json(['status' => 200, 'success' => true, 'data' => $category]);
     }
-
-
-    public function show(Category $slug): JsonResponse // TODO: Route model binding
-    {
-        $category = $this->service->getCategoryBySlug($slug);
-
-        $data = $this->service->show($category);
-
-        return Response::json(['status' => 200, 'success' => true, 'data' => $data]);
-    }
-
 }

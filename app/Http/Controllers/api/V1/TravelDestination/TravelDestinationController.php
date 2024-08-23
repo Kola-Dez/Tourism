@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\api\V1\TravelDestination;
 
-use App\Http\Controllers\api\V1\TravelDestination\Service\TravelDestinationService;
 use App\Http\Controllers\Controller;
+use App\Models\TravelDestination\TravelDestination;
+use App\Resources\TravelDestination\TravelDestinationResource;
+use App\Services\TravelDestination\TravelDestinationService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class TravelDestinationController extends Controller
 {
@@ -17,17 +20,18 @@ class TravelDestinationController extends Controller
 
     public function index(): JsonResponse
     {
-        $travel = $this->service->index();
+        $travelDestinations = TravelDestination::all();
 
-        return response()->json(['status' => 200, 'success' => true ,'data' => $travel]); // TODO: Используй Resource
+        $travelDestinations = TravelDestinationResource::collection($travelDestinations)->toArray(request());
+
+        return Response::json(['status' => 200, 'success' => true ,'data' => $travelDestinations]);
     }
 
-    public function show(string $slug): JsonResponse // Todo: Route model binding
+    public function show(TravelDestination $travelDestination): JsonResponse
     {
-        $travel = $this->service->getTravelBySlug($slug);
+        $travelDestination = (new TravelDestinationResource($travelDestination))->toArray(request());
 
-        $data = $this->service->show($travel);
-
-        return response()->json(['status' => 200, 'success' => true ,'data' => $data]);
+        return Response::json(['status' => 200, 'success' => true ,'data' => $travelDestination]);
     }
+
 }

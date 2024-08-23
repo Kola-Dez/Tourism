@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('travel_destination_id')->constrained('travel_destinations')->onDelete('cascade');
 
+            $table->Integer('hits')->default(0);
 
             $table->string('title');
             $table->string('image');

@@ -5,5 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'travel', 'middleware' => 'api'], function () {
     Route::get('/', [TravelDestinationController::class, 'index']);
-    Route::get('/destination/{slug}', [TravelDestinationController::class, 'show']);
+    Route::get('/{travelDestination}', [TravelDestinationController::class, 'show']);
 });
