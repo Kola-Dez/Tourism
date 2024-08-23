@@ -59,4 +59,5 @@ class DestinationController extends Controller
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
     }
+
 }

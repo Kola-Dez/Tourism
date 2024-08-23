@@ -2,10 +2,14 @@
 
 namespace App\Services\Destination;
 
+use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
 use App\Models\TravelDestination\TravelDestination;
+use App\Resources\Tours\GroupTourResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class DestinationService
 {

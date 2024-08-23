@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static findOrFail($id)
  * @method static find($id)
  * @method static where(string $string, mixed $id)
+ * @method static whereMonth(string $string, string $monthNumber)
  * @property mixed $departing
  * @property mixed $finishing
  * @property mixed $id
