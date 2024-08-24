@@ -17,7 +17,7 @@ class DestinationService
     {
         return TravelDestination::where('destination_id', $destination->id)->get()->map(function ($travelDestination) {
             return [
-                'id' => $travelDestination->id,
+                'slug' => $travelDestination->slug,
                 'name' => $travelDestination->translated_name,
             ];
         })->toArray();
@@ -32,6 +32,7 @@ class DestinationService
                     'travel_destination' => $groupTour->travelDestination->translated_name,
                     'destination' => $groupTour->travelDestination->destination->translated_code,
                     'how_many_peoples' => $groupTour->how_many_peoples,
+                    'description' => $groupTour->description,
                     'price' => $groupTour->price,
                     'title' => $groupTour->title,
                     'image' => $groupTour->image,
