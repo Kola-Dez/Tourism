@@ -7,7 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\Group\StoreRequest;
 use App\Http\Requests\Tour\Group\UpdateRequest;
 use App\Models\Tours\GroupTour;
+use App\Resources\admin\Tours\AdminGroupTourResource;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class AdminGroupTourController extends Controller
@@ -20,25 +25,32 @@ class AdminGroupTourController extends Controller
     }
 
 
-    public function index(): JsonResponse
+    public function index(Request $request): Factory|View|Application
     {
-        $tours = GroupTour::all();
+        $tours = $this->service->index($request);
 
-        return Response::json($tours);
+        $tours = AdminGroupTourResource::collection($tours)->toArray($request);
+
+        return view('admin.tours.group.index', compact('tours'));
     }
 
-    public function show($id): JsonResponse
+    public function create(): Factory|View|Application
     {
-        $tour = $this->service->show($id);
+        $destinations = $this->service->create();
 
-        return Response::json($tour);
+        return view('admin.tours.group.create.create', compact('destinations'));
     }
 
-    public function store(StoreRequest $request): JsonResponse
+    public function store(Request $request)
     {
-        $data = $request->all();
+        dd($request);
 
-        $tour = $this->service->create($data);
+    }
+
+
+    public function show(GroupTour $groupTour): JsonResponse
+    {
+        $tour = $this->service->show($groupTour);
 
         return Response::json($tour);
     }

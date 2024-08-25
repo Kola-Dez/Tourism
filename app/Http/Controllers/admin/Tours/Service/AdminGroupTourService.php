@@ -2,12 +2,47 @@
 
 namespace App\Http\Controllers\admin\Tours\Service;
 
+use App\Models\Category\Category;
+use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
+use App\Models\TravelDestination\TravelDestination;
+use App\Resources\Category\CategoryResource;
+use App\Resources\Destination\DestinationResource;
+use App\Resources\TravelDestination\TravelDestinationResource;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class AdminGroupTourService
 {
+    public function index($request): Collection
+    {
+        $search = $request->input('table_search', '');
+        $departingDate = $request->input('departing_date', '');
+
+        $query = GroupTour::query()
+            ->with(['travelDestination.destination', 'category'])
+            ->when($search, function ($query, $search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhereHas('travelDestination.destination', function ($q) use ($search) {
+                        $q->where('code', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('travelDestination', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('category', function ($q) use ($search) {
+                        $q->where('title', 'like', "%{$search}%");
+                    })
+                    ->orWhere('price', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            })
+            ->when($departingDate, function ($query, $departingDate) {
+                $query->whereDate('departing', $departingDate);
+            });
+
+        return $query->get();
+    }
+
     public function show($id): array
     {
         $tour = GroupTour::findOrFail($id);
@@ -20,7 +55,12 @@ class AdminGroupTourService
         ];
     }
 
-    public function create(array $data): array
+    public function create(): array
+    {
+        return DestinationResource::collection(Destination::all())->toArray(request());
+    }
+
+    public function store(array $data): array
     {
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
             $imagePath = $data['image']->store('images', 'public');

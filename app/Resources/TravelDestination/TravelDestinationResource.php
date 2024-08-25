@@ -25,6 +25,7 @@ class TravelDestinationResource extends JsonResource
             'image' => $this->image,
             'description' => $this->description,
             'destination' => $this->destination->translated_code,
+            'destination_slug' => $this->destination->slug,
         ];
     }
 }

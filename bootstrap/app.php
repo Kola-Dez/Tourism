@@ -30,7 +30,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 401);
             }
 
-            // Для не-JSON запросов используем стандартный рендеринг
             return response()->view('errors.401', [], 401);
         });
 
@@ -43,7 +42,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 404);
             }
 
-            // Для не-JSON запросов используем стандартный рендеринг
             return response()->view('errors.404', [], 404);
         });
     })->create();

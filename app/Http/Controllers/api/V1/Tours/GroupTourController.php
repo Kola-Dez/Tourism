@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\api\V1\Tours;
 
 use App\Http\Controllers\Controller;
-use App\Models\Destination\Destination;
 use App\Models\Itineraries\GroupTourItinerary;
 use App\Models\Tours\GroupTour;
 use App\Resources\Itinerary\ItineraryResource;

@@ -1,17 +1,16 @@
 <?php
 
-require_once('api/destination.php');
+$apiFiles = [
+    'destination.php',
+    'categories.php',
+    'travel.php',
+    'tours.php',
+    'blog.php',
+    'gallery.php',
+    'transport.php',
+    'findAdventure.php',
+];
 
-require_once('api/categories.php');
-
-require_once('api/travel.php');
-
-require_once('api/tours.php');
-
-require_once('api/blog.php');
-
-require_once('api/gallery.php');
-
-require_once('api/transport.php');
-
-require_once('api/findAdventure.php');
+foreach ($apiFiles as $file) {
+    require_once("api/{$file}");
+}

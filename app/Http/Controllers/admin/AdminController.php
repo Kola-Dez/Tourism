@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class AdminController
@@ -35,7 +36,11 @@ class AdminController
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget('admin_logged_in'); // TODO: Auth::logout();
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return Redirect::route('admin.login')->with('message', 'You have been logged out');
     }
 }

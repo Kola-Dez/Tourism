@@ -7,7 +7,7 @@ use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
 use App\Models\TravelDestination\TravelDestination;
-use App\Resources\Tours\GroupTourResource;
+use App\Resources\Tours\AdminGroupTourResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 

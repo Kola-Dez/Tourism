@@ -18,15 +18,15 @@
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{ asset('adminLTE/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
-        </div>
+    @yield('preloader')
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <form method="post" action="{{ route('admin.logout') }}">
                     @csrf
@@ -52,7 +52,6 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-header">EXAMPLES</li>
-
                     <li class="nav-item">
                         <a href="{{ asset('adminLTE/pages/gallery.html') }}" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
@@ -61,12 +60,37 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Tours
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.group_tours.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Group Tours</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../tables/data.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>DataTables</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
     </aside>
 
-    @yield('content')
+    <div class="content-wrapper" style="min-height: 1172.56px;">
+        @yield('content')
+    </div>
 
     <!-- Main Footer -->
     <footer class="main-footer">
@@ -101,6 +125,4 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('adminLTE/dist/js/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('adminLTE/dist/js/pages/dashboard2.js') }}"></script>
 </html>
