@@ -6,13 +6,19 @@ use App\Http\Controllers\admin\Tours\Service\AdminGroupTourService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\Group\StoreRequest;
 use App\Http\Requests\Tour\Group\UpdateRequest;
+use App\Models\Category\Category;
+use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
+use App\Resources\admin\Category\AdminCategoryResource;
+use App\Resources\admin\Destination\AdminDestinationResource;
 use App\Resources\admin\Tours\AdminGroupTourResource;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Response;
 
 class AdminGroupTourController extends Controller
@@ -36,16 +42,41 @@ class AdminGroupTourController extends Controller
 
     public function create(): Factory|View|Application
     {
-        $destinations = $this->service->create();
+        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+        $data['categories'] = AdminCategoryResource::collection(Category::all())->toArray(request());
 
-        return view('admin.tours.group.create.create', compact('destinations'));
+        return view('admin.tours.group.create.create', compact('data'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request): Application|Redirector|RedirectResponse
     {
-        dd($request);
+        // Валидация данных
+        $data = $request->validated();
 
+        // Проверка и сохранение изображения
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('images/tours', 'public');
+            $data['image'] = $filePath;
+        }
+
+        // Преобразование даты и времени в формат MySQL
+        if (isset($data['departing'])) {
+            $data['departing'] = date('Y-m-d H:i:s', strtotime($data['departing']));
+        }
+        if (isset($data['finishing'])) {
+            $data['finishing'] = date('Y-m-d H:i:s', strtotime($data['finishing']));
+        }
+
+        // Создание записи в базе данных
+        GroupTour::create($data);
+
+        return redirect(route('admin.tours.group.index'));
     }
+
+
+
+
 
 
     public function show(GroupTour $groupTour): JsonResponse

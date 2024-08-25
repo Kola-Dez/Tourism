@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin\Tours\Service;
 
+use App\Http\Requests\Tour\Group\StoreRequest;
 use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\TravelDestination\TravelDestination;
+use App\Resources\admin\Destination\AdminDestinationResource;
 use App\Resources\Category\CategoryResource;
 use App\Resources\Destination\DestinationResource;
 use App\Resources\TravelDestination\TravelDestinationResource;
@@ -55,22 +57,24 @@ class AdminGroupTourService
         ];
     }
 
-    public function create(): array
+    public function store(StoreRequest $request): void
     {
-        return DestinationResource::collection(Destination::all())->toArray(request());
-    }
+        $data = $request->validated();
 
-    public function store(array $data): array
-    {
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
-            $imagePath = $data['image']->store('images', 'public');
-            $data['image'] = Storage::url($imagePath);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('images/tours', 'public');
+            $data['image'] = $filePath;
         }
 
-        $tour = GroupTour::create($data);
+        // Преобразуйте дату и время в формат MySQL
+        $data['departing'] = date('Y-m-d H:i:s', strtotime($data['departing']));
+        $data['finishing'] = date('Y-m-d H:i:s', strtotime($data['finishing']));
 
-        return $tour->toArray();
+        // Создайте запись в базе данных
+       GroupTour::create($data);
     }
+
 
     public function edit(array $data, $id): array
     {
