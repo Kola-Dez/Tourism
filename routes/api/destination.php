@@ -11,5 +11,4 @@ Route::group(['prefix' => 'destinations', 'middleware' => 'api'], function () {
     Route::get('/privateTours/{destination}', [DestinationController::class, 'privateTours']);
     Route::get('/popular/{destination}', [DestinationController::class, 'popularTours']);
     Route::get('/transport/{destination}', [DestinationController::class, 'transportShow']);
-
 });

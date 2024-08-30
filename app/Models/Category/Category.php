@@ -18,7 +18,6 @@ use Illuminate\Support\Str;
  * @method static create(array $array)
  * @property mixed $title
  * @property mixed $translated_title
- * @property mixed $image
  * @property mixed $id
  * @property mixed $slug
  */
@@ -26,7 +25,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'image'];
+    protected $fillable = ['title', 'slug'];
 
     public function groupTours(): HasMany
     {

@@ -2,12 +2,11 @@
 
 $apiFiles = [
     'destination.php',
-    'categories.php',
+    'category.php',
     'travel.php',
     'tours.php',
     'blog.php',
     'gallery.php',
-    'transport.php',
     'findAdventure.php',
 ];
 

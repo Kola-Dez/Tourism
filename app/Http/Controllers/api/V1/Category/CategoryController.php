@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Response;
 
 class CategoryController extends Controller
 {
-    private CategoryService $service;
-
-    public function __construct(CategoryService $service)
-    {
-        $this->service = $service;
-    }
 
     public function index(): JsonResponse
     {
@@ -29,8 +23,9 @@ class CategoryController extends Controller
 
     public function show(Category $category): JsonResponse
     {
-        $category = (new CategoryResource($category))->toArray(request());
+        $category = CategoryResource::make($category)->toArray(request());
 
         return Response::json(['status' => 200, 'success' => true, 'data' => $category]);
     }
+
 }
