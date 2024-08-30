@@ -57,11 +57,11 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Departing</label>
-                            <input type="datetime-local" class="form-control" name="departing" placeholder="Enter departing date">
+                            <input type="date" class="form-control" name="departing" placeholder="Enter departing date">
                         </div>
                         <div class="form-group">
                             <label>Finishing</label>
-                            <input type="datetime-local" class="form-control" name="finishing" placeholder="Enter finishing date">
+                            <input type="date" class="form-control" name="finishing" placeholder="Enter finishing date">
                         </div>
 
 
@@ -91,11 +91,11 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i>  Inclusions</label>
-                            <textarea class="form-control is-valid" name="description" rows="3" id="inputSuccess" placeholder="Enter ..."></textarea>
+                            <textarea class="form-control is-valid" name="inclusions" rows="3" id="inputSuccess" placeholder="Enter ..."></textarea>
                         </div>
                         <div class="form-group">
                             <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i>  Exclusions</label>
-                            <textarea class="form-control is-warning" name="description" rows="3" id="inputWarning" placeholder="Enter ..."></textarea>
+                            <textarea class="form-control is-warning" name="exclusions" rows="3" id="inputWarning" placeholder="Enter ..."></textarea>
                         </div>
                     </div>
                 </div>

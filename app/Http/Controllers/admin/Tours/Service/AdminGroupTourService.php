@@ -11,6 +11,7 @@ use App\Resources\admin\Destination\AdminDestinationResource;
 use App\Resources\Category\CategoryResource;
 use App\Resources\Destination\DestinationResource;
 use App\Resources\TravelDestination\TravelDestinationResource;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -63,17 +64,16 @@ class AdminGroupTourService
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filePath = $file->store('images/tours', 'public');
+            $filePath = $file->store('images/groupTours', 'public');
             $data['image'] = $filePath;
         }
 
-        // Преобразуйте дату и время в формат MySQL
-        $data['departing'] = date('Y-m-d H:i:s', strtotime($data['departing']));
-        $data['finishing'] = date('Y-m-d H:i:s', strtotime($data['finishing']));
+        $data['departing'] = Carbon::parse($data['departing'])->format('Y-m-d');
+        $data['finishing'] = Carbon::parse($data['finishing'])->format('Y-m-d');
 
-        // Создайте запись в базе данных
-       GroupTour::create($data);
+        GroupTour::create($data);
     }
+
 
 
     public function edit(array $data, $id): array

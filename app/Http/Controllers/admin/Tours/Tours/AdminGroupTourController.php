@@ -50,34 +50,10 @@ class AdminGroupTourController extends Controller
 
     public function store(StoreRequest $request): Application|Redirector|RedirectResponse
     {
-        // Валидация данных
-        $data = $request->validated();
+        $this->service->store($request);
 
-        // Проверка и сохранение изображения
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = $file->store('images/tours', 'public');
-            $data['image'] = $filePath;
-        }
-
-        // Преобразование даты и времени в формат MySQL
-        if (isset($data['departing'])) {
-            $data['departing'] = date('Y-m-d H:i:s', strtotime($data['departing']));
-        }
-        if (isset($data['finishing'])) {
-            $data['finishing'] = date('Y-m-d H:i:s', strtotime($data['finishing']));
-        }
-
-        // Создание записи в базе данных
-        GroupTour::create($data);
-
-        return redirect(route('admin.tours.group.index'));
+        return redirect()->route('admin.group_tours.index');
     }
-
-
-
-
-
 
     public function show(GroupTour $groupTour): JsonResponse
     {

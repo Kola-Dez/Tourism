@@ -36,12 +36,20 @@ class DestinationController extends Controller
     {
         $data = $this->service->getTravelDestinations($destination);
 
+        if (!$data) {
+            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+        }
+
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
     }
 
     public function groupTours(Destination $destination): JsonResponse
     {
         $data = $this->service->getGroupTours($destination);
+
+        if (!$data) {
+            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+        }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
     }
@@ -50,12 +58,31 @@ class DestinationController extends Controller
     {
         $data = $this->service->getPrivateTours($destination);
 
+        if (!$data) {
+            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+        }
+
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
     }
 
     public function popularTours(Destination $destination): JsonResponse
     {
         $data = $this->service->getPopularTours($destination);
+
+        if (!$data) {
+            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+        }
+
+        return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
+    }
+
+    public function transportShow(Destination $destination): JsonResponse
+    {
+        $data = $this->service->getTransport($destination);
+
+        if (!$data) {
+            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+        }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
     }

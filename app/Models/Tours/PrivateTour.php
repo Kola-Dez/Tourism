@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $travelDestination
  * @property mixed $departing
  * @property mixed $finishing
+ * @property int|mixed $hits
  * @method static static create(array $data)
  * @method static static findOrFail(string $id)
  * @method static find($id)

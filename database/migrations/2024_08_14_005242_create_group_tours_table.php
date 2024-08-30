@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('travel_destination_id')->constrained('travel_destinations')->onDelete('cascade');
 
-            $table->decimal('price');
+            $table->decimal('price', 10, 2);
             $table->integer('how_many_peoples');
             $table->Integer('hits')->default(0);
 
@@ -30,8 +30,8 @@ return new class extends Migration
 
             $table->enum('status', ['available', 'unavailable', 'pending'])->default('available');
 
-            $table->timestamp('departing');
-            $table->timestamp('finishing');
+            $table->date('departing');
+            $table->date('finishing');
 
 
             $table->timestamps();

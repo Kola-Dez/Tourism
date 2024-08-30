@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed $departing
  * @property mixed $finishing
  * @property mixed $id
+ * @property int|mixed $hits
  */
 class GroupTour extends Model
 {

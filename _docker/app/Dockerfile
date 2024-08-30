@@ -28,4 +28,8 @@ RUN composer install
 
 # Удаляем миграцию и права на файлы из Dockerfile и поместим их в скрипт
 # CMD ["php-fpm"]
-ENTRYPOINT ["./_docker/app/start.sh"]
+
+RUN chmod +x /app/backend/_docker/app/start.sh
+RUN chown -R www-data:www-data /app/backend/_docker/app/start.sh
+
+ENTRYPOINT ["/app/backend/_docker/app/start.sh"]

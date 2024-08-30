@@ -6,10 +6,11 @@ use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
+use App\Models\Transport\Transport;
 use App\Models\TravelDestination\TravelDestination;
-use App\Resources\Tours\AdminGroupTourResource;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
+use App\Resources\Tours\GroupTourResource;
+use App\Resources\Tours\PrivateTourResource;
+use App\Resources\Transport\TransportResource;
 
 class DestinationService
 {
@@ -26,35 +27,17 @@ class DestinationService
     public function getGroupTours(Destination $destination): array
     {
         return TravelDestination::where('destination_id', $destination->id)->get()->flatMap(function ($travelDestination) {
-            return GroupTour::where('travel_destination_id', $travelDestination->id)->get()->map(function ($groupTour) {
-                return [
-                    'id' => $groupTour->id,
-                    'travel_destination' => $groupTour->travelDestination->translated_name,
-                    'destination' => $groupTour->travelDestination->destination->translated_code,
-                    'how_many_peoples' => $groupTour->how_many_peoples,
-                    'description' => $groupTour->description,
-                    'price' => $groupTour->price,
-                    'title' => $groupTour->title,
-                    'image' => $groupTour->image,
-                    'date' => $groupTour->duration,
-                ];
-            });
+            $groupTours = GroupTour::where('travel_destination_id', $travelDestination->id)->get();
+            return GroupTourResource::collection($groupTours)->toArray(request());
         })->toArray();
     }
+
 
     public function getPrivateTours(Destination $destination): array
     {
         return TravelDestination::where('destination_id', $destination->id)->get()->flatMap(function ($travelDestination) {
-            return PrivateTour::where('travel_destination_id', $travelDestination->id)->get()->map(function ($privateTour) {
-                return [
-                    'id' => $privateTour->id,
-                    'travel_destination' => $privateTour->travelDestination->translated_name,
-                    'destination' => $privateTour->travelDestination->destination->translated_code,
-                    'title' => $privateTour->title,
-                    'image' => $privateTour->image,
-                    'date' => $privateTour->duration,
-                ];
-            });
+            $privateTours = PrivateTour::where('travel_destination_id', $travelDestination->id)->get();
+            return PrivateTourResource::collection($privateTours)->toArray(request());
         })->toArray();
     }
 
@@ -68,7 +51,6 @@ class DestinationService
     public function getPopular($tables): array
     {
         $allTours = collect();
-
         foreach ($tables as $table) {
             foreach (['groupTours', 'privateTours'] as $relation) {
                 foreach ($table->$relation as $tour) {
@@ -82,12 +64,20 @@ class DestinationService
 
         return $topTours->map(function ($tour) {
             return [
-                'destination' => $tour->travelDestination->Destination->translated_code,
+                'id' => $tour->id,
                 'travel_destination' => $tour->travelDestination->translated_name,
+                'destination' => $tour->travelDestination->Destination->translated_code,
                 'description' => $tour->description,
-                'date' => $tour->getDuration(),
+                'date' => $tour->duration,
                 'image' => $tour->image,
             ];
         })->values()->toArray();
+    }
+
+    public function getTransport(Destination $destination): array
+    {
+        $transport = Transport::where('destination_id', $destination->id)->get();
+
+        return TransportResource::collection($transport)->toArray(request());
     }
 }

@@ -30,6 +30,8 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'category_id' => 'required|integer|exists:categories,id',
+            'travel_destination_id' => 'required|integer|exists:travel_destinations,id',
             'image' => [
                 'required',
                 File::types(['png', 'jpg', 'jpeg', 'gif'])
@@ -37,9 +39,11 @@ class StoreRequest extends FormRequest
             ],
             'price' => 'required|numeric|min:0',
             'how_many_peoples' => 'required|integer|min:1',
-            'category_id' => 'required|exists:categories,id',
-            'departing' => 'required|date',
-            'finishing' => 'required|date|after_or_equal:departing',
+            'description' => 'required',
+            'inclusions' => 'required',
+            'exclusions' => 'required',
+            'departing' => 'required|date_format:Y-m-d',
+            'finishing' => 'required|date_format:Y-m-d|after_or_equal:departing',
         ];
     }
 
@@ -55,10 +59,9 @@ class StoreRequest extends FormRequest
     {
         $errors = $validator->errors();
 
-        // Создание ответа с ошибками в формате HTML
         $response = Response::view('errors.validation', [
             'errors' => $errors
-        ], 422); // Код состояния 422 для ошибок валидации
+        ], 422);
 
         throw new HttpResponseException($response);
     }

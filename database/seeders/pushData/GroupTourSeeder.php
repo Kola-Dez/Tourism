@@ -4,6 +4,7 @@ namespace Database\Seeders\pushData;
 
 use App\Models\Tours\GroupTour;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class GroupTourSeeder extends Seeder
 {
@@ -27,8 +28,8 @@ class GroupTourSeeder extends Seeder
                 'how_many_peoples' => 10,
                 'hits' => 0,
                 'status' => 'available',
-                'departing' => now()->toDateString(),
-                'finishing' => now()->addDays(5)->toDateString(),
+                'departing' => Carbon::now()->format('Y-m-d'),
+                'finishing' => Carbon::now()->addDays(5)->format('Y-m-d'),
             ],
             [
                 'category_id' => 1,
@@ -42,8 +43,8 @@ class GroupTourSeeder extends Seeder
                 'how_many_peoples' => 5,
                 'hits' => 1,
                 'status' => 'available',
-                'departing' => now()->toDateString(),
-                'finishing' => now()->addDays(5)->toDateString(),
+                'departing' => Carbon::now()->format('Y-m-d'),
+                'finishing' => Carbon::now()->addDays(5)->format('Y-m-d'),
             ],
             [
                 'category_id' => 1,
@@ -57,8 +58,8 @@ class GroupTourSeeder extends Seeder
                 'how_many_peoples' => 4,
                 'hits' => 3,
                 'status' => 'available',
-                'departing' => now()->toDateString(),
-                'finishing' => now()->addDays(5)->toDateString(),
+                'departing' => Carbon::now()->format('Y-m-d'),
+                'finishing' => Carbon::now()->addDays(5)->format('Y-m-d'),
             ],
             [
                 'category_id' => 1,
@@ -72,38 +73,38 @@ class GroupTourSeeder extends Seeder
                 'how_many_peoples' => 7,
                 'hits' => 6,
                 'status' => 'unavailable',
-                'departing' => now()->toDateString(),
-                'finishing' => now()->addDays(5)->toDateString(),
+                'departing' => Carbon::now()->format('Y-m-d'),
+                'finishing' => Carbon::now()->addDays(5)->format('Y-m-d'),
             ],
             [
                 'category_id' => 2,
                 'travel_destination_id' => 11,
-                'title' => 'TestPrivateTours4',
-                'image' => 'Test4.png',
-                'description' => 'Test test hello this is test description4',
-                'inclusions' => 'this inclusions4',
-                'exclusions' => 'this exclusions4',
+                'title' => 'TestPrivateTours5',
+                'image' => 'Test5.png',
+                'description' => 'Test test hello this is test description5',
+                'inclusions' => 'this inclusions5',
+                'exclusions' => 'this exclusions5',
                 'price' => 20010,
                 'how_many_peoples' => 7,
                 'hits' => 6,
                 'status' => 'unavailable',
-                'departing' => now()->toDateString(),
-                'finishing' => now()->addDays(5)->toDateString(),
+                'departing' => Carbon::now()->format('Y-m-d'),
+                'finishing' => Carbon::now()->addDays(5)->format('Y-m-d'),
             ],
             [
                 'category_id' => 2,
                 'travel_destination_id' => 12,
-                'title' => 'TestPrivateTours4',
-                'image' => 'Test4.png',
-                'description' => 'Test test hello this is test description4',
-                'inclusions' => 'this inclusions4',
-                'exclusions' => 'this exclusions4',
+                'title' => 'TestPrivateTours6',
+                'image' => 'Test6.png',
+                'description' => 'Test test hello this is test description6',
+                'inclusions' => 'this inclusions6',
+                'exclusions' => 'this exclusions6',
                 'price' => 21000,
                 'how_many_peoples' => 7,
                 'hits' => 6,
                 'status' => 'unavailable',
-                'departing' => now()->toDateString(),
-                'finishing' => now()->addDays(5)->toDateString(),
+                'departing' => Carbon::now()->format('Y-m-d'),
+                'finishing' => Carbon::now()->addDays(5)->format('Y-m-d'),
             ],
         ];
 

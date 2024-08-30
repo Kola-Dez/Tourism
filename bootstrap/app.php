@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->wantsJson()) {
                 return new JsonResponse([
                     'status' => 404,
+                    'success' => false,
                     'error' => 'unauthorized',
                     'message' => 'Unauthorized'
                 ], 401);
@@ -37,6 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->wantsJson()) {
                 return new JsonResponse([
                     'status' => 404,
+                    'success' => false,
                     'error' => 'not_found',
                     'message' => 'Not found'
                 ], 404);

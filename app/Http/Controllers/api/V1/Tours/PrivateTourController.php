@@ -7,19 +7,11 @@ use App\Models\Itineraries\PrivateTourItinerary;
 use App\Models\Tours\PrivateTour;
 use App\Resources\Itinerary\ItineraryResource;
 use App\Resources\Tours\PrivateTourResource;
-use App\Services\Tours\PrivateTourService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
 class PrivateTourController extends Controller
 {
-    private PrivateTourService $service;
-
-    public function __construct(PrivateTourService $service)
-    {
-        $this->service = $service;
-    }
-
     public function index(): JsonResponse
     {
         $privateTour = PrivateTour::all();
@@ -34,6 +26,9 @@ class PrivateTourController extends Controller
         $itinerary = PrivateTourItinerary::all()->where('tour_id', $privateTour->id);
 
         $itinerary = ItineraryResource::collection($itinerary)->toArray(request());
+
+        $privateTour->hits += 1;
+        $privateTour->save();
 
         $privateTour = (new PrivateTourResource($privateTour))->toArray(request());
 

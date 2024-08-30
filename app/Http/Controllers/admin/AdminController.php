@@ -17,10 +17,9 @@ class AdminController
         return view('admin.auth.login');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $credentials = $request->only('login', 'password');
-
         if ($credentials['login'] === env('ADMIN_LOGIN') && $credentials['password'] === env('ADMIN_PASSWORD')) {
             $request->session()->put('admin_logged_in', true);
             return Redirect::route('admin.index');
@@ -28,6 +27,7 @@ class AdminController
 
         return Redirect::route('admin.login')->withErrors(['error' => 'Invalid credentials']);
     }
+
 
     public function index(): Factory|View|Application
     {

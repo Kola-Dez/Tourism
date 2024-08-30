@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static create(array $array)
+ * @method static where(string $string, mixed $id)
  */
 class GroupTourItinerary extends Model
 {
