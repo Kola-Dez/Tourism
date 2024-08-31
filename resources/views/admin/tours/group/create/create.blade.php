@@ -30,13 +30,13 @@
             display: none;
         }
     </style>
-    <div class="card card-info">
+    <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-title">Create Group Tour</h3>
+            <h3 class="card-comment">Create Group Tour</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.group_tours.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.group_tours.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @csrf
                 <div class="row">
                     <div class="col-sm-6">
@@ -123,7 +123,7 @@
                         <div class="form-group">
                             <label>Выберите страну</label>
                             <select class="form-control" id="country-select">
-                                <option value="">Выберите страну</option>
+                                <option value="">Select country</option>
                                 @foreach($data['destinations'] as $destination)
                                     <option value="{{ $destination['id'] }}">{{ $destination['name'] }}</option>
                                 @endforeach
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="form-group" id="city-group" style="display: none;">
-                            <label>Выберите город</label>
+                            <label>Select city</label>
                             <select class="form-control" id="city-select" name="travel_destination_id">
                                 <option value="">Выберите город</option>
                             </select>
@@ -142,12 +142,32 @@
                         <div class="form-group">
                             <label>Выберите тип</label>
                             <select class="form-control" id="country-select" name="category_id">
-                                <option value="">Выберите тип</option>
+                                <option value="">Select type</option>
                                 @foreach($data['categories'] as $category)
                                     <option value="{{ $category['id'] }}">{{ $category['title'] }}</option>
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-5" style="margin-bottom: 1%">
+                        <div class="form-group" id="fieldsContainer">
+                            <div class="fieldGroup" data-field-id="1">
+
+                                <label for="day1" style="margin-right: 5%;">Day 1:</label>
+
+                                <label>Title
+                                    <input type="text" class="form-control" name="days[day1][title]" id="title1" placeholder="Enter title">
+                                </label>
+
+                                <label>Description
+                                    <input type="text" class="form-control" name="days[day1][description]" id="description1" placeholder="Enter description">
+                                </label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-info" id="addField">Add More</button>
                     </div>
                 </div>
 
@@ -170,13 +190,12 @@
 
                     citySelect.innerHTML = '';
                     cityGroup.style = 'display: block';
-                    const url = '/api/v1/travel';
+                    const url = '/api/v1/travels';
 
                     fetch(url)
                         .then(response => response.json())
                         .then(data => {
                             const source = data.data;
-                            console.log(data);
                             const filteredData = source.filter(item => {
                                 const slugParts = item.destination_slug.split('-');
                                 const numberPart = slugParts[0];
@@ -195,7 +214,7 @@
                             });
                         })
                         .catch(error => {
-                            console.error('Ошибка при запросе:', error);
+                            console.error('Error: ', error);
                         });
 
                 } else {
@@ -229,5 +248,70 @@
                 previewImage.classList.add('d-none');
             }
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let fieldCount = 1;
+            const maxFields = 30;
+            const fieldsContainer = document.getElementById('fieldsContainer');
+            const addFieldButton = document.getElementById('addField');
+
+            function removeField(fieldGroup) {
+                if (fieldCount > 1 && Number(fieldGroup.getAttribute('data-field-id')) === fieldCount) {
+                    fieldGroup.remove();
+                    fieldCount--;
+
+                    const lastFieldGroup = fieldsContainer.querySelector(`.fieldGroup[data-field-id="${fieldCount}"]`);
+                    const removeButton = lastFieldGroup.querySelector('.removeField');
+                    if (removeButton) {
+                        removeButton.style.display = 'inline-block';
+                    }
+                }
+            }
+
+            addFieldButton.addEventListener('click', () => {
+                if (fieldCount < maxFields) {
+                    const lastFieldGroup = fieldsContainer.querySelector(`.fieldGroup[data-field-id="${fieldCount}"]`);
+                    const removeButton = lastFieldGroup.querySelector('.removeField');
+                    if (removeButton) {
+                        removeButton.style.display = 'none';
+                    }
+
+                    fieldCount++;
+                    const newFieldGroup = document.createElement('div');
+                    newFieldGroup.className = 'fieldGroup';
+                    newFieldGroup.setAttribute('data-field-id', fieldCount);
+
+                    newFieldGroup.innerHTML = `
+                <label for="day${fieldCount}" style="margin-right: 5%;">Day ${fieldCount}:</label>
+                <label>Title
+                    <input type="text" class="form-control" name="days[day${fieldCount}][title]" id="title${fieldCount}" placeholder="Enter title">
+                </label>
+                <label>Description
+                    <input type="text" class="form-control" name="days[day${fieldCount}][description]" id="description${fieldCount}" placeholder="Enter description">
+                </label>
+                <button type="button" class="removeField btn btn-danger">Remove</button>
+            `;
+
+                    newFieldGroup.querySelector('.removeField').addEventListener('click', () => {
+                        removeField(newFieldGroup);
+                    });
+
+                    fieldsContainer.appendChild(newFieldGroup);
+
+                    newFieldGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    alert('You have reached the maximum number of fields.');
+                }
+            });
+
+            fieldsContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('removeField')) {
+                    const fieldGroup = event.target.closest('.fieldGroup');
+                    removeField(fieldGroup);
+                }
+            });
+        });
+
     </script>
 @endsection

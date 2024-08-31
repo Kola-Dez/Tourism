@@ -1,6 +1,16 @@
 @extends('admin.layouts.default')
 
 @section('content')
+    <style>
+        .btn-create {
+            background-color: #1bac1b;
+            color: white;
+        }
+        .btn-create:hover {
+            background-color: #189718;
+            color: white;
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -24,7 +34,7 @@
                     </div>
                 </div>
                 <!-- /.card-header -->
-                <a href="{{ route('admin.group_tours.create') }}" class="btn btn-primary">Create</a>
+                <a href="{{ route('admin.group_tours.create') }}" class="btn btn-create">Create</a>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>

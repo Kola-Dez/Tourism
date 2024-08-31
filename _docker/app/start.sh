@@ -2,8 +2,6 @@
 
 # Выполняем миграции
 composer install
-php artisan migrate
-php artisan db:seed --class=DatabaseSeeder
 
 # Устанавливаем права на файлы
 chmod -R 775 /app/backend/storage

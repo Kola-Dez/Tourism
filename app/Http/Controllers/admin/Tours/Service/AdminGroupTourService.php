@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin\Tours\Service;
 use App\Http\Requests\Tour\Group\StoreRequest;
 use App\Models\Category\Category;
 use App\Models\Destination\Destination;
+use App\Models\Itineraries\GroupTourItinerary;
 use App\Models\Tours\GroupTour;
 use App\Models\TravelDestination\TravelDestination;
 use App\Resources\admin\Destination\AdminDestinationResource;
@@ -71,7 +72,13 @@ class AdminGroupTourService
         $data['departing'] = Carbon::parse($data['departing'])->format('Y-m-d');
         $data['finishing'] = Carbon::parse($data['finishing'])->format('Y-m-d');
 
-        GroupTour::create($data);
+        $groupTour = GroupTour::create($data);
+
+        foreach($data['days'] as $key => $dataDay) {
+            $dataDay['day_number'] = (int)substr($key, 3, 1);
+            $dataDay['tour_id'] = $groupTour->id;
+            GroupTourItinerary::create($dataDay);
+        }
     }
 
 
