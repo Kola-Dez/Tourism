@@ -17,6 +17,10 @@ class GroupTourController extends Controller
     {
         $groupTours = GroupTour::all();
 
+        if (!$groupTours) {
+            return Response::json(status: 204);
+        }
+
         $groupTours = GroupTourResource::collection($groupTours)->toArray(request());
 
         return Response::json(['status' => 200,'success' => true, 'data' => $groupTours]);

@@ -42,7 +42,7 @@ use App\Http\Controllers\Controller;
  *     ),
  *     @OA\Response(
  *         response=404,
- *         description="Group Tour Not Found",
+ *         description="Travel-Destination Not Found",
  *         @OA\JsonContent(
  *             @OA\Property(property="status", type="integer", example=404),
  *             @OA\Property(property="success", type="boolean", example=false),
@@ -95,7 +95,7 @@ use App\Http\Controllers\Controller;
  *       ),
  *       @OA\Response(
  *            response=404,
- *            description="Group Tour Not Found",
+ *            description="Travel-Destination Not Found",
  *            @OA\JsonContent(
  *                @OA\Property(property="status", type="integer", example=404),
  *                @OA\Property(property="success", type="boolean", example=false),

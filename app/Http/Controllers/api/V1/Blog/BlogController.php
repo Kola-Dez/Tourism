@@ -14,14 +14,18 @@ class BlogController extends Controller
     {
         $bogs = Blog::all();
 
-        $bogs = BlogResource::collection($bogs);
+        if (!$bogs) {
+            return Response::json(status: 204);
+        }
+
+        $bogs = BlogResource::collection($bogs)->toArray(request());
 
         return Response::json(['status' => 200, 'success' => true, 'data' => $bogs]);
     }
 
     public function show(Blog $blog): JsonResponse
     {
-        $blog = (new BlogResource($blog))->toArray(request());
+        $blog = BlogResource::make($blog);
 
         return Response::json(['status' => 200, 'success' => true, 'data' => $blog]);
     }

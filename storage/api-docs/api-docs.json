@@ -1,0 +1,2147 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My DOC api",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/v1/blogs": {
+            "get": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "Show all Blogs",
+                "operationId": "79fd4c40fed6c98024ab5da0e69c56d0",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of blogs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "title 1 for 1"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "test.png"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "test description 1 for 1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No blogs found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No blogs found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/blogs/{blog}": {
+            "get": {
+                "tags": [
+                    "Blogs"
+                ],
+                "summary": "Show a specific Blog",
+                "operationId": "2881790c4df1629b0f19cb78a59b6a76",
+                "parameters": [
+                    {
+                        "name": "blog",
+                        "in": "path",
+                        "description": "ID of the blog to retrieve",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of the blog",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "title 1 for 1"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "test.png"
+                                                },
+                                                "destination": {
+                                                    "type": "string",
+                                                    "example": "Кыргызстан"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "test description 1 for 1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Blog not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Blog not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Show all Categories",
+                "operationId": "6ca1297d2f1a55e5ed411a60a091e132",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Зимние туры"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "1-winter-tours"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/{category}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Show Categories",
+                "operationId": "8ae48eff6f9bce66683e80b5f98a1ab6",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "ID travelDestination",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Зимние туры"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "1-winter-tours"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show all destinations",
+                "operationId": "f7f86a72d87054a42a509a24b84a2e7e",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "1-kyrgyzstan"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations/{destinations}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show Destinations",
+                "operationId": "2ca5e656070cda24fa476d0f671e2dab",
+                "parameters": [
+                    {
+                        "name": "destinations",
+                        "in": "path",
+                        "description": "ID Destinations",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "1-kyrgyzstan"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Кыргызстан"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "Test.png"
+                                                },
+                                                "destination": {
+                                                    "type": "string",
+                                                    "example": "Кыргызстан"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations/travel/{destinations}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show Travel-Destinations in Destination",
+                "operationId": "089b8060d26d5e659eb33ea49e9d35e7",
+                "parameters": [
+                    {
+                        "name": "destinations",
+                        "in": "path",
+                        "description": "ID destinations",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "1-altyn-arashan"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations/groupTours/{destinations}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show Group-Tours in Destination",
+                "operationId": "af971c90c4f3459dc417f7b08b35dc92",
+                "parameters": [
+                    {
+                        "name": "destinations",
+                        "in": "path",
+                        "description": "ID destinations",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "travel_destination": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "5D/4N"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": 10000
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "peoples": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "inclusions": {
+                                                        "type": "string",
+                                                        "example": "this inclusions"
+                                                    },
+                                                    "exclusions": {
+                                                        "type": "string",
+                                                        "example": "this exclusions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations/privateTours/{destinations}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show Private-Tours in Destination",
+                "operationId": "16c96a670ad608e4fdc51e05ecd94e12",
+                "parameters": [
+                    {
+                        "name": "destinations",
+                        "in": "path",
+                        "description": "ID destinations",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "travel_destination": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "5D/4N"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "inclusions": {
+                                                        "type": "string",
+                                                        "example": "this inclusions"
+                                                    },
+                                                    "exclusions": {
+                                                        "type": "string",
+                                                        "example": "this exclusions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations/popular/{destinations}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show Popular-Tours in Destination",
+                "operationId": "7f799acb8ba0453c51313832854fb38f",
+                "parameters": [
+                    {
+                        "name": "destinations",
+                        "in": "path",
+                        "description": "ID destinations",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "travel_destination": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "5D/4N"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/destinations/transport/{destinations}": {
+            "get": {
+                "tags": [
+                    "Destinations"
+                ],
+                "summary": "Show Transport in Destination",
+                "operationId": "b88fd92ce229237b502cb53536319824",
+                "parameters": [
+                    {
+                        "name": "destinations",
+                        "in": "path",
+                        "description": "ID destinations",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "sedan": {
+                                                        "type": "integer",
+                                                        "example": 50
+                                                    },
+                                                    "van": {
+                                                        "type": "integer",
+                                                        "example": 70
+                                                    },
+                                                    "suv": {
+                                                        "type": "integer",
+                                                        "example": 80
+                                                    },
+                                                    "mini_van": {
+                                                        "type": "integer",
+                                                        "example": 90
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/galleries": {
+            "get": {
+                "tags": [
+                    "Gallery"
+                ],
+                "summary": "Show all Gallery",
+                "operationId": "3137b2a857debd7d227186101ce3cbed",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "test.png"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Gallery Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group-tours": {
+            "get": {
+                "tags": [
+                    "Group-Tours"
+                ],
+                "summary": "Show all Group-Tours",
+                "operationId": "98c135fb68b682ec916fe7c5d4aa345a",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "travel_destination": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "5D/4N"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": 10000
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "peoples": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "inclusions": {
+                                                        "type": "string",
+                                                        "example": "this inclusions"
+                                                    },
+                                                    "exclusions": {
+                                                        "type": "string",
+                                                        "example": "this exclusions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Group Tour Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/group-tours/{groupTour}": {
+            "get": {
+                "tags": [
+                    "Group-Tours"
+                ],
+                "summary": "Show Group-Tours",
+                "operationId": "b76277c0d167265413eed54e492d28bd",
+                "parameters": [
+                    {
+                        "name": "groupTour",
+                        "in": "path",
+                        "description": "ID Group-Tours",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "travel_destination": {
+                                                    "type": "string",
+                                                    "example": "Алатын-Арашан"
+                                                },
+                                                "destination": {
+                                                    "type": "string",
+                                                    "example": "Кыргызстан"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "Test.png"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "example": "5D/4N"
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": 10000
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Test test hello this is test description"
+                                                },
+                                                "peoples": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "inclusions": {
+                                                    "type": "string",
+                                                    "example": "this inclusions"
+                                                },
+                                                "exclusions": {
+                                                    "type": "string",
+                                                    "example": "this exclusions"
+                                                },
+                                                "itinerary": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "day_number": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Day 1: Arrival"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Arrival and check-in at the hotel."
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Group Tour Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/private-tours": {
+            "get": {
+                "tags": [
+                    "Private-Tours"
+                ],
+                "summary": "Show all Private-Tours",
+                "operationId": "124f6b6fcb95559f4f73cdf81d79174d",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "travel_destination": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "5D/4N"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "inclusions": {
+                                                        "type": "string",
+                                                        "example": "this inclusions"
+                                                    },
+                                                    "exclusions": {
+                                                        "type": "string",
+                                                        "example": "this exclusions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Private Tour Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/private-tours/{privateTour}": {
+            "get": {
+                "tags": [
+                    "Private-Tours"
+                ],
+                "summary": "Show Private-Tours",
+                "operationId": "9b078cccbb9e9707756efb7bf2a37d17",
+                "parameters": [
+                    {
+                        "name": "privateTour",
+                        "in": "path",
+                        "description": "ID Group-Tours",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "travel_destination": {
+                                                    "type": "string",
+                                                    "example": "Алатын-Арашан"
+                                                },
+                                                "destination": {
+                                                    "type": "string",
+                                                    "example": "Кыргызстан"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "Test.png"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "example": "5D/4N"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Test test hello this is test description"
+                                                },
+                                                "inclusions": {
+                                                    "type": "string",
+                                                    "example": "this inclusions"
+                                                },
+                                                "exclusions": {
+                                                    "type": "string",
+                                                    "example": "this exclusions"
+                                                },
+                                                "itinerary": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "day_number": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Day 1: Arrival"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Arrival and check-in at the hotel."
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Group Tour Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/travels": {
+            "get": {
+                "tags": [
+                    "Travel-Destination"
+                ],
+                "summary": "Show all TravelDestination",
+                "operationId": "378593ed20b2ac6d06668b756440158d",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Алатын-Арашан"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "1-altyn-arashan"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Test.png"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Test test hello this is test description"
+                                                    },
+                                                    "destination": {
+                                                        "type": "string",
+                                                        "example": "Кыргызстан"
+                                                    },
+                                                    "destination_slug": {
+                                                        "type": "string",
+                                                        "example": "1-kyrgyzstan"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Travel-Destination Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/travels/{travelDestination}": {
+            "get": {
+                "tags": [
+                    "Travel-Destination"
+                ],
+                "summary": "Show TravelDestination",
+                "operationId": "a8b6d3de06b6cb059dc716762f160e92",
+                "parameters": [
+                    {
+                        "name": "travelDestination",
+                        "in": "path",
+                        "description": "ID travelDestination",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Алатын-Арашан"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "1-altyn-arashan"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "Test.png"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Test test hello this is test description"
+                                                },
+                                                "destination": {
+                                                    "type": "string",
+                                                    "example": "Кыргызстан"
+                                                },
+                                                "destination_slug": {
+                                                    "type": "string",
+                                                    "example": "1-kyrgyzstan"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Travel-Destination Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Blogs",
+            "description": "Blogs"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "Destinations",
+            "description": "Destinations"
+        },
+        {
+            "name": "Gallery",
+            "description": "Gallery"
+        },
+        {
+            "name": "Group-Tours",
+            "description": "Group-Tours"
+        },
+        {
+            "name": "Private-Tours",
+            "description": "Private-Tours"
+        },
+        {
+            "name": "Travel-Destination",
+            "description": "Travel-Destination"
+        }
+    ]
+}

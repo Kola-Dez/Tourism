@@ -7,6 +7,7 @@ use App\Models\Destination\Destination;
 use App\Resources\Destination\DestinationResource;
 use App\Services\Destination\DestinationService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class DestinationController extends Controller
 {
@@ -19,6 +20,10 @@ class DestinationController extends Controller
     public function index(): JsonResponse
     {
         $destinations = Destination::all();
+
+        if (!$destinations) {
+            return Response::json(status: 204);
+        }
 
         $destinations =  DestinationResource::collection($destinations);
 
@@ -37,7 +42,7 @@ class DestinationController extends Controller
         $data = $this->service->getTravelDestinations($destination);
 
         if (!$data) {
-            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+            return Response::json(status: 204);
         }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
@@ -48,7 +53,7 @@ class DestinationController extends Controller
         $data = $this->service->getGroupTours($destination);
 
         if (!$data) {
-            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+            return Response::json(status: 204);
         }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
@@ -59,7 +64,7 @@ class DestinationController extends Controller
         $data = $this->service->getPrivateTours($destination);
 
         if (!$data) {
-            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+            return Response::json(status: 204);
         }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
@@ -70,7 +75,7 @@ class DestinationController extends Controller
         $data = $this->service->getPopularTours($destination);
 
         if (!$data) {
-            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+            return Response::json(status: 204);
         }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
@@ -81,7 +86,7 @@ class DestinationController extends Controller
         $data = $this->service->getTransport($destination);
 
         if (!$data) {
-            return response()->json(['status' => 404, 'success' => false, 'error' => 'not_found', 'message' => 'Not found'], status: 404);
+            return Response::json(status: 204);
         }
 
         return response()->json(['status' => 200, 'success' => true, 'data' => $data]);

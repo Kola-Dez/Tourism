@@ -16,6 +16,10 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
+        if (!$categories) {
+            return Response::json(status: 204);
+        }
+
         $categories = CategoryResource::collection($categories)->toArray(request());
 
         return Response::json(['status' => 200, 'success' => true, 'data' => $categories]);

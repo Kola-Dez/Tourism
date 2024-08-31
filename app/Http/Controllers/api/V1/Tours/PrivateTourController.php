@@ -16,6 +16,10 @@ class PrivateTourController extends Controller
     {
         $privateTour = PrivateTour::all();
 
+        if (!$privateTour) {
+            return Response::json(status: 204);
+        }
+
         $privateTour = PrivateTourResource::collection($privateTour)->toArray(request());
 
         return Response::json(['status' => 200,'success' => true, 'data' => $privateTour]);
