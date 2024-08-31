@@ -112,11 +112,14 @@ class AdminGroupTourService
     public function delete($tour): void
     {
         if ($tour->image) {
-            $imagePath = str_replace('storage/', 'public/', $tour->image);
-            if (Storage::exists($imagePath)) {
-                Storage::delete($imagePath);
+            $imagePath = $tour->image;
+
+            if (Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
             }
         }
         $tour->delete();
     }
+
+
 }

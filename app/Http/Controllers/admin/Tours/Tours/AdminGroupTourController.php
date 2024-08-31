@@ -72,7 +72,7 @@ class AdminGroupTourController extends Controller
         return Response::json($tour);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy($id): Application|JsonResponse|Redirector|RedirectResponse
     {
         $tour = GroupTour::find($id);
 
@@ -82,6 +82,6 @@ class AdminGroupTourController extends Controller
 
         $this->service->delete($tour);
 
-        return Response::json(['status' => 204, 'success' => true]);
+        return redirect(route('admin.group_tours.index'));
     }
 }
