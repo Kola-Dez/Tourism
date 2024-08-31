@@ -2,6 +2,7 @@
 
 # Выполняем миграции
 composer install
+RUN php artisan migrate
 
 # Устанавливаем права на файлы
 chmod -R 775 /app/backend/storage

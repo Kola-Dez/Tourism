@@ -34,5 +34,4 @@ RUN chown -R www-data:www-data /app/backend/_docker/app/start.sh
 
 ENTRYPOINT ["/app/backend/_docker/app/start.sh"]
 
-RUN php artisan migrate
-RUN php artisan db:seed --class=DatabaseSeeder
+
