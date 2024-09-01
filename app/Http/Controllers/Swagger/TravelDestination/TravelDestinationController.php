@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 /**
  * @OA\Get(
  *     path="/api/v1/travels",
- *     summary="Show all TravelDestination",
+ *     summary="Show all TravelDestinations",
  *     tags={"Travel-Destination"},
  *
  *     @OA\Parameter(

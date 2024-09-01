@@ -53,7 +53,7 @@ use App\Http\Controllers\Controller;
  *
  * @OA\Get(
  *     path="/api/v1/blogs/{blog}",
- *     summary="Show a specific Blog",
+ *     summary="Show Blog",
  *     tags={"Blogs"},
  *
  *     @OA\Parameter(

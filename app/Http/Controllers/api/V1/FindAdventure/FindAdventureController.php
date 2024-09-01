@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\V1\FindAdventure;
 use App\Http\Controllers\Controller;
 use App\Services\FindAdventure\FindAdventureService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class FindAdventureController extends Controller
 {
@@ -16,6 +17,12 @@ class FindAdventureController extends Controller
 
     public function findAdventure(): JsonResponse
     {
-        return $this->service->findAdventure(request());
+        $data = $this->service->findAdventure(request());
+
+        if(!$data) {
+            return Response::json(status: 204);
+        }
+
+        return Response::json(['status' => 200,'success' => true, 'data' => $data]);
     }
 }

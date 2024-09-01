@@ -52,7 +52,7 @@ use App\Http\Controllers\Controller;
  *
  * @OA\Get(
  *       path="/api/v1/destinations/{destinations}",
- *       summary="Show Destinations",
+ *       summary="Show Destination",
  *       tags={"Destinations"},
  *
  *       @OA\Parameter(

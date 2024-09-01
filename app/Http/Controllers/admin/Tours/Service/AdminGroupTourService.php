@@ -66,7 +66,7 @@ class AdminGroupTourService
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filePath = $file->store('images/groupTours', 'public');
-            $data['image'] = $filePath;
+            $data['image'] = '/storage/' . $filePath;
         }
 
         $data['departing'] = Carbon::parse($data['departing'])->format('Y-m-d');

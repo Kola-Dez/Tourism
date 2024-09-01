@@ -56,7 +56,7 @@ use App\Http\Controllers\Controller;
  *
  * @OA\Get(
  *       path="/api/v1/private-tours/{privateTour}",
- *       summary="Show Private-Tours",
+ *       summary="Show Private-Tour",
  *       tags={"Private-Tours"},
  *
  *       @OA\Parameter(

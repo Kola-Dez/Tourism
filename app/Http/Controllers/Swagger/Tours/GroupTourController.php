@@ -58,7 +58,7 @@ use App\Http\Controllers\Controller;
  *
  * @OA\Get(
  *       path="/api/v1/group-tours/{groupTour}",
- *       summary="Show Group-Tours",
+ *       summary="Show Group-Tour",
  *       tags={"Group-Tours"},
  *
  *       @OA\Parameter(

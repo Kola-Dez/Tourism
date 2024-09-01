@@ -6,9 +6,6 @@ use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
-use App\Models\TravelDestination\TravelDestination;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
 
 class FindAdventureService
 {
@@ -32,7 +29,7 @@ class FindAdventureService
         return Destination::query()->find($id);
     }
 
-    public function findAdventure($request): JsonResponse
+    public function findAdventure($request): array
     {
         $monthName = $request->input('month');
         $destination = $this->getDestinationBySlug($request->input('destination'));
@@ -40,74 +37,40 @@ class FindAdventureService
 
         $monthNumber = $monthName ? date('m', strtotime($monthName)) : null;
 
+        $groupTours = [];
+        $privateTours = [];
+
         // Определение поиска по категориям
         if ($destination && $category && $monthNumber) {
-            $tours = $this->findToursByDestinationCategoryMonth($destination, $category, $monthNumber);
+            $groupTours = $this->findGroupTours($destination, $category, $monthNumber);
+            $privateTours = $this->findPrivateTours($destination, $category, $monthNumber);
         } elseif ($destination && $category) {
-            $tours = $this->findToursByDestinationAndCategory($destination, $category);
+            $groupTours = $this->findGroupTours($destination, $category);
+            $privateTours = $this->findPrivateTours($destination, $category);
         } elseif ($destination && $monthNumber) {
-            $tours = $this->findToursByDestinationAndMonth($destination, $monthNumber);
+            $groupTours = $this->findGroupTours($destination, null, $monthNumber);
+            $privateTours = $this->findPrivateTours($destination, null, $monthNumber);
         } elseif ($category && $monthNumber) {
-            $tours = $this->findToursByCategoryAndMonth($category, $monthNumber);
+            $groupTours = $this->findGroupTours(null, $category, $monthNumber);
+            $privateTours = $this->findPrivateTours(null, $category, $monthNumber);
         } elseif ($destination) {
-            $tours = $this->findToursByDestination($destination);
+            $groupTours = $this->findGroupTours($destination);
+            $privateTours = $this->findPrivateTours($destination);
         } elseif ($category) {
-            $tours = $this->findToursByCategory($category);
+            $groupTours = $this->findGroupTours(null, $category);
+            $privateTours = $this->findPrivateTours(null, $category);
         } elseif ($monthNumber) {
-            $tours = $this->findToursByMonth($monthNumber);
+            $groupTours = $this->findGroupTours(null, null, $monthNumber);
+            $privateTours = $this->findPrivateTours(null, null, $monthNumber);
         } else {
-            $tours = $this->findAllTours();
+            $groupTours = $this->findGroupTours();
+            $privateTours = $this->findPrivateTours();
         }
 
-        return Response::json($tours, 200);
-    }
-
-    private function findToursByDestinationCategoryMonth(Destination $destination, Category $category, int $monthNumber)
-    {
-        return $this->findGroupTours($destination, $category, $monthNumber)
-            ->merge($this->findPrivateTours($destination, $category, $monthNumber));
-    }
-
-    private function findToursByDestinationAndCategory(Destination $destination, Category $category)
-    {
-        return $this->findGroupTours($destination, $category)
-            ->merge($this->findPrivateTours($destination, $category));
-    }
-
-    private function findToursByDestinationAndMonth(Destination $destination, int $monthNumber)
-    {
-        return $this->findGroupTours($destination, null, $monthNumber)
-            ->merge($this->findPrivateTours($destination, null, $monthNumber));
-    }
-
-    private function findToursByCategoryAndMonth(Category $category, int $monthNumber)
-    {
-        return $this->findGroupTours(null, $category, $monthNumber)
-            ->merge($this->findPrivateTours(null, $category, $monthNumber));
-    }
-
-    private function findToursByDestination(Destination $destination)
-    {
-        return $this->findGroupTours($destination)
-            ->merge($this->findPrivateTours($destination));
-    }
-
-    private function findToursByCategory(Category $category)
-    {
-        return $this->findGroupTours(null, $category)
-            ->merge($this->findPrivateTours(null, $category));
-    }
-
-    private function findToursByMonth(int $monthNumber)
-    {
-        return $this->findGroupTours(null, null, $monthNumber)
-            ->merge($this->findPrivateTours(null, null, $monthNumber));
-    }
-
-    private function findAllTours()
-    {
-        return $this->findGroupTours()
-            ->merge($this->findPrivateTours());
+        return [
+            'group' => $groupTours,
+            'private' => $privateTours
+        ];
     }
 
     private function findGroupTours(?Destination $destination = null, ?Category $category = null, ?int $monthNumber = null)
@@ -134,7 +97,6 @@ class FindAdventureService
                 'travel_destination' => $groupTour->travelDestination->translated_name,
                 'destination' => $groupTour->travelDestination->destination->translated_code,
                 'category' => $groupTour->category->translated_title,
-                'how_many_peoples' => $groupTour->how_many_peoples,
                 'price' => intval($groupTour->price),
                 'title' => $groupTour->title,
                 'image' => $groupTour->image,

@@ -50,7 +50,7 @@ use App\Http\Controllers\Controller;
  *
  * @OA\Get(
  *       path="/api/v1/categories/{category}",
- *       summary="Show Categories",
+ *       summary="Show Category",
  *       tags={"Categories"},
  *
  *       @OA\Parameter(

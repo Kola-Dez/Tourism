@@ -62,7 +62,7 @@
                                 <td>{{ $tour['category'] }}</td>
                                 <td>{{ $tour['title'] }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $tour['image']) }}" alt="{{ $tour['title'] }}" width="200">
+                                    <img src="{{ asset($tour['image']) }}" alt="{{ $tour['title'] }}" width="200">
                                 </td>
                                 <td>{{ $tour['departing'] }}</td>
                                 <td>{{ $tour['finishing'] }}</td>

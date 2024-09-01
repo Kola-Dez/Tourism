@@ -34,4 +34,3 @@ RUN chown -R www-data:www-data /app/backend/_docker/app/start.sh
 
 ENTRYPOINT ["/app/backend/_docker/app/start.sh"]
 
-

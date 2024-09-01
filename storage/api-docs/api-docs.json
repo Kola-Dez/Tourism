@@ -119,7 +119,7 @@
                 "tags": [
                     "Blogs"
                 ],
-                "summary": "Show a specific Blog",
+                "summary": "Show Blog",
                 "operationId": "2881790c4df1629b0f19cb78a59b6a76",
                 "parameters": [
                     {
@@ -327,7 +327,7 @@
                 "tags": [
                     "Categories"
                 ],
-                "summary": "Show Categories",
+                "summary": "Show Category",
                 "operationId": "8ae48eff6f9bce66683e80b5f98a1ab6",
                 "parameters": [
                     {
@@ -531,7 +531,7 @@
                 "tags": [
                     "Destinations"
                 ],
-                "summary": "Show Destinations",
+                "summary": "Show Destination",
                 "operationId": "2ca5e656070cda24fa476d0f671e2dab",
                 "parameters": [
                     {
@@ -1245,6 +1245,194 @@
                 }
             }
         },
+        "/api/v1/findAdventures": {
+            "post": {
+                "tags": [
+                    "Find-Adventure"
+                ],
+                "summary": "Find-adventure",
+                "operationId": "daefeb46cdc4c75f66b695b9df2da407",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "description": "Language preference for the response. Default is 'en'. Possible values: 'en', 'ru', 'kg', 'kz', 'tj', 'tm', 'uz'.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ru",
+                                "kg",
+                                "kz",
+                                "tj",
+                                "tm",
+                                "uz"
+                            ],
+                            "example": "en"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "month": {
+                                                "type": "string",
+                                                "example": "september"
+                                            },
+                                            "destination": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "category": {
+                                                "type": "integer",
+                                                "example": 1
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "group": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "travel_destination": {
+                                                                "type": "string",
+                                                                "example": "Алатын-Арашан"
+                                                            },
+                                                            "destination": {
+                                                                "type": "string",
+                                                                "example": "Кыргызстан"
+                                                            },
+                                                            "category": {
+                                                                "type": "string",
+                                                                "example": "Зимние туры"
+                                                            },
+                                                            "price": {
+                                                                "type": "integer",
+                                                                "example": 10000
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "TestGroupTour"
+                                                            },
+                                                            "image": {
+                                                                "type": "string",
+                                                                "example": "Test.png"
+                                                            },
+                                                            "date": {
+                                                                "type": "string",
+                                                                "example": "5D/4N"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "private": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "travel_destination": {
+                                                                "type": "string",
+                                                                "example": "Алатын-Арашан"
+                                                            },
+                                                            "destination": {
+                                                                "type": "string",
+                                                                "example": "Кыргызстан"
+                                                            },
+                                                            "category": {
+                                                                "type": "string",
+                                                                "example": "Зимние туры"
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "TestPrivateTour"
+                                                            },
+                                                            "image": {
+                                                                "type": "string",
+                                                                "example": "Test.png"
+                                                            },
+                                                            "date": {
+                                                                "type": "string",
+                                                                "example": "5D/4N"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Gallery Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "not_found."
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/galleries": {
             "get": {
                 "tags": [
@@ -1474,7 +1662,7 @@
                 "tags": [
                     "Group-Tours"
                 ],
-                "summary": "Show Group-Tours",
+                "summary": "Show Group-Tour",
                 "operationId": "b76277c0d167265413eed54e492d28bd",
                 "parameters": [
                     {
@@ -1746,7 +1934,7 @@
                 "tags": [
                     "Private-Tours"
                 ],
-                "summary": "Show Private-Tours",
+                "summary": "Show Private-Tour",
                 "operationId": "9b078cccbb9e9707756efb7bf2a37d17",
                 "parameters": [
                     {
@@ -1890,7 +2078,7 @@
                 "tags": [
                     "Travel-Destination"
                 ],
-                "summary": "Show all TravelDestination",
+                "summary": "Show all TravelDestinations",
                 "operationId": "378593ed20b2ac6d06668b756440158d",
                 "parameters": [
                     {
@@ -2126,6 +2314,10 @@
         {
             "name": "Destinations",
             "description": "Destinations"
+        },
+        {
+            "name": "Find-Adventure",
+            "description": "Find-Adventure"
         },
         {
             "name": "Gallery",
