@@ -40,7 +40,6 @@ class FindAdventureService
         $groupTours = [];
         $privateTours = [];
 
-        // Определение поиска по категориям
         if ($destination && $category && $monthNumber) {
             $groupTours = $this->findGroupTours($destination, $category, $monthNumber);
             $privateTours = $this->findPrivateTours($destination, $category, $monthNumber);

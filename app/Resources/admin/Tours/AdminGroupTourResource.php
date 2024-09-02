@@ -34,8 +34,11 @@ class AdminGroupTourResource extends JsonResource
         return [
             'id' => $this->id,
             'travel_destination' => $this->travelDestination->name,
+            'travel_destination_slug' => $this->travelDestination->slug,
             'destination' => $this->travelDestination->destination->translated_code,
+            'destination_slug' => $this->travelDestination->destination->slug,
             'category' => $this->category->title,
+            'category_slug' => $this->category->slug,
             'image' => $this->image,
             'departing' => Carbon::parse($this->departing)->format('Y-m-d'),
             'finishing' => Carbon::parse($this->finishing)->format('Y-m-d'),

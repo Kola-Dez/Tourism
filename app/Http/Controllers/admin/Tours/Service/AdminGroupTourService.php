@@ -3,15 +3,8 @@
 namespace App\Http\Controllers\admin\Tours\Service;
 
 use App\Http\Requests\Tour\Group\StoreRequest;
-use App\Models\Category\Category;
-use App\Models\Destination\Destination;
 use App\Models\Itineraries\GroupTourItinerary;
 use App\Models\Tours\GroupTour;
-use App\Models\TravelDestination\TravelDestination;
-use App\Resources\admin\Destination\AdminDestinationResource;
-use App\Resources\Category\CategoryResource;
-use App\Resources\Destination\DestinationResource;
-use App\Resources\TravelDestination\TravelDestinationResource;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -112,14 +105,13 @@ class AdminGroupTourService
     public function delete($tour): void
     {
         if ($tour->image) {
-            $imagePath = $tour->image;
+            $imagePath = str_replace('/storage/', '', $tour->image);
 
             if (Storage::disk('public')->exists($imagePath)) {
                 Storage::disk('public')->delete($imagePath);
             }
+
         }
         $tour->delete();
     }
-
-
 }

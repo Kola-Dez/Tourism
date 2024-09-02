@@ -8,10 +8,13 @@ use App\Http\Requests\Tour\Group\StoreRequest;
 use App\Http\Requests\Tour\Group\UpdateRequest;
 use App\Models\Category\Category;
 use App\Models\Destination\Destination;
+use App\Models\Itineraries\GroupTourItinerary;
 use App\Models\Tours\GroupTour;
 use App\Resources\admin\Category\AdminCategoryResource;
 use App\Resources\admin\Destination\AdminDestinationResource;
+use App\Resources\admin\Itinerary\AdminItineraryResource;
 use App\Resources\admin\Tours\AdminGroupTourResource;
+use App\Resources\Tours\GroupTourResource;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -62,9 +65,19 @@ class AdminGroupTourController extends Controller
         return Response::json($tour);
     }
 
-
-    public function update(UpdateRequest $request, $id): JsonResponse
+    public function edit(GroupTour $groupTour): View|Factory|Application
     {
+        $data['groupTour'] = AdminGroupTourResource::make($groupTour)->toArray(request());
+        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+        $data['categories'] = AdminCategoryResource::collection(Category::all())->toArray(request());
+        $data['itineraries'] = AdminItineraryResource::collection(GroupTourItinerary::where('tour_id', $groupTour->id)->get())->toArray(request());
+
+        return view('admin.tours.group.edit.edit', compact('data'));
+    }
+
+    public function update(Request $request, $id): JsonResponse
+    {
+        dd($request->toArray(), $id);
         $data = $request->all();
 
         $tour = $this->service->edit($data, $id);

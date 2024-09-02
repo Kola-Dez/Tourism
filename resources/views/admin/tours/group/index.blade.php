@@ -46,7 +46,6 @@
                             <th>Title</th>
                             <th>Image</th>
                             <th>Departing</th>
-                            <th>Finishing</th>
                             <th>Price</th>
                             <th>Peoples</th>
                             <th>Status</th>
@@ -65,7 +64,6 @@
                                     <img src="{{ asset($tour['image']) }}" alt="{{ $tour['title'] }}" width="200">
                                 </td>
                                 <td>{{ $tour['departing'] }}</td>
-                                <td>{{ $tour['finishing'] }}</td>
                                 <td>${{ $tour['price'] }}</td>
                                 <td>{{ $tour['peoples'] }}</td>
                                 <td>{{ $tour['status'] }}</td>
