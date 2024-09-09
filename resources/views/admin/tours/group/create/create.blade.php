@@ -116,6 +116,19 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="form-label @error('images') is-invalid @enderror" >Upload Image</label>
+                            @error('images')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                            <div class="d-flex align-items-center">
+                                <input type="file" name="images[]" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

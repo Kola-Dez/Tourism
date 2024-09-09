@@ -40,18 +40,6 @@ class AdminGroupTourService
         return $query->get();
     }
 
-    public function show($id): array
-    {
-        $tour = GroupTour::findOrFail($id);
-
-        return [
-            'category' => __('messages.categories.' . $tour->category->title),
-            'peoples' => $tour->how_many_peoples,
-            'price' => intval($tour->price),
-
-        ];
-    }
-
     public function store(StoreRequest $request): void
     {
         $data = $request->validated();

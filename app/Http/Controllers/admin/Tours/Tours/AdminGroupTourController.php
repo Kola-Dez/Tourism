@@ -51,18 +51,19 @@ class AdminGroupTourController extends Controller
         return view('admin.tours.group.create.create', compact('data'));
     }
 
-    public function store(StoreRequest $request): Application|Redirector|RedirectResponse
+    public function store(Request $request): Application|Redirector|RedirectResponse
     {
+        dd($request->toArray());
         $this->service->store($request);
 
         return redirect()->route('admin.group_tours.index');
     }
 
-    public function show(GroupTour $groupTour): JsonResponse
+    public function show(GroupTour $groupTour): View|Factory|Application
     {
-        $tour = $this->service->show($groupTour);
+        $tour = GroupTourResource::make($groupTour)->toArray(request());
 
-        return Response::json($tour);
+        return view('admin.tours.group.show.show', compact('tour'));
     }
 
     public function edit(GroupTour $groupTour): View|Factory|Application

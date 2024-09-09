@@ -35,8 +35,13 @@ class StoreRequest extends FormRequest
             'travel_destination_id' => 'required|integer|exists:travel_destinations,id',
             'image' => [
                 'required',
-                File::types(['png', 'jpg', 'jpeg', 'gif'])
-                    ->max(12 * 1024), // 12 MB
+                File::types(['png', 'jpg', 'jpeg'])
+                    ->max(12 * 1024),
+            ],
+            'images.*' => [
+                'required',
+                File::types(['png', 'jpg', 'jpeg'])
+                    ->max(12 * 1024),
             ],
             'price' => 'required|numeric|min:0',
             'how_many_peoples' => 'required|integer|min:1',

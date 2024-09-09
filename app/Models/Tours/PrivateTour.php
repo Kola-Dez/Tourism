@@ -40,6 +40,7 @@ class PrivateTour extends Model
         'departing',
         'finishing',
         'hits',
+        'images'
     ];
 
     protected $casts = [
@@ -49,6 +50,7 @@ class PrivateTour extends Model
         'start_date' => 'date',
         'end_date' => 'date',
         'status' => 'string',
+        'images' => 'array',
     ];
 
 

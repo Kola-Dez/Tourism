@@ -39,6 +39,10 @@ class GroupTour extends Model
         'status',
         'departing',
         'finishing',
+        'images'
+    ];
+    protected $casts = [
+        'images' => 'array',
     ];
 
     public function category(): BelongsTo
