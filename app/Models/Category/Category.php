@@ -25,7 +25,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug'];
+    protected $fillable = ['title', 'slug', 'image'];
 
     public function groupTours(): HasMany
     {

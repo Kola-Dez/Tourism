@@ -66,7 +66,7 @@
     }
 
 </style>
-
+    @dd($tour)
 <body>
     <div class="container">
         <div class="slider">

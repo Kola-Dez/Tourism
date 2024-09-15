@@ -32,6 +32,7 @@ use App\Http\Controllers\Controller;
  *                 @OA\Items(type="object",
  *                     @OA\Property(property="title", type="string", example="Зимние туры"),
  *                     @OA\Property(property="slug", type="string", example="1-winter-tours"),
+ *                     @OA\Property(property="image", type="string", example="image"),
  *                 )
  *             )
  *         )
@@ -82,6 +83,7 @@ use App\Http\Controllers\Controller;
  *               @OA\Property(property="data", type="object",
  *                      @OA\Property(property="title", type="string", example="Зимние туры"),
  *                      @OA\Property(property="slug", type="string", example="1-winter-tours"),
+ *                      @OA\Property(property="image", type="string", example="image"),
  *               )
  *           )
  *       ),

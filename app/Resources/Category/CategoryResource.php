@@ -20,6 +20,7 @@ class CategoryResource extends JsonResource
         return [
             'title' => $this->translated_title,
             'slug' => $this->slug,
+            'image' => $this->image,
         ];
     }
 }

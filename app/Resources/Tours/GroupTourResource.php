@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @property mixed $image
+ * @property mixed $images
  * @property mixed $description
  * @property mixed $destination
  * @property mixed $travelDestination
@@ -19,9 +20,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class GroupTourResource extends JsonResource
 {
-    /**
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
@@ -30,6 +28,7 @@ class GroupTourResource extends JsonResource
             'destination' => $this->travelDestination->destination->translated_code,
             'image' => $this->image,
             'date' => $this->duration,
+            'images' => $this->images ?? [],
             'price' => intval($this->price),
             'description' => $this->description,
             'peoples' => $this->how_many_peoples,

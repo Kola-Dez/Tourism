@@ -280,6 +280,10 @@
                                                     "slug": {
                                                         "type": "string",
                                                         "example": "1-winter-tours"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "image"
                                                     }
                                                 },
                                                 "type": "object"
@@ -381,6 +385,10 @@
                                                 "slug": {
                                                     "type": "string",
                                                     "example": "1-winter-tours"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "image"
                                                 }
                                             },
                                             "type": "object"

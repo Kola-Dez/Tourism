@@ -19,34 +19,42 @@ class CategorySeeder extends Seeder
             [
                 'title' => 'Winter Tours',
                 'slug' => 'Winter Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'Bike Tours',
                 'slug' => 'Bike Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'Horseback Tours',
                 'slug' => 'Horseback Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'Group Tours',
                 'slug' => 'Group Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'Off Road Tours',
                 'slug' => 'Off Road Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'Culture Tours',
                 'slug' => 'Culture Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'Photo Tours',
                 'slug' => 'Photo Tours',
+                'image' => 'Winter image',
             ],
             [
                 'title' => 'One Day Tours',
                 'slug' => 'One Day Tours',
+                'image' => 'Winter image',
             ],
         ];
 
@@ -65,6 +73,7 @@ class CategorySeeder extends Seeder
         Category::create([
             'title' => $category['title'],
             'slug' => $category['slug'],
+            'image' => $category['image'],
         ]);
     }
 }

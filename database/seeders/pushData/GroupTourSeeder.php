@@ -21,6 +21,7 @@ class GroupTourSeeder extends Seeder
                 'travel_destination_id' => 1,
                 'title' => 'TestPrivateTours',
                 'image' => 'Test.png',
+                'images' => json_encode(['Test.png', 'Test.jpg']),
                 'description' => 'Test test hello this is test description',
                 'inclusions' => 'this inclusions',
                 'exclusions' => 'this exclusions',
@@ -36,6 +37,7 @@ class GroupTourSeeder extends Seeder
                 'travel_destination_id' => 4,
                 'title' => 'TestPrivateTours2',
                 'image' => 'Test2.png',
+                'images' => json_encode(['Test1.png', 'Test1.jpg']),
                 'description' => 'Test test hello this is test description2',
                 'inclusions' => 'this inclusions2',
                 'exclusions' => 'this exclusions2',
@@ -51,6 +53,7 @@ class GroupTourSeeder extends Seeder
                 'travel_destination_id' => 1,
                 'title' => 'TestPrivateTours3',
                 'image' => 'Test3.png',
+                'images' => json_encode(['Test1.png', 'Test1.jpg']),
                 'description' => 'Test test hello this is test description3',
                 'inclusions' => 'this inclusions3',
                 'exclusions' => 'this exclusions3',
@@ -66,6 +69,7 @@ class GroupTourSeeder extends Seeder
                 'travel_destination_id' => 2,
                 'title' => 'TestPrivateTours4',
                 'image' => 'Test4.png',
+                'images' => json_encode(['Test1.png', 'Test1.jpg']),
                 'description' => 'Test test hello this is test description4',
                 'inclusions' => 'this inclusions4',
                 'exclusions' => 'this exclusions4',
@@ -81,6 +85,7 @@ class GroupTourSeeder extends Seeder
                 'travel_destination_id' => 11,
                 'title' => 'TestPrivateTours5',
                 'image' => 'Test5.png',
+                'images' => json_encode(['Test1.png', 'Test1.jpg']),
                 'description' => 'Test test hello this is test description5',
                 'inclusions' => 'this inclusions5',
                 'exclusions' => 'this exclusions5',
@@ -96,6 +101,7 @@ class GroupTourSeeder extends Seeder
                 'travel_destination_id' => 12,
                 'title' => 'TestPrivateTours6',
                 'image' => 'Test6.png',
+                'images' => json_encode(['Test1.png', 'Test1.jpg']),
                 'description' => 'Test test hello this is test description6',
                 'inclusions' => 'this inclusions6',
                 'exclusions' => 'this exclusions6',
@@ -109,17 +115,18 @@ class GroupTourSeeder extends Seeder
         ];
 
         foreach ($groupTours as $groupTour) {
-            $this->createPrivateTour($groupTour);
+            $this->createGroupTour($groupTour);
         }
     }
 
-    public function createPrivateTour(array $groupTour): void
+    public function createGroupTour(array $groupTour): void
     {
         GroupTour::create([
             'category_id' => $groupTour['category_id'],
             'travel_destination_id' => $groupTour['travel_destination_id'],
             'title' => $groupTour['title'],
             'image' => $groupTour['image'],
+            'images' => $groupTour['images'],
             'description' => $groupTour['description'],
             'inclusions' => $groupTour['inclusions'],
             'exclusions' => $groupTour['exclusions'],
