@@ -6,9 +6,23 @@ use App\Http\Controllers\admin\Tours\Service\AdminPrivateTourService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tour\Private\StoreRequest;
 use App\Http\Requests\Tour\Private\UpdateRequest;
+use App\Models\Category\Category;
+use App\Models\Destination\Destination;
+use App\Models\Itineraries\PrivateTourItinerary;
 use App\Models\Tours\PrivateTour;
+use App\Resources\admin\Category\AdminCategoryResource;
+use App\Resources\admin\Destination\AdminDestinationResource;
+use App\Resources\admin\Itinerary\AdminItineraryResource;
+use App\Resources\admin\Tours\AdminPrivateTourResource;
+use App\Resources\Itinerary\ItineraryResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 
 class AdminPrivateTourController extends Controller
 {
@@ -19,40 +33,61 @@ class AdminPrivateTourController extends Controller
         $this->service = $service;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): Factory|View|Application
     {
-        $tours = PrivateTour::all();
+        $tours = $this->service->index($request);
 
-        return Response::json($tours);
+        $tours = AdminPrivateTourResource::collection($tours)->toArray($request);
+
+        return view('admin.tours.private.index', compact('tours'));
     }
 
-    public function show($id): JsonResponse
+    public function show(PrivateTour $privateTour): View|Factory|Application
     {
-        $tour = $this->service->show($id);
+        $itinerary = PrivateTourItinerary::where('tour_id', $privateTour->id)->get();
 
-        return Response::json($tour);
+        $privateTour = AdminPrivateTourResource::make($privateTour)->toArray(request());
+
+        $privateTour['itineraries'] = ItineraryResource::collection($itinerary)->toArray(request());;
+
+        return view('admin.tours.private.show.show', compact('privateTour'));
     }
 
-    public function store(StoreRequest $request): JsonResponse
+    public function create(): Factory|View|Application
+    {
+        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+        $data['categories'] = AdminCategoryResource::collection(Category::all())->toArray(request());
+
+        return view('admin.tours.private.create.create', compact('data'));
+    }
+
+    public function store(StoreRequest $request): Application|Redirector|RedirectResponse
+    {
+        $this->service->store($request);
+
+        return redirect()->route('admin.private_tours.index');
+    }
+
+    public function edit(PrivateTour $privateTour): View|Factory|Application
+    {
+        $data['privateTour'] = AdminPrivateTourResource::make($privateTour)->toArray(request());
+        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+        $data['categories'] = AdminCategoryResource::collection(Category::all())->toArray(request());
+        $data['itineraries'] = AdminItineraryResource::collection(PrivateTourItinerary::where('tour_id', $privateTour->id)->get())->toArray(request());
+
+        return view('admin.tours.private.edit.edit', compact('data'));
+    }
+
+    public function update(UpdateRequest $request, $id): RedirectResponse
     {
         $data = $request->all();
 
-        $tour = $this->service->create($data);
+        $this->service->edit($data, $id);
 
-        return Response::json($tour);
+        return redirect()->route('admin.private_tours.index');
     }
 
-
-    public function update(UpdateRequest $request, $id): JsonResponse
-    {
-        $data = $request->all();
-
-        $tour = $this->service->edit($data, $id);
-
-        return Response::json($tour);
-    }
-
-    public function destroy($id): JsonResponse
+    public function destroy($id): Application|JsonResponse|Redirector|RedirectResponse
     {
         $tour = PrivateTour::find($id);
 
@@ -62,6 +97,6 @@ class AdminPrivateTourController extends Controller
 
         $this->service->delete($tour);
 
-        return Response::json(['status' => 204, 'success' => true]);
+        return redirect(route('admin.private_tours.index'));
     }
 }

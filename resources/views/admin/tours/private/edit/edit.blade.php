@@ -83,12 +83,12 @@
             </div>
         @endif
         <div class="card-header">
-            <h3 class="card-comment">Edit Group Tour</h3>
+            <h3 class="card-comment">Edit Private Tour</h3>
         </div>
-        <a href="{{ route('admin.group_tours.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.private_tours.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.group_tours.update', $data['groupTour']['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.private_tours.update', $data['privateTour']['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @method('Patch')
                 @csrf
                 <div class="row">
@@ -96,7 +96,7 @@
                         <!-- Title input -->
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ $data['groupTour']['title'] }}">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ $data['privateTour']['title'] }}">
                             @error('title')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -104,34 +104,13 @@
                             @enderror
                         </div>
 
-                        <!-- Price input -->
-                        <div class="form-group">
-                            <label>Price</label>
-                            <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" placeholder="Enter ..." value="{{ $data['groupTour']['price'] }}">
-                            @error('price')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <!-- Peoples input -->
-                        <div class="form-group">
-                            <label>Peoples</label>
-                            <input type="number" class="form-control @error('how_many_peoples') is-invalid @enderror" name="how_many_peoples" placeholder="Enter ..." value="{{ $data['groupTour']['peoples'] }}">
-                            @error('how_many_peoples')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
                     </div>
 
                     <div class="col-sm-4">
                         <!-- Departing input -->
                         <div class="form-group">
                             <label>Departing</label>
-                            <input type="date" class="form-control @error('departing') is-invalid @enderror" name="departing" placeholder="Enter departing date" value="{{ $data['groupTour']['departing'] }}">
+                            <input type="date" class="form-control @error('departing') is-invalid @enderror" name="departing" placeholder="Enter departing date" value="{{ $data['privateTour']['departing'] }}">
                             @error('departing')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -142,7 +121,7 @@
                         <!-- Finishing input -->
                         <div class="form-group">
                             <label>Finishing</label>
-                            <input type="date" class="form-control @error('finishing') is-invalid @enderror" name="finishing" placeholder="Enter finishing date" value="{{ $data['groupTour']['finishing'] }}">
+                            <input type="date" class="form-control @error('finishing') is-invalid @enderror" name="finishing" placeholder="Enter finishing date" value="{{ $data['privateTour']['finishing'] }}">
                             @error('finishing')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -164,7 +143,7 @@
                                     <i class="fas fa-upload"></i> Choose Image
                                 </button>
                                 <div class="image-preview ms-3" id="imagePreview">
-                                    <img src="{{ $data['groupTour']['image'] }}" alt="Image Preview" class="img-fluid" id="previewImage">
+                                    <img src="{{ $data['privateTour']['image'] }}" alt="Image Preview" class="img-fluid" id="previewImage">
                                 </div>
                             </div>
                         </div>
@@ -192,7 +171,7 @@
                     <div class="container">
                         <div class="slider">
                             <div class="slider-line" id="sliderLine">
-                                @foreach ($data['groupTour']['images'] as $image)
+                                @foreach ($data['privateTour']['images'] as $image)
                                     <img src="{{ $image }}" alt="Image Preview" class="slider-img" onerror="this.style.display='none';">
                                 @endforeach
                             </div>
@@ -207,7 +186,7 @@
                         <!-- Description textarea -->
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $data['groupTour']['description'] }}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $data['privateTour']['description'] }}</textarea>
                             @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -218,7 +197,7 @@
                         <!-- Inclusions textarea -->
                         <div class="form-group">
                             <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Inclusions</label>
-                            <textarea class="form-control @error('inclusions') is-invalid @enderror" name="inclusions" rows="3" id="inputSuccess" placeholder="Enter ...">{{ $data['groupTour']['inclusions'] }}</textarea>
+                            <textarea class="form-control @error('inclusions') is-invalid @enderror" name="inclusions" rows="3" id="inputSuccess" placeholder="Enter ...">{{ $data['privateTour']['inclusions'] }}</textarea>
                             @error('inclusions')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -229,7 +208,7 @@
                         <!-- Exclusions textarea -->
                         <div class="form-group">
                             <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Exclusions</label>
-                            <textarea class="form-control @error('exclusions') is-invalid @enderror" name="exclusions" rows="3" id="inputWarning" placeholder="Enter ...">{{ $data['groupTour']['exclusions'] }}</textarea>
+                            <textarea class="form-control @error('exclusions') is-invalid @enderror" name="exclusions" rows="3" id="inputWarning" placeholder="Enter ...">{{ $data['privateTour']['exclusions'] }}</textarea>
                             @error('exclusions')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -240,32 +219,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4">
-                        <!-- Status radio buttons -->
-                        <h4>Status</h4>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="available" {{ $data['groupTour']['status'] == 'available' ? 'checked' : '' }}>
-                                <label class="form-check-label">available</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="unavailable" {{ $data['groupTour']['status'] == 'unavailable' ? 'checked' : '' }}>
-                                <label class="form-check-label">unavailable</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="pending" {{ $data['groupTour']['status'] == 'pending' ? 'checked' : '' }}>
-                                <label class="form-check-label">pending</label>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="col-sm-4" id="content">
                         <div class="form-group">
                             <label>Destination</label>
                             <input type="text" class="form-control @error('destination') is-invalid @enderror"
                                    placeholder="Enter ..."
-                                   value="{{ $data['groupTour']['destination'] }}"
+                                   value="{{ $data['privateTour']['destination'] }}"
                                    readonly>
                             @error('destination')
                             <div class="invalid-feedback">
@@ -278,11 +238,11 @@
                             <input type="text" class="form-control @error('travel_destination') is-invalid @enderror"
                                    id="display-text"
                                    placeholder="Enter ..."
-                                   value="{{ $data['groupTour']['travel_destination'] }}"
+                                   value="{{ $data['privateTour']['travel_destination'] }}"
                                    readonly>
                             <input type="hidden" name="travel_destination_id"
                                    id="hidden-input"
-                                   value="{{ explode('-', $data['groupTour']['travel_destination_slug'])[0] }}">
+                                   value="{{ explode('-', $data['privateTour']['travel_destination_slug'])[0] }}">
                             @error('destination')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -297,7 +257,7 @@
                         <div class="form-group">
                             <label>Выберите тип</label>
                             <select class="form-control @error('category_id') is-invalid @enderror" id="category-select" name="category_id">
-                                <option value="{{ explode('-', $data['groupTour']['category_slug'])[0] }}" @if(!$data['groupTour']['category']) selected @endif>{{ $data['groupTour']['category'] }}</option>
+                                <option value="{{ explode('-', $data['privateTour']['category_slug'])[0] }}" @if(!$data['privateTour']['category']) selected @endif>{{ $data['privateTour']['category'] }}</option>
                                 @foreach($data['categories'] as $category)
                                     <option value="{{ $category['id'] }}" {{ old('category_id') == $category['id'] ? 'selected' : '' }}>{{ $category['title'] }}</option>
                                 @endforeach

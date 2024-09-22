@@ -16,7 +16,7 @@ class PrivateTourItinerary extends Model
 
     protected $table = 'private_tour_itineraries';
 
-    protected $fillable = ['tour_id', 'day_number', 'description'];
+    protected $fillable = ['tour_id', 'title', 'day_number', 'description'];
 
     public function tour(): BelongsTo
     {

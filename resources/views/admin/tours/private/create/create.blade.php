@@ -72,12 +72,12 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Create Group Tour</h3>
+            <h3 class="card-comment">Create Private Tour</h3>
         </div>
-        <a href="{{ route('admin.group_tours.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.private_tours.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.group_tours.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.private_tours.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @csrf
                 <div class="row">
                     <div class="col-sm-6">
@@ -86,28 +86,6 @@
                             <label>Title</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ old('title') }}">
                             @error('title')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <!-- Price input -->
-                        <div class="form-group">
-                            <label>Price</label>
-                            <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" placeholder="Enter ..." value="{{ old('price') }}">
-                            @error('price')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <!-- Peoples input -->
-                        <div class="form-group">
-                            <label>Peoples</label>
-                            <input type="number" class="form-control @error('how_many_peoples') is-invalid @enderror" name="how_many_peoples" placeholder="Enter ..." value="{{ old('how_many_peoples') }}">
-                            @error('how_many_peoples')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -225,24 +203,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4">
-                        <!-- Status radio buttons -->
-                        <h4>Status</h4>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="available" checked {{ old('status') == 'available' ? 'checked' : '' }}>
-                                <label class="form-check-label">available</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="unavailable" {{ old('status') == 'unavailable' ? 'checked' : '' }}>
-                                <label class="form-check-label">unavailable</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="status" value="pending" {{ old('status') == 'pending' ? 'checked' : '' }}>
-                                <label class="form-check-label">pending</label>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-sm-4">
                         <!-- Country select -->
@@ -296,28 +256,28 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group" id="fieldsContainer">
-                                <div class="fieldGroup card p-3 my-3" data-field-id="1">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="day1" class="h5">Day 1:</label>
-                                        <button type="button" class="btn btn-danger removeField">Remove</button>
-                                    </div>
-
-                                    <label class="mt-2">Title</label>
-                                    @error('days.day1.title')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                    <input type="text" class="form-control @error('days.day1.title') is-invalid @enderror mb-3" name="days[day1][title]" id="title1" placeholder="Enter title" value="{{ old('days.day1.title') }}">
-
-                                    <label>Description</label>
-                                    @error('days.day1.description')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                    <textarea type="text" class="form-control @error('days.day1.description') @enderror mb-3" rows="10" name="days[day1][description]" id="description1" placeholder="Enter description">{{ old('days.day1.description') }}</textarea>
+                            <div class="fieldGroup card p-3 my-3" data-field-id="1">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <label for="day1" class="h5">Day 1:</label>
+                                    <button type="button" class="btn btn-danger removeField">Remove</button>
                                 </div>
+
+                                <label class="mt-2">Title</label>
+                                @error('days.day1.title')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <input type="text" class="form-control @error('days.day1.title') is-invalid @enderror mb-3" name="days[day1][title]" id="title1" placeholder="Enter title" value="{{ old('days.day1.title') }}">
+
+                                <label>Description</label>
+                                @error('days.day1.description')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <textarea type="text" class="form-control @error('days.day1.description') @enderror mb-3" rows="10" name="days[day1][description]" id="description1" placeholder="Enter description">{{ old('days.day1.description') }}</textarea>
+                            </div>
                         </div>
 
                         <button type="button" class="btn btn-info w-100" id="addField">Add More</button>

@@ -7,7 +7,6 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Rules\File;
 
 class StoreRequest extends FormRequest
@@ -50,6 +49,8 @@ class StoreRequest extends FormRequest
             'exclusions' => 'required',
             'departing' => 'required|date_format:Y-m-d',
             'finishing' => 'required|date_format:Y-m-d|after_or_equal:departing',
+            'status' => 'required|in:available,unavailable,pending',
+
 
             'days' => 'required|array|min:1', // 'days' должен быть массивом и содержать минимум один элемент
             'days.*.title' => 'required|string|max:255', // Заголовок для каждого дня должен быть строкой и не превышать 255 символов

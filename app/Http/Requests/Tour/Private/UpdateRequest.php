@@ -2,18 +2,17 @@
 
 namespace App\Http\Requests\Tour\Private;
 
-
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\File;
 
 class UpdateRequest extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Получить правила валидации, применимые к запросу.
      *
      * @return array<string, ValidationRule|array|string>
      */
@@ -21,34 +20,48 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'category_id' => 'required|integer|exists:categories,id',
+            'travel_destination_id' => 'required|integer|exists:travel_destinations,id',
             'image' => [
                 'nullable',
-                File::types(['png', 'jpg', 'jpeg', 'gif'])
+                File::types(['png', 'jpg', 'jpeg'])
                     ->max(12 * 1024),
             ],
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'how_many_peoples' => 'required|integer|min:1',
-            'hits' => 'nullable|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'isPrivate' => 'required',
+            'images.*' => [
+                'nullable',
+                File::types(['png', 'jpg', 'jpeg'])
+                    ->max(12 * 1024),
+            ],
+            'description' => 'required',
+            'inclusions' => 'required',
+            'exclusions' => 'required',
+            'departing' => 'required|date_format:Y-m-d',
+            'finishing' => 'required|date_format:Y-m-d|after_or_equal:departing',
+
+            'days' => 'required|array|min:1', // 'days' должен быть массивом и содержать минимум один элемент
+            'days.*.title' => 'required|string|max:255', // Заголовок для каждого дня должен быть строкой и не превышать 255 символов
+            'days.*.description' => 'required|string|max:255', // Описание для каждого дня должно быть строкой и не превышать 255 символов
         ];
     }
+
+    /**
+     * Обработка неудачной валидации.
+     *
+     * @param  Validator  $validator
+     * @return void
+     */
     protected function failedValidation(Validator $validator): void
     {
         $errors = $validator->errors();
 
-        $response = Response::json(
-            [
-            'status' => 400,
-            'success' => false,
-            'message' => 'validation_failed',
-                'data' => $errors
-            ], 400);
+        // Получаем ID тура из маршрута
+        $privateTourId = $this->route('privateTour');
 
+        // Формируем ответ с ошибками и перенаправлением на страницу редактирования
+        $response = Redirect::route('admin.private_tours.edit', ['privateTour' => $privateTourId])
+            ->withErrors($errors)
+            ->withInput();
 
-        throw new HttpResponseException($response);
+        throw new HttpResponseException($response); // Выбрасываем исключение с ответом
     }
 }

@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $departing
  * @property mixed $finishing
  * @property int|mixed $hits
+ * @property mixed $images
  * @method static static create(array $data)
  * @method static static findOrFail(string $id)
  * @method static find($id)

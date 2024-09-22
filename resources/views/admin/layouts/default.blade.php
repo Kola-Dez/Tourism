@@ -76,9 +76,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../tables/data.html" class="nav-link">
+                                <a href="{{ route('admin.private_tours.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>DataTables</p>
+                                    <p>Private Tours</p>
                                 </a>
                             </li>
                         </ul>

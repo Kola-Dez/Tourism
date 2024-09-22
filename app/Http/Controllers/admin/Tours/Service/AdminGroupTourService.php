@@ -81,10 +81,7 @@ class AdminGroupTourService
         }
     }
 
-
-
-
-    public function edit(array $data, $id): array
+    public function edit(array $data, $id): void
     {
         $tour = GroupTour::findOrFail($id);
 
@@ -93,7 +90,7 @@ class AdminGroupTourService
         // Обработка одиночного изображения
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
             $image = $data['image'];
-            $imagePath = $image->store('images/', 'public');
+            $imagePath = $image->store('images/groupTours', 'public');
             $data['image'] = Storage::url($imagePath);
 
             if ($oldImagePath) {
@@ -135,10 +132,15 @@ class AdminGroupTourService
             $data['images'] = $tour->images;
         }
 
+        GroupTourItinerary::where('tour_id', $id)->delete();
+
+        foreach ($data['days'] as $key => $dataDay) {
+            $dataDay['day_number'] = (int)substr($key, 3, 1);
+            $dataDay['tour_id'] = $id;
+            GroupTourItinerary::create($dataDay);
+        }
         // Обновление записи
         $tour->update($data);
-
-        return $tour->toArray();
     }
 
 

@@ -15,7 +15,6 @@ use App\Resources\admin\Destination\AdminDestinationResource;
 use App\Resources\admin\Itinerary\AdminItineraryResource;
 use App\Resources\admin\Tours\AdminGroupTourResource;
 use App\Resources\Itinerary\ItineraryResource;
-use App\Resources\Tours\GroupTourResource;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -80,14 +79,13 @@ class AdminGroupTourController extends Controller
         return view('admin.tours.group.edit.edit', compact('data'));
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(UpdateRequest $request, $id): RedirectResponse
     {
-        dd($request->toArray(), $id);
         $data = $request->all();
 
-        $tour = $this->service->edit($data, $id);
+        $this->service->edit($data, $id);
 
-        return Response::json($tour);
+        return redirect()->route('admin.group_tours.index');
     }
 
     public function destroy($id): Application|JsonResponse|Redirector|RedirectResponse

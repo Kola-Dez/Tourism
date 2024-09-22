@@ -4,17 +4,26 @@ namespace App\Resources\admin\Tours;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 /**
- * @property mixed $translated_name
  * @property mixed $image
  * @property mixed $description
  * @property mixed $destination
  * @property mixed $travelDestination
+ * @property mixed $how_many_peoples
+ * @property mixed $price
  * @property mixed $inclusions
  * @property mixed $exclusions
  * @property mixed $duration
  * @property mixed $id
+ * @property mixed $category
+ * @property mixed $departing
+ * @property mixed $finishing
+ * @property mixed $title
+ * @property mixed $status
+ * @property mixed $hits
+ * @property mixed $images
  */
 class AdminPrivateTourResource extends JsonResource
 {
@@ -25,10 +34,17 @@ class AdminPrivateTourResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'travel_destination' => $this->travelDestination->translated_name,
+            'travel_destination' => $this->travelDestination->name,
+            'travel_destination_slug' => $this->travelDestination->slug,
             'destination' => $this->travelDestination->destination->translated_code,
+            'destination_slug' => $this->travelDestination->destination->slug,
+            'category' => $this->category->title,
+            'category_slug' => $this->category->slug,
             'image' => $this->image,
-            'date' => $this->duration,
+            'images' => json_decode($this->images),
+            'departing' => Carbon::parse($this->departing)->format('Y-m-d'),
+            'finishing' => Carbon::parse($this->finishing)->format('Y-m-d'),
+            'title' => $this->title,
             'description' => $this->description,
             'inclusions' => $this->inclusions,
             'exclusions' => $this->exclusions,
