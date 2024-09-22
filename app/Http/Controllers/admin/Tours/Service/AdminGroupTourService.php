@@ -44,23 +44,43 @@ class AdminGroupTourService
     {
         $data = $request->validated();
 
+        // Обработка одиночного изображения
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filePath = $file->store('images/groupTours', 'public');
             $data['image'] = '/storage/' . $filePath;
         }
 
+        // Форматирование дат
         $data['departing'] = Carbon::parse($data['departing'])->format('Y-m-d');
         $data['finishing'] = Carbon::parse($data['finishing'])->format('Y-m-d');
 
+        // Создание записи о туре
         $groupTour = GroupTour::create($data);
 
-        foreach($data['days'] as $key => $dataDay) {
+        // Обработка нескольких изображений
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            $imagePaths = [];
+
+            foreach ($images as $image) {
+                $filePath = $image->store('images/groupTours', 'public');
+                $imagePaths[] = '/storage/' . $filePath;
+            }
+
+            // Сохранение путей к изображениям в базе данных
+            $groupTour->images = json_encode($imagePaths);
+            $groupTour->save();
+        }
+
+        // Создание записей для дня тура
+        foreach ($data['days'] as $key => $dataDay) {
             $dataDay['day_number'] = (int)substr($key, 3, 1);
             $dataDay['tour_id'] = $groupTour->id;
             GroupTourItinerary::create($dataDay);
         }
     }
+
 
 
 
@@ -70,36 +90,84 @@ class AdminGroupTourService
 
         $oldImagePath = $tour->image;
 
+        // Обработка одиночного изображения
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
             $image = $data['image'];
             $imagePath = $image->store('images/', 'public');
             $data['image'] = Storage::url($imagePath);
 
             if ($oldImagePath) {
-                $oldImagePath = str_replace('storage/', 'public/', $tour->image);
+                $oldImagePath = str_replace('/storage/', 'public/', $tour->image);
                 if (Storage::exists($oldImagePath)) {
                     Storage::delete($oldImagePath);
                 }
             }
-        }else{
+        } else {
             $data['image'] = $tour->image;
         }
 
+        // Обработка массива изображений
+        if (isset($data['images']) && is_array($data['images'])) {
+            // Получение старых путей
+            $oldImagePaths = json_decode($tour->images, true);
+
+            // Обработка новых изображений
+            $newImagePaths = [];
+            foreach ($data['images'] as $image) {
+                if ($image instanceof UploadedFile) {
+                    $filePath = $image->store('images/groupTours', 'public');
+                    $newImagePaths[] = '/storage/' . $filePath;
+                }
+            }
+
+            // Сохранение новых путей
+            $data['images'] = json_encode($newImagePaths);
+
+            // Удаление старых изображений, которые больше не присутствуют
+            $oldImagePaths = array_diff($oldImagePaths, $newImagePaths);
+            foreach ($oldImagePaths as $imagePath) {
+                $imagePath = str_replace('/storage/', '', $imagePath);
+                if (Storage::disk('public')->exists($imagePath)) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+            }
+        } else {
+            $data['images'] = $tour->images;
+        }
+
+        // Обновление записи
         $tour->update($data);
 
         return $tour->toArray();
     }
 
+
     public function delete($tour): void
     {
+        // Удаление главного изображения
         if ($tour->image) {
             $imagePath = str_replace('/storage/', '', $tour->image);
 
             if (Storage::disk('public')->exists($imagePath)) {
                 Storage::disk('public')->delete($imagePath);
             }
-
         }
+
+        // Удаление изображений из массива 'images'
+        if ($tour->images) {
+            $imagePaths = json_decode($tour->images, true);
+
+            foreach ($imagePaths as $imagePath) {
+                $imagePath = str_replace('/storage/', '', $imagePath);
+
+                if (Storage::disk('public')->exists($imagePath)) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+            }
+        }
+
+        // Удаление записи о туре
         $tour->delete();
     }
+
 }

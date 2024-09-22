@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property mixed $title
  * @property mixed $status
  * @property mixed $hits
+ * @property mixed $images
  */
 class AdminGroupTourResource extends JsonResource
 {
@@ -40,6 +41,7 @@ class AdminGroupTourResource extends JsonResource
             'category' => $this->category->title,
             'category_slug' => $this->category->slug,
             'image' => $this->image,
+            'images' => json_decode($this->images),
             'departing' => Carbon::parse($this->departing)->format('Y-m-d'),
             'finishing' => Carbon::parse($this->finishing)->format('Y-m-d'),
             'title' => $this->title,

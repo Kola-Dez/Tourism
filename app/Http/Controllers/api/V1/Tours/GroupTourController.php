@@ -37,7 +37,6 @@ class GroupTourController extends Controller
 
         $groupTour = GroupTourResource::make($groupTour);
 
-
         return Response::json(['status' => 200, 'success' => true, 'data' => $groupTour, 'itinerary' => $itinerary]);
     }
 

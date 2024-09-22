@@ -11,8 +11,7 @@
         input[type="number"] {
             -moz-appearance: textfield;
         }
-    </style>
-    <style>
+
         .image-preview {
             display: flex;
             align-items: center;
@@ -21,13 +20,54 @@
         .image-preview img {
             max-width: 200px;
             height: auto;
-            border: 1px solid #ddd;
-            border-radius: 4px;
             margin-left: 10px;
         }
 
         .d-none {
             display: none;
+        }
+
+        * {
+            margin: 0;
+        }
+        html, body {
+            font-size: 18px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 30px;
+            padding: 30px;
+        }
+        img {
+            max-width: 700px;
+            max-height: 500px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        button:hover {
+            background: orangered;
+        }
+        button:active {
+            background: black;
+            color: white;
+        }
+        .slider {
+            width: 700px;
+            height: 500px;
+            border: 2px solid black;
+            margin: 30px auto;
+            border-radius: 10%;
+            overflow: hidden;
+            position: relative;
+        }
+        .slider-line {
+            height: 500px;
+            display: flex;
+            position: absolute;
+            left: 0;
+            transition: all ease 1s;
         }
     </style>
     <div class="card card-green">
@@ -98,9 +138,9 @@
                             @enderror
                         </div>
 
-                        <!-- New file input field -->
+                        <!-- Upload Image -->
                         <div class="form-group">
-                            <label class="form-label @error('image') is-invalid @enderror" >Upload Image</label>
+                            <label class="form-label @error('image') is-invalid @enderror">Upload Image</label>
                             @error('image')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -116,19 +156,34 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Upload Multiple Images -->
+                    <div class="form-group">
+                        <label class="form-label @error('images') is-invalid @enderror">Upload Images</label>
+                        @error('images')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        <div class="d-flex align-items-center">
+                            <input type="file" id="imagesUpload" name="images[]" multiple class="d-none">
+                            <button type="button" class="btn btn-primary" id="uploadImagesButton">
+                                <i class="fas fa-upload"></i> Choose Images
+                            </button>
+                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="form-label @error('images') is-invalid @enderror" >Upload Image</label>
-                            @error('images')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                            <div class="d-flex align-items-center">
-                                <input type="file" name="images[]" multiple>
+                    <!-- Slider -->
+                    <div class="container">
+                        <div class="slider">
+                            <div class="slider-line" id="sliderLine">
+                                <!-- Изображения будут добавляться сюда -->
                             </div>
                         </div>
-
+                        <button type="button" class="btn btn-primary slider-prev">Prev</button>
+                        <button type="button" class="btn btn-primary slider-next">Next</button>
                     </div>
                 </div>
 
@@ -243,49 +298,142 @@
                     <div class="col-sm-5" style="margin-bottom: 1%">
                         <div class="form-group" id="fieldsContainer">
                             <div class="fieldGroup" data-field-id="1">
-                                <label for="day1" style="margin-right: 5%;">Day 1:</label>
-                                <label>Title
-                                    <input type="text" class="form-control @error('days.day1.title') is-invalid @enderror" name="days[day1][title]" id="title1" placeholder="Enter title" value="{{ old('days.day1.title') }}">
-                                </label>
-                                @error('days.day1.title')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                <div class="col-sm-5">
+                                    <label for="day1" style="margin-right: 5%;">Day 1:</label>
+                                    <label>Title
+                                        <input type="text" class="form-control @error('days.day1.title') is-invalid @enderror" name="days[day1][title]" id="title1" placeholder="Enter title" value="{{ old('days.day1.title') }}">
+                                    </label>
+                                    @error('days.day1.title')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-                                @enderror
-
-                                <label>Description
-                                    <input type="text" class="form-control @error('days.day1.description') is-invalid @enderror" name="days[day1][description]" id="description1" placeholder="Enter description" value="{{ old('days.day1.description') }}">
-                                </label>
-                                @error('days.day1.description')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                <div class="col-sm-5">
+                                    <label>Description
+                                        <textarea class="form-control @error('days.day1.description') is-invalid @enderror" name="days[day1][description]" id="description1" placeholder="Enter description">{{ old('days.day1.description') }}</textarea>
+                                    </label>
+                                    @error('days.day1.description')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-                                @enderror
                             </div>
                         </div>
                         <button type="button" class="btn btn-info" id="addField">Add More</button>
                     </div>
                 </div>
 
+
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>
     </div>
-
-    <!-- JavaScript code -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const sliderLine = document.getElementById('sliderLine');
+            const imageWidth = 700;
+            let offset = 0;
 
+            // Функция для обновления размеров слайдера
+            function updateSlider() {
+                sliderLine.style.width = 0;
+                Array.from(sliderLine.children).forEach(img => {
+                    img.style.width = '1000px';
+                });
+            }
+
+            // Функция для переключения на следующее изображение
+            function moveToNext() {
+                const totalWidth = sliderLine.scrollWidth;
+                offset += imageWidth;
+                if (offset >= totalWidth) {
+                    offset = 0;
+                }
+                sliderLine.style.transition = 'left 0.5s ease';
+                sliderLine.style.left = -offset + 'px';
+            }
+
+            // Функция для переключения на предыдущее изображение
+            function moveToPrev() {
+                offset -= imageWidth;
+                if (offset < 0) {
+                    offset = sliderLine.scrollWidth - imageWidth;
+                }
+                sliderLine.style.transition = 'left 0.5s ease';
+                sliderLine.style.left = -offset + 'px';
+            }
+
+            document.querySelector('.slider-next').addEventListener('click', moveToNext);
+            document.querySelector('.slider-prev').addEventListener('click', moveToPrev);
+
+            // Обработчик для загрузки одного изображения
+            document.getElementById('uploadButton').addEventListener('click', function () {
+                document.getElementById('imageUpload').click();
+            });
+
+            document.getElementById('imageUpload').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const previewImage = document.getElementById('previewImage');
+                const imagePreviewContainer = document.getElementById('imagePreview');
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.classList.remove('d-none');
+                    imagePreviewContainer.classList.remove('d-none');
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Обработчик для загрузки нескольких изображений
+            document.getElementById('uploadImagesButton').addEventListener('click', function() {
+                document.getElementById('imagesUpload').click();
+            });
+
+            document.getElementById('imagesUpload').addEventListener('change', function(event) {
+                const files = event.target.files;
+
+                // Очистка текущих изображений из слайдера
+                while (sliderLine.firstChild) {
+                    sliderLine.removeChild(sliderLine.firstChild);
+                }
+
+                // Добавление новых изображений в слайдер
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = 'Image';
+                        sliderLine.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                // Обновление слайдера после загрузки изображений
+                updateSlider();
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
             const countrySelect = document.getElementById('country-select');
             const cityGroup = document.getElementById('city-group');
             const citySelect = document.getElementById('city-select');
 
+            // Обработчик изменения страны
             countrySelect.addEventListener('change', function () {
                 const selectedCountry = this.value;
 
                 if (selectedCountry) {
                     citySelect.innerHTML = '';
-                    cityGroup.style = 'display: block';
+                    cityGroup.style.display = 'block';
                     const url = '/api/v1/travels';
 
                     fetch(url)
@@ -311,32 +459,10 @@
                             console.error('Error: ', error);
                         });
                 } else {
-                    cityGroup.style = 'display: none;';
+                    cityGroup.style.display = 'none';
                     citySelect.innerHTML = '';
                 }
             });
-        });
-
-        document.getElementById('uploadButton').addEventListener('click', function() {
-            document.getElementById('imageUpload').click();
-        });
-
-        document.getElementById('imageUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const previewImage = document.getElementById('previewImage');
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    previewImage.src = e.target.result;
-                    previewImage.classList.remove('d-none');
-                };
-
-                reader.readAsDataURL(file);
-            } else {
-                previewImage.classList.add('d-none');
-            }
         });
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -345,6 +471,7 @@
             const fieldsContainer = document.getElementById('fieldsContainer');
             const addFieldButton = document.getElementById('addField');
 
+            // Функция для удаления полей
             function removeField(fieldGroup) {
                 if (fieldCount > 1 && Number(fieldGroup.getAttribute('data-field-id')) === fieldCount) {
                     fieldGroup.remove();
@@ -358,6 +485,7 @@
                 }
             }
 
+            // Обработчик добавления нового поля
             addFieldButton.addEventListener('click', () => {
                 if (fieldCount < maxFields) {
                     const lastFieldGroup = fieldsContainer.querySelector(`.fieldGroup[data-field-id="${fieldCount}"]`);
@@ -372,28 +500,35 @@
                     newFieldGroup.setAttribute('data-field-id', fieldCount);
 
                     newFieldGroup.innerHTML = `
+                    <div class="col-sm-5">
                         <label for="day${fieldCount}" style="margin-right: 5%;">Day ${fieldCount}:</label>
                         <label>Title
                             <input type="text" class="form-control" name="days[day${fieldCount}][title]" id="title${fieldCount}" placeholder="Enter title">
                         </label>
+                    </div>
+                    <div class="col-sm-5">
                         <label>Description
-                            <input type="text" class="form-control" name="days[day${fieldCount}][description]" id="description${fieldCount}" placeholder="Enter description">
+                            <textarea class="form-control" name="days[day${fieldCount}][description]" id="description${fieldCount}" placeholder="Enter description"></textarea>
                         </label>
-                        <button type="button" class="removeField btn btn-danger">Remove</button>
-                    `;
+                    </div>
+                    <button type="button" class="removeField btn btn-danger">Remove</button>
+                `;
 
+                    // Добавляем обработчик удаления для нового поля
                     newFieldGroup.querySelector('.removeField').addEventListener('click', () => {
                         removeField(newFieldGroup);
                     });
 
                     fieldsContainer.appendChild(newFieldGroup);
 
+                    // Прокрутка к новому полю
                     newFieldGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
                     alert('You have reached the maximum number of fields.');
                 }
             });
 
+            // Обработчик кликов по кнопке удаления поля
             fieldsContainer.addEventListener('click', (event) => {
                 if (event.target.classList.contains('removeField')) {
                     const fieldGroup = event.target.closest('.fieldGroup');
@@ -402,4 +537,5 @@
             });
         });
     </script>
+
 @endsection

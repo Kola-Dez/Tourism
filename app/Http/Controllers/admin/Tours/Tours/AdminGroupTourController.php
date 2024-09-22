@@ -14,6 +14,7 @@ use App\Resources\admin\Category\AdminCategoryResource;
 use App\Resources\admin\Destination\AdminDestinationResource;
 use App\Resources\admin\Itinerary\AdminItineraryResource;
 use App\Resources\admin\Tours\AdminGroupTourResource;
+use App\Resources\Itinerary\ItineraryResource;
 use App\Resources\Tours\GroupTourResource;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -51,9 +52,8 @@ class AdminGroupTourController extends Controller
         return view('admin.tours.group.create.create', compact('data'));
     }
 
-    public function store(Request $request): Application|Redirector|RedirectResponse
+    public function store(StoreRequest $request): Application|Redirector|RedirectResponse
     {
-        dd($request->toArray());
         $this->service->store($request);
 
         return redirect()->route('admin.group_tours.index');
@@ -61,9 +61,13 @@ class AdminGroupTourController extends Controller
 
     public function show(GroupTour $groupTour): View|Factory|Application
     {
-        $tour = GroupTourResource::make($groupTour)->toArray(request());
+        $itinerary = GroupTourItinerary::where('tour_id', $groupTour->id)->get();
 
-        return view('admin.tours.group.show.show', compact('tour'));
+        $groupTour = AdminGroupTourResource::make($groupTour)->toArray(request());
+
+        $groupTour['itineraries'] = ItineraryResource::collection($itinerary)->toArray(request());;
+
+        return view('admin.tours.group.show.show', compact('groupTour'));
     }
 
     public function edit(GroupTour $groupTour): View|Factory|Application

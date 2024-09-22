@@ -9,7 +9,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $image
  * @property mixed $images
  * @property mixed $description
- * @property mixed $destination
  * @property mixed $travelDestination
  * @property mixed $how_many_peoples
  * @property mixed $price
@@ -17,6 +16,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $exclusions
  * @property mixed $duration
  * @property mixed $id
+ * @property mixed $category
  */
 class GroupTourResource extends JsonResource
 {
@@ -26,6 +26,7 @@ class GroupTourResource extends JsonResource
             'id' => $this->id,
             'travel_destination' => $this->travelDestination->translated_name,
             'destination' => $this->travelDestination->destination->translated_code,
+            'category' => $this->category->translated_name,
             'image' => $this->image,
             'date' => $this->duration,
             'images' => $this->images ?? [],

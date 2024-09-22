@@ -247,7 +247,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-warning">Edite</button>
             </form>
         </div>
     </div>
