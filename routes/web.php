@@ -3,8 +3,11 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\blog\AdminBlogController;
 use App\Http\Controllers\admin\Category\AdminCategoryController;
+use App\Http\Controllers\admin\Destination\AdminDestinationController;
+use App\Http\Controllers\admin\Gallery\AdminGalleryController;
 use App\Http\Controllers\admin\Tours\AdminGroupTourController;
 use App\Http\Controllers\admin\Tours\AdminPrivateTourController;
+use App\Http\Controllers\admin\TravelDestination\AdminTravelDestinationController;
 use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +47,34 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])->name('edit');
             Route::patch('/{category}', [AdminCategoryController::class, 'update'])->name('update');
             Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('travel_destinations')->name('travel_destinations.')->group(function () {
+            Route::get('/', [AdminTravelDestinationController::class, 'index'])->name('index');
+            Route::get('/create', [AdminTravelDestinationController::class, 'create'])->name('create');
+            Route::post('/', [AdminTravelDestinationController::class, 'store'])->name('store');
+            Route::get('/{travelDestination}', [AdminTravelDestinationController::class, 'show'])->name('show');
+            Route::get('/{travelDestination}/edit', [AdminTravelDestinationController::class, 'edit'])->name('edit');
+            Route::patch('/{travelDestination}', [AdminTravelDestinationController::class, 'update'])->name('update');
+            Route::delete('/{travelDestination}', [AdminTravelDestinationController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('destinations')->name('destinations.')->group(function () {
+            Route::get('/', [AdminDestinationController::class, 'index'])->name('index');
+            Route::get('/create', [AdminDestinationController::class, 'create'])->name('create');
+            Route::post('/', [AdminDestinationController::class, 'store'])->name('store');
+            Route::get('/{destination}', [AdminDestinationController::class, 'show'])->name('show');
+            Route::get('/{destination}/edit', [AdminDestinationController::class, 'edit'])->name('edit');
+            Route::patch('/{destination}', [AdminDestinationController::class, 'update'])->name('update');
+            Route::delete('/{destination}', [AdminDestinationController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('galleries')->name('galleries.')->group(function () {
+            Route::get('/', [AdminGalleryController::class, 'index'])->name('index');
+            Route::get('/create', [AdminGalleryController::class, 'create'])->name('create');
+            Route::post('/', [AdminGalleryController::class, 'store'])->name('store');
+            Route::get('/{gallery}', [AdminGalleryController::class, 'show'])->name('show');
+            Route::delete('/{gallery}', [AdminGalleryController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('blogs')->name('blogs.')->group(function () {

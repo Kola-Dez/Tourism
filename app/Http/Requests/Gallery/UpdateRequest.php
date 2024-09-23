@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Gallery;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\File;
@@ -12,17 +12,7 @@ use Illuminate\Validation\Rules\File;
 class UpdateRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize(): bool
-    {
-        return true; // Убедитесь, что это значение соответствует вашей логике авторизации
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
+     * Получить правила валидации, применимые к запросу.
      *
      * @return array<string, ValidationRule|array|string>
      */
@@ -30,32 +20,34 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'destination_id' => 'required|integer|exists:destinations,id',
             'image' => [
                 'nullable',
                 File::types(['png', 'jpg', 'jpeg'])
                     ->max(12 * 1024),
             ],
+            'description' => 'required|string',
         ];
     }
 
     /**
-     * Handle a failed validation attempt.
+     * Обработка неудачной валидации.
      *
      * @param  Validator  $validator
      * @return void
-     *
-     * @throws HttpResponseException
      */
     protected function failedValidation(Validator $validator): void
     {
         $errors = $validator->errors();
 
-        $category = $this->route('category');
+        // Получаем ID тура из маршрута
+        $blogId = $this->route('blog');
 
-        $response = Redirect::route('admin.categories.edit', ['category' => $category])
+        // Формируем ответ с ошибками и перенаправлением на страницу редактирования
+        $response = Redirect::route('admin.blogs.edit', ['blog' => $blogId])
             ->withErrors($errors)
             ->withInput();
 
-        throw new HttpResponseException($response);
+        throw new HttpResponseException($response); // Выбрасываем исключение с ответом
     }
 }

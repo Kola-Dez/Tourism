@@ -43,7 +43,9 @@ class Destination extends Model
 
     public function getTranslatedCodeAttribute(): string
     {
-        return __('messages.destination.' . $this->getAttribute('code'));
+        return __('messages.destination.' . $this->getAttribute('code')) !== 'messages.destination.' . $this->getAttribute('code') ?
+            __('messages.destination.' . $this->getAttribute('code')):
+            $this->getAttribute('code');
     }
 
     public function getSlugAttribute(): string

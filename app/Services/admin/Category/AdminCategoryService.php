@@ -47,6 +47,8 @@ class AdminCategoryService
             $data['image'] = $category->image;
         }
 
+        $category['slug'] = $category['title'];
+
         $category->update($data);
     }
 

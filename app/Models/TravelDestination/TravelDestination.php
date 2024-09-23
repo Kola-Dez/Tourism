@@ -53,7 +53,9 @@ class TravelDestination extends Model
 
     public function getTranslatedNameAttribute(): string
     {
-        return __('messages.travel_destination.' . $this->getAttribute('name'));
+        return __('messages.travel_destination.' . $this->getAttribute('name')) !== 'messages.travel_destination.' . $this->getAttribute('name')
+            ? __('messages.travel_destination.' . $this->getAttribute('name'))
+            : $this->getAttribute('name');
     }
 
     public function getSlugAttribute(): string

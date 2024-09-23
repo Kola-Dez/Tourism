@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('destination_id')->constrained('destinations')->cascadeOnDelete();
 
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->nullable();
 
             $table->string('image')->nullable();
 

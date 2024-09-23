@@ -2,29 +2,20 @@
 
 @section('content')
     <style>
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
         .image-preview {
             display: flex;
             align-items: center;
         }
 
-        .image-preview img {
-            max-width: 200px;
-            height: auto;
-            margin-left: 10px;
-        }
-
         .d-none {
             display: none;
+        }
+    </style>
+    <style>
+        .image-preview img {
+            max-width: 400px;
+            height: auto;
+            margin-left: 10px;
         }
 
         * {
@@ -32,15 +23,6 @@
         }
         html, body {
             font-size: 18px;
-        }
-        .container {
-            max-width: 700px;
-            margin: 30px;
-            padding: 30px;
-        }
-        img {
-            max-width: 700px;
-            max-height: 500px;
         }
         h1 {
             text-align: center;
@@ -53,38 +35,23 @@
             background: black;
             color: white;
         }
-        .slider {
-            width: 700px;
-            height: 500px;
-            border: 2px solid black;
-            margin: 30px auto;
-            border-radius: 10%;
-            overflow: hidden;
-            position: relative;
-        }
-        .slider-line {
-            height: 500px;
-            display: flex;
-            position: absolute;
-            left: 0;
-            transition: all ease 1s;
-        }
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Create Blog</h3>
+            <h3 class="card-comment">Edit Group Tour</h3>
         </div>
         <a href="{{ route('admin.blogs.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.blogs.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.blogs.update', $data['blog']['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+                @method('Patch')
                 @csrf
                 <div class="row">
                     <div class="col-sm-6">
                         <!-- Title input -->
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ old('title') }}">
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ $data['blog']['title'] }}">
                             @error('title')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -94,8 +61,7 @@
                     </div>
 
                     <div class="col-sm-4">
-
-                        <!-- Upload Image -->
+                        <!-- New file input field -->
                         <div class="form-group">
                             <label class="form-label @error('image') is-invalid @enderror">Upload Image</label>
                             @error('image')
@@ -109,11 +75,10 @@
                                     <i class="fas fa-upload"></i> Choose Image
                                 </button>
                                 <div class="image-preview ms-3" id="imagePreview">
-                                    <img src="" alt="Image Preview" class="img-fluid d-none" id="previewImage">
+                                    <img src="{{ $data['blog']['image'] }}" alt="Image Preview" class="img-fluid" id="previewImage">
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -122,7 +87,7 @@
                         <!-- Description textarea -->
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ old('description') }}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $data['blog']['description'] }}</textarea>
                             @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -133,7 +98,6 @@
                 </div>
 
                 <div class="row">
-
                     <div class="col-sm-4">
                         <!-- Country select -->
                         <div class="form-group">
@@ -141,7 +105,7 @@
                             <select class="form-control @error('destination_id') is-invalid @enderror" id="country-select" name="destination_id">
                                 <option value="">Select country</option>
                                 @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{ old('destination') == $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
+                                    <option value="{{ $destination['id'] }}" {{ $data['blog']['destination'] !== $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
                                 @endforeach
                             </select>
                             @error('destination')
@@ -153,13 +117,12 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-warning">Edite</button>
             </form>
         </div>
     </div>
-    <script>
+        <script>
         document.addEventListener('DOMContentLoaded', function () {
-
             // Обработчик для загрузки одного изображения
             document.getElementById('uploadButton').addEventListener('click', function () {
                 document.getElementById('imageUpload').click();

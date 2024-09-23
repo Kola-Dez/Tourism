@@ -61,6 +61,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.travel_destinations.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-image"></i>
+                            <p>
+                                Travel Destination
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.destinations.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-image"></i>
+                            <p>
+                                Destination
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-table"></i>
                             <p>
@@ -82,6 +98,14 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.galleries.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-image"></i>
+                            <p>
+                                Galleries
+                            </p>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.blogs.index') }}" class="nav-link">

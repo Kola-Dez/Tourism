@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Gallery;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\File;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // Убедитесь, что это значение соответствует вашей логике авторизации
+        return true;
     }
 
     /**
@@ -29,9 +29,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
             'image' => [
-                'nullable',
+                'required',
                 File::types(['png', 'jpg', 'jpeg'])
                     ->max(12 * 1024),
             ],
@@ -50,9 +49,7 @@ class UpdateRequest extends FormRequest
     {
         $errors = $validator->errors();
 
-        $category = $this->route('category');
-
-        $response = Redirect::route('admin.categories.edit', ['category' => $category])
+        $response = Redirect::route('admin.galleries.create')
             ->withErrors($errors)
             ->withInput();
 

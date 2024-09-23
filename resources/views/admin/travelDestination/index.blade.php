@@ -15,10 +15,11 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Blogs Table</h3>
+                    <h3 class="card-title">Travel Destinations Table</h3>
+
                     <div class="card-tools">
-                        <form action="{{ route('admin.blogs.index') }}" method="GET">
-                            <div class="input-group input-group-sm" style="width: 100px;">
+                        <form action="{{ route('admin.travel_destinations.index') }}" method="GET">
+                            <div class="input-group input-group-sm" style="width: 300px;">
                                 <select class="form-control" id="category-select" name="table_search">
                                     <option value="">All</option>
                                     @foreach($data['destinations'] as $blog)
@@ -36,33 +37,31 @@
                     </div>
                 </div>
                 <!-- /.card-header -->
-                <a href="{{ route('admin.blogs.create') }}" class="btn btn-create">Create</a>
+                <a href="{{ route('admin.travel_destinations.create') }}" class="btn btn-create">Create</a>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Destination</th>
-                            <th>Description</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($data['blogs'] as $blog)
+                        @foreach($data['travelDestinations'] as $travelDestination)
                             <tr>
-                                <td>{{ $blog['id'] }}</td>
-                                <td>{{ $blog['title'] }}</td>
-                                <td>{{ $blog['destination'] }}</td>
-                                <td>{{ $blog['description'] }}</td>
+                                <td>{{ $travelDestination['id'] }}</td>
+                                <td>{{ $travelDestination['name'] }}</td>
+                                <td>{{ $travelDestination['destination'] }}</td>
                                 <td>
-                                    <img src="{{ asset($blog['image']) }}" alt="{{ $blog['title'] }}" width="200">
+                                    <img src="{{ asset($travelDestination['image']) }}" alt="{{ $travelDestination['name'] }}" style="max-width: 200px">
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.blogs.show', $blog['id']) }}" class="btn btn-outline-info">Show</a>
-                                    <a href="{{ route('admin.blogs.edit', $blog['id']) }}" class="btn btn-outline-warning">Edit</a>
-                                    <form action="{{ route('admin.blogs.destroy', $blog['id']) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('admin.travel_destinations.show', $travelDestination['id']) }}" class="btn btn-outline-info">Show</a>
+                                    <a href="{{ route('admin.travel_destinations.edit', $travelDestination['id']) }}" class="btn btn-outline-warning">Edit</a>
+                                    <form action="{{ route('admin.travel_destinations.destroy', $travelDestination['id']) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger">Delete</button>

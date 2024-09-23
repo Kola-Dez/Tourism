@@ -18,7 +18,7 @@
         }
 
         .image-preview img {
-            max-width: 200px;
+            max-width: 700px;
             height: auto;
             margin-left: 10px;
         }
@@ -32,15 +32,6 @@
         }
         html, body {
             font-size: 18px;
-        }
-        .container {
-            max-width: 700px;
-            margin: 30px;
-            padding: 30px;
-        }
-        img {
-            max-width: 700px;
-            max-height: 500px;
         }
         h1 {
             text-align: center;
@@ -72,26 +63,14 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Create Blog</h3>
+            <h3 class="card-comment">Create Gallery</h3>
         </div>
-        <a href="{{ route('admin.blogs.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.galleries.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.blogs.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.galleries.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @csrf
                 <div class="row">
-                    <div class="col-sm-6">
-                        <!-- Title input -->
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ old('title') }}">
-                            @error('title')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div class="col-sm-4">
 
@@ -114,42 +93,6 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <!-- Description textarea -->
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ old('description') }}</textarea>
-                            @error('description')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-4">
-                        <!-- Country select -->
-                        <div class="form-group">
-                            <label>Выберите страну</label>
-                            <select class="form-control @error('destination_id') is-invalid @enderror" id="country-select" name="destination_id">
-                                <option value="">Select country</option>
-                                @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{ old('destination') == $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
-                                @endforeach
-                            </select>
-                            @error('destination')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
                     </div>
                 </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin\blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\StoreRequest;
+use App\Http\Requests\Blog\UpdateRequest;
 use App\Models\Blog\Blog;
 use App\Models\Destination\Destination;
 use App\Resources\admin\Blog\AdminBlogResource;
@@ -15,7 +16,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 
 class AdminBlogController extends Controller
@@ -27,11 +27,15 @@ class AdminBlogController extends Controller
         $this->service = $service;
     }
 
-    public function index(): View|Factory|Application
+    public function index(Request $request): View|Factory|Application
     {
-        $blogs = AdminBlogResource::collection(Blog::all())->toArray(request());
+        $blogs = $this->service->index($request);
 
-        return view('admin.blog.index', compact('blogs'));
+        $data['blogs'] = AdminBlogResource::collection($blogs)->toArray($request);
+
+        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray($request);
+
+        return view('admin.blog.index', compact('data'));
     }
 
     public function show(Blog $blog): View|Factory|Application
@@ -51,6 +55,23 @@ class AdminBlogController extends Controller
     public function store(StoreRequest $request): Application|Redirector|RedirectResponse
     {
         $this->service->store($request);
+
+        return redirect()->route('admin.blogs.index');
+    }
+
+    public function edit(Blog $blog): View|Factory|Application
+    {
+        $data['blog'] = AdminBlogResource::make($blog)->toArray(request());
+        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+
+        return view('admin.blog.edit.edit', compact('data'));
+    }
+
+    public function update(UpdateRequest $request, $id): RedirectResponse
+    {
+        $data = $request->all();
+
+        $this->service->edit($data, $id);
 
         return redirect()->route('admin.blogs.index');
     }

@@ -2,16 +2,6 @@
 
 @section('content')
     <style>
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
         .image-preview {
             display: flex;
             align-items: center;
@@ -33,11 +23,6 @@
         html, body {
             font-size: 18px;
         }
-        .container {
-            max-width: 700px;
-            margin: 30px;
-            padding: 30px;
-        }
         img {
             max-width: 700px;
             max-height: 500px;
@@ -53,48 +38,32 @@
             background: black;
             color: white;
         }
-        .slider {
-            width: 700px;
-            height: 500px;
-            border: 2px solid black;
-            margin: 30px auto;
-            border-radius: 10%;
-            overflow: hidden;
-            position: relative;
-        }
-        .slider-line {
-            height: 500px;
-            display: flex;
-            position: absolute;
-            left: 0;
-            transition: all ease 1s;
-        }
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Create Blog</h3>
+            <h3 class="card-comment">Create Travel Destination</h3>
         </div>
-        <a href="{{ route('admin.blogs.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.travel_destinations.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.blogs.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.travel_destinations.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @csrf
                 <div class="row">
                     <div class="col-sm-6">
-                        <!-- Title input -->
+                        <!-- Name input -->
                         <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter ..." value="{{ old('title') }}">
-                            @error('title')
+                            <label>Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter ..." value="{{ old('name') }}">
+                            @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
+
                     </div>
 
                     <div class="col-sm-4">
-
                         <!-- Upload Image -->
                         <div class="form-group">
                             <label class="form-label @error('image') is-invalid @enderror">Upload Image</label>
@@ -113,7 +82,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -133,7 +101,6 @@
                 </div>
 
                 <div class="row">
-
                     <div class="col-sm-4">
                         <!-- Country select -->
                         <div class="form-group">
@@ -141,10 +108,10 @@
                             <select class="form-control @error('destination_id') is-invalid @enderror" id="country-select" name="destination_id">
                                 <option value="">Select country</option>
                                 @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{ old('destination') == $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
+                                    <option value="{{ $destination['id'] }}" {{ old('destination_id') == $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
                                 @endforeach
                             </select>
-                            @error('destination')
+                            @error('destination_id')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
