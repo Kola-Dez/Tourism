@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ *
+ * @property mixed $id
  * @method static create(array $array)
  */
 class Blog extends Model

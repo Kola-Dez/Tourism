@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\V1\FindAdventure;
 
 use App\Http\Controllers\Controller;
-use App\Services\FindAdventure\FindAdventureService;
+use App\Services\api\FindAdventure\FindAdventureService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 

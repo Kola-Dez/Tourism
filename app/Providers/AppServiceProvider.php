@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use App\Services\Category\CategoryService;
-use App\Services\Tours\GroupTourService;
-use App\Services\Tours\PrivateTourService;
+use App\Services\api\Category\CategoryService;
+use App\Services\api\Tours\GroupTourService;
+use App\Services\api\Tours\PrivateTourService;
 use Doctrine\Inflector\Rules\Transformation;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -73,15 +73,6 @@
         }
     </style>
     <div class="card card-green">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="card-header">
             <h3 class="card-comment">Edit Group Tour</h3>
         </div>

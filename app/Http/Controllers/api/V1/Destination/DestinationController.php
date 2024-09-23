@@ -4,8 +4,8 @@ namespace App\Http\Controllers\api\V1\Destination;
 
 use App\Http\Controllers\Controller;
 use App\Models\Destination\Destination;
-use App\Resources\Destination\DestinationResource;
-use App\Services\Destination\DestinationService;
+use App\Resources\api\Destination\DestinationResource;
+use App\Services\api\Destination\DestinationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\V1\TravelDestination;
 
 use App\Http\Controllers\Controller;
 use App\Models\TravelDestination\TravelDestination;
-use App\Resources\TravelDestination\TravelDestinationResource;
+use App\Resources\api\TravelDestination\TravelDestinationResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 

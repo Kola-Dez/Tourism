@@ -51,12 +51,12 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-header">EXAMPLES</li>
+                    <li class="nav-header">TABLES</li>
                     <li class="nav-item">
-                        <a href="{{ asset('adminLTE/pages/gallery.html') }}" class="nav-link">
+                        <a href="{{ route('admin.categories.index') }}" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
                             <p>
-                                Gallery
+                                Categories
                             </p>
                         </a>
                     </li>
@@ -82,6 +82,14 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.blogs.index') }}" class="nav-link">
+                            <i class="nav-icon far fa-image"></i>
+                            <p>
+                                Blogs
+                            </p>
+                        </a>
                     </li>
                 </ul>
             </nav>

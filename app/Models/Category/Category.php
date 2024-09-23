@@ -39,7 +39,10 @@ class Category extends Model
 
     public function getTranslatedTitleAttribute(): Application|array|string|Translator|null
     {
-        return __('messages.categories.' . $this->getAttribute('title'));
+        return __('messages.categories.' . $this->getAttribute('title')) !== 'messages.categories.' . $this->getAttribute('title')
+            ? __('messages.categories.' . $this->getAttribute('title'))
+            : $this->getAttribute('title');
+
     }
 
     public function getSlugAttribute(): string

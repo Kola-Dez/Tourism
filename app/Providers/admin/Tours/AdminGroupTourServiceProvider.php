@@ -2,7 +2,7 @@
 
 namespace App\Providers\admin\Tours;
 
-use App\Http\Controllers\admin\Tours\Service\AdminGroupTourService;
+use App\Services\admin\Tours\AdminGroupTourService;
 use Illuminate\Support\ServiceProvider;
 
 class AdminGroupTourServiceProvider extends ServiceProvider

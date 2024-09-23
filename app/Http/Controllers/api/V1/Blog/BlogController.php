@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\V1\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog\Blog;
-use App\Resources\Blog\BlogResource;
+use App\Resources\api\Blog\BlogResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 

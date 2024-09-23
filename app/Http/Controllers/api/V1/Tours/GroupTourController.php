@@ -5,8 +5,8 @@ namespace App\Http\Controllers\api\V1\Tours;
 use App\Http\Controllers\Controller;
 use App\Models\Itineraries\GroupTourItinerary;
 use App\Models\Tours\GroupTour;
-use App\Resources\Itinerary\ItineraryResource;
-use App\Resources\Tours\GroupTourResource;
+use App\Resources\api\Itinerary\ItineraryResource;
+use App\Resources\api\Tours\GroupTourResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 
