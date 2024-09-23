@@ -61,8 +61,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::prefix('destinations')->name('destinations.')->group(function () {
             Route::get('/', [AdminDestinationController::class, 'index'])->name('index');
-            Route::get('/create', [AdminDestinationController::class, 'create'])->name('create');
-            Route::post('/', [AdminDestinationController::class, 'store'])->name('store');
             Route::get('/{destination}', [AdminDestinationController::class, 'show'])->name('show');
             Route::get('/{destination}/edit', [AdminDestinationController::class, 'edit'])->name('edit');
             Route::patch('/{destination}', [AdminDestinationController::class, 'update'])->name('update');

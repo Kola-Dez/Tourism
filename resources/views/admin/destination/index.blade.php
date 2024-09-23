@@ -39,11 +39,6 @@
                                 <td>
                                     <a href="{{ route('admin.destinations.show', $destination['id']) }}" class="btn btn-outline-info">Show</a>
                                     <a href="{{ route('admin.destinations.edit', $destination['id']) }}" class="btn btn-outline-warning">Edit</a>
-                                    <form action="{{ route('admin.destinations.destroy', $destination['id']) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

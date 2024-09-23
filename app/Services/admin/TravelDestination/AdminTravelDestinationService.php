@@ -23,7 +23,7 @@ class AdminTravelDestinationService
                         $q->where('code', 'like', "%{$search}%");
                     })
                     ->orWhereHas('destination', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%");
+                        $q->where('slug', 'like', "%{$search}%");
                     });
             });
 

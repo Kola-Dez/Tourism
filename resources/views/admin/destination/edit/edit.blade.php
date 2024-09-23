@@ -2,45 +2,20 @@
 
 @section('content')
     <style>
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-    </style>
-    <style>
         .image-preview {
             display: flex;
             align-items: center;
         }
-
-        .d-none {
     </style>
-        .image-preview img {
-            max-width: 200px;
-    display: none;
-    }
     <style>
-            height: auto;
-            margin-left: 10px;
-        }
-
         * {
             margin: 0;
         }
         html, body {
             font-size: 18px;
         }
-        .container {
-            max-width: 700px;
-            margin: 30px;
-            padding: 30px;
-        }
         img {
+            margin: 20px;
             max-width: 700px;
             max-height: 500px;
         }
@@ -55,47 +30,18 @@
             background: black;
             color: white;
         }
-        .slider {
-            width: 700px;
-            height: 500px;
-            border: 2px solid black;
-            margin: 30px auto;
-            border-radius: 10%;
-            overflow: hidden;
-            position: relative;
-        }
-        .slider-line {
-            height: 500px;
-            display: flex;
-            position: absolute;
-            left: 0;
-            transition: all ease 1s;
-        }
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Edit Travel Destination: {{ $data['travelDestination']['name'] }}</h3>
+            <h3 class="card-comment">Edit Travel Destination: {{ $destination['code'] }}</h3>
         </div>
-        <a href="{{ route('admin.travel_destinations.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.destinations.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.travel_destinations.update', $data['travelDestination']['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.destinations.update', $destination['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @method('Patch')
                 @csrf
                 <div class="row">
-                    <div class="col-sm-6">
-                        <!-- Title input -->
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter ..." value="{{ $data['travelDestination']['name'] }}">
-                            @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-
                     <div class="col-sm-4">
                         <!-- New file input field -->
                         <div class="form-group">
@@ -111,7 +57,7 @@
                                     <i class="fas fa-upload"></i> Choose Image
                                 </button>
                                 <div class="image-preview ms-3" id="imagePreview">
-                                    <img src="{{ $data['travelDestination']['image'] }}" alt="Image Preview" class="img-fluid" id="previewImage">
+                                    <img src="{{ $destination['image'] }}" alt="Image Preview" class="img-fluid" id="previewImage">
                                 </div>
                             </div>
                         </div>
@@ -123,28 +69,8 @@
                         <!-- Description textarea -->
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $data['travelDestination']['description'] }}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $destination['description'] }}</textarea>
                             @error('description')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-4" id="content">
-                        <div class="form-group">
-                            <label>Destination</label>
-                            <select class="form-control" name="destination_id">
-                                <option value="">Select Country</option>
-                                @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{$data['travelDestination']['destination_id'] === $destination['id'] ? 'selected' : ''}}>{{ $destination['name'] }}</option>
-                                @endforeach
-                            </select>
-
-                            @error('destination')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

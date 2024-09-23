@@ -22,7 +22,7 @@
                             <div class="input-group input-group-sm" style="width: 300px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search" value="{{ request('table_search') }}">
 
-                                <input type="date" name="departing_date" class="form-control float-right" placeholder="Departing Date" value="{{ request('departing_date') }}">
+                                <input type="date" name="departing_date" class="form-control float-right" placeholder="Departing Date" value="">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default">

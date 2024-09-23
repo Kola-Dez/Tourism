@@ -5,14 +5,10 @@ namespace App\Http\Controllers\admin\TravelDestination;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TravelDestination\StoreRequest;
 use App\Http\Requests\TravelDestination\UpdateRequest;
-use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\TravelDestination\TravelDestination;
-use App\Resources\admin\Category\AdminCategoryResource;
 use App\Resources\admin\Destination\AdminDestinationResource;
-use App\Resources\admin\Itinerary\AdminItineraryResource;
 use App\Resources\admin\TravelDestination\AdminTravelDestinationResources;
-use App\Resources\api\Itinerary\ItineraryResource;
 use App\Services\admin\TravelDestination\AdminTravelDestinationService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -21,7 +17,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Response;
 
 class AdminTravelDestinationController extends Controller
 {

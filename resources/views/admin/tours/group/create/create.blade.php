@@ -251,7 +251,7 @@
                             <select class="form-control @error('travel_destination_id') is-invalid @enderror" id="country-select" name="travel_destination_id">
                                 <option value="">Select country</option>
                                 @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{ old('travel_destination_id') == $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
+                                    <option value="{{ $destination['id'] }}" >{{ $destination['name'] }}</option>
                                 @endforeach
                             </select>
                             @error('travel_destination_id')
