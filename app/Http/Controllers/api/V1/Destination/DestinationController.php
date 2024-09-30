@@ -19,22 +19,20 @@ class DestinationController extends Controller
 
     public function index(): JsonResponse
     {
-        $destinations = Destination::all();
-
-        if (!$destinations) {
-            return Response::json(status: 204);
-        }
-
-        $destinations =  DestinationResource::collection($destinations);
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $destinations]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => DestinationResource::collection(Destination::all())->toArray(request())
+        ]);
     }
 
     public function show(Destination $destination): JsonResponse
     {
-        $destination = (new DestinationResource($destination));
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $destination]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => (new DestinationResource($destination))
+        ]);
     }
 
     public function travelDestinations(Destination $destination): JsonResponse

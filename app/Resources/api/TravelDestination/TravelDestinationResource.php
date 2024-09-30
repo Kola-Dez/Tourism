@@ -2,6 +2,8 @@
 
 namespace App\Resources\api\TravelDestination;
 
+use App\Models\Language\Language;
+use App\Resources\api\Destination\DestinationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -11,6 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $image
  * @property mixed $description
  * @property mixed $destination
+ * @property mixed $name
  */
 class TravelDestinationResource extends JsonResource
 {
@@ -19,13 +22,23 @@ class TravelDestinationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $translation = $this->translations()->where('language_id', $this->getLanguageId())->first();
+
         return [
-            'name' => $this->translated_name,
+            'name' => $translation ? $translation->translate_name : $this->name,
             'slug' => $this->slug,
             'image' => $this->image,
             'description' => $this->description,
-            'destination' => $this->destination->translated_code,
+            'destination' => new DestinationResource($this->destination),
             'destination_slug' => $this->destination->slug,
         ];
     }
+
+    private function getLanguageId()
+    {
+        $locale = app()->getLocale();
+
+        return Language::where('code', $locale)->value('id');
+    }
 }
+

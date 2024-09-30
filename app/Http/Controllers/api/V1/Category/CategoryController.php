@@ -13,22 +13,19 @@ class CategoryController extends Controller
 
     public function index(): JsonResponse
     {
-        $categories = Category::all();
-
-        if (!$categories) {
-            return Response::json(status: 204);
-        }
-
-        $categories = CategoryResource::collection($categories)->toArray(request());
-
-        return Response::json(['status' => 200, 'success' => true, 'data' => $categories]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => CategoryResource::collection(Category::all())->toArray(request())
+        ]);
     }
 
     public function show(Category $category): JsonResponse
     {
-        $category = CategoryResource::make($category)->toArray(request());
-
-        return Response::json(['status' => 200, 'success' => true, 'data' => $category]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => CategoryResource::make($category)->toArray(request())
+        ]);
     }
-
 }
