@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\blog\AdminBlogController;
 use App\Http\Controllers\admin\Category\AdminCategoryController;
 use App\Http\Controllers\admin\Destination\AdminDestinationController;
 use App\Http\Controllers\admin\Gallery\AdminGalleryController;
+use App\Http\Controllers\admin\Lnaguage\AdminLanguageController;
 use App\Http\Controllers\admin\Tours\AdminGroupTourController;
 use App\Http\Controllers\admin\Tours\AdminPrivateTourController;
 use App\Http\Controllers\admin\TravelDestination\AdminTravelDestinationController;
@@ -61,6 +62,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::prefix('destinations')->name('destinations.')->group(function () {
             Route::get('/', [AdminDestinationController::class, 'index'])->name('index');
+            Route::get('/create', [AdminDestinationController::class, 'create'])->name('create');
+            Route::post('/', [AdminDestinationController::class, 'store'])->name('store');
             Route::get('/{destination}', [AdminDestinationController::class, 'show'])->name('show');
             Route::get('/{destination}/edit', [AdminDestinationController::class, 'edit'])->name('edit');
             Route::patch('/{destination}', [AdminDestinationController::class, 'update'])->name('update');
@@ -83,6 +86,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{blog}/edit', [AdminBlogController::class, 'edit'])->name('edit');
             Route::patch('/{blog}', [AdminBlogController::class, 'update'])->name('update');
             Route::delete('/{blog}', [AdminBlogController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('languages')->name('languages.')->group(function () {
+            Route::get('/', [AdminLanguageController::class, 'index'])->name('index');
+            Route::get('/create', [AdminLanguageController::class, 'create'])->name('create');
+            Route::post('/', [AdminLanguageController::class, 'store'])->name('store');
+            Route::get('/{language}/edit', [AdminLanguageController::class, 'edit'])->name('edit');
+            Route::patch('/{language}', [AdminLanguageController::class, 'update'])->name('update');
+            Route::delete('/{language}', [AdminLanguageController::class, 'destroy'])->name('destroy');
         });
     });
 });

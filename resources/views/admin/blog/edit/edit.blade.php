@@ -101,11 +101,11 @@
                     <div class="col-sm-4">
                         <!-- Country select -->
                         <div class="form-group">
-                            <label>Выберите страну</label>
+                            <label>Select country</label>
                             <select class="form-control @error('destination_id') is-invalid @enderror" id="country-select" name="destination_id">
                                 <option value="">Select country</option>
                                 @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{ $data['blog']['destination'] !== $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
+                                    <option value="{{ $destination['id'] }}" {{ $data['blog']['destination_id'] === $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
                                 @endforeach
                             </select>
                             @error('destination')

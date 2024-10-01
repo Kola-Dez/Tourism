@@ -18,11 +18,11 @@
                     <h3 class="card-title">Blogs Table</h3>
                     <div class="card-tools">
                         <form action="{{ route('admin.blogs.index') }}" method="GET">
-                            <div class="input-group input-group-sm" style="width: 100px;">
+                            <div class="input-group input-group-sm" style="width: 200px;">
                                 <select class="form-control" id="category-select" name="table_search">
                                     <option value="">All</option>
                                     @foreach($data['destinations'] as $blog)
-                                        <option value="{{ $blog['code'] }}">{{ $blog['code'] }}</option>
+                                        <option value="{{ $blog['name_original'] }}">{{ $blog['name_original'] }}</option>
                                     @endforeach
                                 </select>
 

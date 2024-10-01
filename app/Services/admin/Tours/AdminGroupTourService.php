@@ -19,26 +19,28 @@ class AdminGroupTourService
 
         $query = GroupTour::query()
             ->with(['travelDestination.destination', 'category'])
-            ->when($search, function ($query, $search) {
-                $query->where('title', 'like', "%{$search}%")
-                    ->orWhereHas('travelDestination.destination', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('travelDestination', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%");
-                    })
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('description', 'like', "%{$search}%")
+                    ->orWhere('price', 'like', "%{$search}%")
                     ->orWhereHas('category', function ($q) use ($search) {
                         $q->where('title', 'like', "%{$search}%");
                     })
-                    ->orWhere('price', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%");
+                        ->orWhereHas('travelDestination', function ($q) use ($search) {
+                            $q->where('name', 'like', "%{$search}%");
+                        })
+                        ->orWhereHas('travelDestination.destination', function ($q) use ($search) {
+                            $q->where('name', 'like', "%{$search}%");
+                        });
+                });
             })
-            ->when($departingDate, function ($query, $departingDate) {
+            ->when($departingDate, function ($query) use ($departingDate) {
                 $query->whereDate('departing', $departingDate);
             });
 
         return $query->get();
     }
+
 
     public function store(StoreRequest $request): void
     {

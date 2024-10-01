@@ -23,7 +23,7 @@
                                 <select class="form-control" id="category-select" name="table_search">
                                     <option value="">All</option>
                                     @foreach($data['destinations'] as $blog)
-                                        <option value="{{ $blog['code'] }}">{{ $blog['code'] }}</option>
+                                        <option value="{{ $blog['name_original'] }}">{{ $blog['name_original'] }}</option>
                                     @endforeach
                                 </select>
 

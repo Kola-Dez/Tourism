@@ -15,32 +15,29 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Destinations Table</h3>
+                    <h3 class="card-title">Languages Table</h3>
                 </div>
                 <!-- /.card-header -->
-                <a href="{{ route('admin.destinations.create') }}" class="btn btn-create">Create</a>
+                <a href="{{ route('admin.languages.create') }}" class="btn btn-create">Create</a>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>name</th>
-                            <th>Image</th>
+                            <th>code</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($destinations as $destination)
+                        @foreach($languages as $language)
                             <tr>
-                                <td>{{ $destination['id'] }}</td>
-                                <td>{{ $destination['name'] }}</td>
+                                <td>{{ $language['id'] }}</td>
+                                <td>{{ $language['name'] }}</td>
+                                <td>{{ $language['code'] }}</td>
                                 <td>
-                                    <img src="{{ asset($destination['image']) }}" alt="{{ $destination['name'] }}" style="max-width: 200px">
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.destinations.show', $destination['id']) }}" class="btn btn-outline-info">Show</a>
-                                    <a href="{{ route('admin.destinations.edit', $destination['id']) }}" class="btn btn-outline-warning">Edit</a>
-                                    <form action="{{ route('admin.destinations.destroy', $destination['id']) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('admin.languages.edit', $language['id']) }}" class="btn btn-outline-warning">Edit</a>
+                                    <form action="{{ route('admin.languages.destroy', $language['id']) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger">Delete</button>

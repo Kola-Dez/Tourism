@@ -6,8 +6,17 @@
             display: flex;
             align-items: center;
         }
-    </style>
-    <style>
+
+        .image-preview img {
+            max-width: 200px;
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .d-none {
+            display: none;
+        }
+
         * {
             margin: 0;
         }
@@ -15,7 +24,6 @@
             font-size: 18px;
         }
         img {
-            margin: 20px;
             max-width: 700px;
             max-height: 500px;
         }
@@ -33,22 +41,19 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Edit Travel Destination: {{ $destination['name'] }}</h3>
+            <h3 class="card-comment">Create Destination</h3>
         </div>
         <a href="{{ route('admin.destinations.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.destinations.update', $destination['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
-                @method('Patch')
+            <form action="{{ route('admin.destinations.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @csrf
-
-
                 <div class="row">
                     <div class="col-sm-6">
                         <!-- Name input -->
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter ..." value="{{ $destination['name'] !== null ? $destination['name'] : old('name') }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter ..." value="{{ old('name') }}">
                             @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -58,7 +63,7 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <!-- New file input field -->
+                        <!-- Upload Image -->
                         <div class="form-group">
                             <label class="form-label @error('image') is-invalid @enderror">Upload Image</label>
                             @error('image')
@@ -72,7 +77,7 @@
                                     <i class="fas fa-upload"></i> Choose Image
                                 </button>
                                 <div class="image-preview ms-3" id="imagePreview">
-                                    <img src="{{ $destination['image'] }}" alt="Image Preview" class="img-fluid" id="previewImage">
+                                    <img src="" alt="Image Preview" class="img-fluid d-none" id="previewImage">
                                 </div>
                             </div>
                         </div>
@@ -84,7 +89,7 @@
                         <!-- Description textarea -->
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ $destination['description'] }}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="3" placeholder="Enter ...">{{ old('description') }}</textarea>
                             @error('description')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -94,14 +99,13 @@
                     </div>
                 </div>
 
-
-
-                <button type="submit" class="btn btn-warning">Edite</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             // Обработчик для загрузки одного изображения
             document.getElementById('uploadButton').addEventListener('click', function () {
                 document.getElementById('imageUpload').click();

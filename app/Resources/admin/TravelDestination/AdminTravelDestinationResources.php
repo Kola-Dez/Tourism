@@ -41,7 +41,7 @@ class AdminTravelDestinationResources extends JsonResource
             'image' => $this->image,
             'description' => $this->description,
             'destination_id' => $this->destination->id,
-            'destination' => $this->destination->translated_code,
+            'destination' => $this->destination->name,
         ];
     }
 }

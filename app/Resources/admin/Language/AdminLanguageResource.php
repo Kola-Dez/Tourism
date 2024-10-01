@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Resources\admin\Category;
+namespace App\Resources\admin\Language;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -8,12 +8,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property mixed $slug
  * @property mixed $image
- * @property mixed $translated_title
- * @property mixed $id
  * @property mixed $description
- * @property mixed $title
+ * @property mixed $translated_code
+ * @property mixed $id
+ * @property mixed $code
+ * @property mixed $name
  */
-class AdminCategoryResource extends JsonResource
+class AdminLanguageResource extends JsonResource
 {
     /**
      * @return array<string, mixed>
@@ -22,11 +23,8 @@ class AdminCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'image' => $this->image,
-            'slug' => $this->slug,
-            'description' => $this->description,
+            'name' => $this->name,
+            'code' => $this->code,
         ];
     }
-
 }

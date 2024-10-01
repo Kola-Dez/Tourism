@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Destination;
+namespace App\Http\Requests\Language;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rules\File;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Получить правила валидации, применимые к запросу.
@@ -19,13 +18,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'code' => 'required|string',
             'name' => 'required|string',
-            'description' => 'required|string',
-            'image' => [
-                'nullable',
-                File::types(['png', 'jpg', 'jpeg'])
-                ->max(12 * 1024),
-            ],
         ];
     }
 
@@ -39,13 +33,13 @@ class UpdateRequest extends FormRequest
     {
         $errors = $validator->errors();
 
-        $destinationId = $this->route('destination');
+        $languageId = $this->route('language');
 
         // Формируем ответ с ошибками и перенаправлением на страницу редактирования
-        $response = Redirect::route('admin.destinations.edit', ['destination' => $destinationId])
+        $response = Redirect::route('admin.languages.create', ['language' => $languageId])
             ->withErrors($errors)
             ->withInput();
 
-        throw new HttpResponseException($response); // Выбрасываем исключение с ответом
+        throw new HttpResponseException($response);
     }
 }

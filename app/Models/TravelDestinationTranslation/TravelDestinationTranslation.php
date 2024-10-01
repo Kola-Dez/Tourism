@@ -15,7 +15,8 @@ class TravelDestinationTranslation extends Model
     protected $fillable = [
         'travel_destination_id',
         'language_id',
-        'translation_name',
+        'translate_name',
+        'translate_description'
     ];
 
     public function travel_destination(): BelongsTo

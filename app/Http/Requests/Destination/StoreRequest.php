@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\File;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Получить правила валидации, применимые к запросу.
@@ -22,9 +22,9 @@ class UpdateRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'required|string',
             'image' => [
-                'nullable',
+                'required',
                 File::types(['png', 'jpg', 'jpeg'])
-                ->max(12 * 1024),
+                    ->max(12 * 1024),
             ],
         ];
     }
@@ -42,10 +42,10 @@ class UpdateRequest extends FormRequest
         $destinationId = $this->route('destination');
 
         // Формируем ответ с ошибками и перенаправлением на страницу редактирования
-        $response = Redirect::route('admin.destinations.edit', ['destination' => $destinationId])
+        $response = Redirect::route('admin.destinations.create', ['destination' => $destinationId])
             ->withErrors($errors)
             ->withInput();
 
-        throw new HttpResponseException($response); // Выбрасываем исключение с ответом
+        throw new HttpResponseException($response);
     }
 }
