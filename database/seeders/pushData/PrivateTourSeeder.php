@@ -29,7 +29,7 @@ class PrivateTourSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'travel_destination_id' => 1,
+                'travel_destination_id' => 2,
                 'title' => 'TestPrivateTours2',
                 'image' => 'Test2.png',
                 'description' => 'Private Test test hello this is test description2',

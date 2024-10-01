@@ -2,6 +2,7 @@
 
 namespace App\Resources\admin\Destination;
 
+use App\Models\Language\Language;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,13 +21,21 @@ class AdminDestinationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $translation = $this->translations()->where('language_id', $this->getLanguageId())->first();
+
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
-            'code' => $this->code,
-            'name' => $this->translated_code,
+            'name' => $translation ? $translation->translate_name : $this->name,
             'image' => $this->image,
+            'slug' => $this->slug,
             'description' => $this->description,
         ];
+    }
+
+    private function getLanguageId()
+    {
+        $locale = app()->getLocale();
+
+        return Language::where('code', $locale)->value('id');
     }
 }

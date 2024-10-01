@@ -31,63 +31,53 @@ class DestinationController extends Controller
         return response()->json([
             'status' => 200,
             'success' => true,
-            'data' => (new DestinationResource($destination))
+            'data' => DestinationResource::make($destination)->toArray(request())
         ]);
     }
 
     public function travelDestinations(Destination $destination): JsonResponse
     {
-        $data = $this->service->getTravelDestinations($destination);
-
-        if (!$data) {
-            return Response::json(status: 204);
-        }
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $this->service->getTravelDestinations($destination)
+        ]);
     }
 
     public function groupTours(Destination $destination): JsonResponse
     {
-        $data = $this->service->getGroupTours($destination);
-
-        if (!$data) {
-            return Response::json(status: 204);
-        }
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $this->service->getGroupTours($destination)
+        ]);
     }
 
     public function privateTours(Destination $destination): JsonResponse
     {
-        $data = $this->service->getPrivateTours($destination);
-
-        if (!$data) {
-            return Response::json(status: 204);
-        }
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $this->service->getPrivateTours($destination)
+        ]);
     }
 
     public function popularTours(Destination $destination): JsonResponse
     {
-        $data = $this->service->getPopularTours($destination);
-
-        if (!$data) {
-            return Response::json(status: 204);
-        }
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $this->service->getPopularTours($destination)
+        ]);
     }
 
     public function transportShow(Destination $destination): JsonResponse
     {
-        $data = $this->service->getTransport($destination);
-
-        if (!$data) {
-            return Response::json(status: 204);
-        }
-
-        return response()->json(['status' => 200, 'success' => true, 'data' => $data]);
+        return response()->json([
+            'status' => 200,
+            'success' => true,
+            'data' => $this->service->getTransport($destination)
+        ]);
     }
 
 }

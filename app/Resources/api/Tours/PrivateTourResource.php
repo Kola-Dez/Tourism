@@ -2,6 +2,8 @@
 
 namespace App\Resources\api\Tours;
 
+use App\Resources\api\Category\CategoryResource;
+use App\Resources\api\TravelDestination\TravelDestinationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,6 +17,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $exclusions
  * @property mixed $duration
  * @property mixed $id
+ * @property mixed $category
  */
 class PrivateTourResource extends JsonResource
 {
@@ -25,13 +28,13 @@ class PrivateTourResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'travel_destination' => $this->travelDestination->translated_name,
-            'destination' => $this->travelDestination->destination->translated_code,
             'image' => $this->image,
             'date' => $this->duration,
             'description' => $this->description,
             'inclusions' => $this->inclusions,
             'exclusions' => $this->exclusions,
+            'travel_destination' => new TravelDestinationResource($this->travelDestination),
+            'category' => new CategoryResource($this->category),
         ];
     }
 }

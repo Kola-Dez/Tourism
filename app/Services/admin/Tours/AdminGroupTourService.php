@@ -22,7 +22,7 @@ class AdminGroupTourService
             ->when($search, function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%")
                     ->orWhereHas('travelDestination.destination', function ($q) use ($search) {
-                        $q->where('code', 'like', "%{$search}%");
+                        $q->where('name', 'like', "%{$search}%");
                     })
                     ->orWhereHas('travelDestination', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");

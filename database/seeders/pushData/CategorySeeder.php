@@ -16,9 +16,9 @@ class CategorySeeder extends Seeder
     {
         // Создаем направления
         $categories = [
-            ['title' => 'Paris', 'image' => 'paris.jpg', 'description' => 'The city of light.'],
-            ['title' => 'Tokyo', 'image' => 'tokyo.jpg', 'description' => 'A bustling metropolis.'],
-            ['title' => 'New York', 'image' => 'newyork.jpg', 'description' => 'The Big Apple.'],
+            ['title' => 'Category1', 'image' => 'paris.jpg', 'description' => 'The city of light.'],
+            ['title' => 'Category2', 'image' => 'tokyo.jpg', 'description' => 'A bustling metropolis.'],
+            ['title' => 'Category3', 'image' => 'newyork.jpg', 'description' => 'The Big Apple.'],
         ];
 
         foreach ($categories as $categoryData) {

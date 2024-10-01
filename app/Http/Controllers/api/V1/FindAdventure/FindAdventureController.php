@@ -17,12 +17,10 @@ class FindAdventureController extends Controller
 
     public function findAdventure(): JsonResponse
     {
-        $data = $this->service->findAdventure(request());
-
-        if(!$data) {
-            return Response::json(status: 204);
-        }
-
-        return Response::json(['status' => 200,'success' => true, 'data' => $data]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => $this->service->findAdventure(request())
+        ]);
     }
 }

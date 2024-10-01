@@ -247,7 +247,7 @@
                     <div class="col-sm-4">
                         <!-- Country select -->
                         <div class="form-group">
-                            <label>Выберите страну</label>
+                            <label>Select country</label>
                             <select class="form-control @error('travel_destination_id') is-invalid @enderror" id="country-select" name="travel_destination_id">
                                 <option value="">Select country</option>
                                 @foreach($data['destinations'] as $destination)
@@ -278,7 +278,7 @@
                     <div class="col-sm-4">
                         <!-- Category select -->
                         <div class="form-group">
-                            <label>Выберите тип</label>
+                            <label>Select type</label>
                             <select class="form-control @error('category_id') is-invalid @enderror" id="category-select" name="category_id">
                                 <option value="">Select type</option>
                                 @foreach($data['categories'] as $category)

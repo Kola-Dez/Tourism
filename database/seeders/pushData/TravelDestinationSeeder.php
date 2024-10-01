@@ -29,19 +29,31 @@ class TravelDestinationSeeder extends Seeder
                 'name' => 'Eiffel Tower Tour',
                 'image' => 'eiffel_tower.jpg',
                 'description' => 'Enjoy a guided tour of the Eiffel Tower.',
-                'destination_id' => $destinations->first()->id, // Пример с первым направлением
+                'destination_id' => 1, // Пример с первым направлением
             ],
             [
                 'name' => 'Tokyo City Tour',
                 'image' => 'tokyo_city.jpg',
                 'description' => 'Experience the beauty of Tokyo on a guided tour.',
-                'destination_id' => $destinations->where('name', 'Tokyo')->first()->id, // Получаем id по названию
+                'destination_id' => 2, // Получаем id по названию
             ],
             [
                 'name' => 'Statue of Liberty Tour',
                 'image' => 'statue_of_liberty.jpg',
                 'description' => 'Visit the iconic Statue of Liberty in New York.',
-                'destination_id' => $destinations->where('name', 'New York')->first()->id,
+                'destination_id' => 3,
+            ],
+            [
+                'name' => 'Tour name',
+                'image' => 'statue_of_liberty.jpg',
+                'description' => 'Visit the iconic Statue of Liberty in New York.',
+                'destination_id' => 3,
+            ],
+            [
+                'name' => 'Tour name2',
+                'image' => 'statue_of_liberty.jpg',
+                'description' => 'Visit the iconic Statue of Liberty in New York.',
+                'destination_id' => 1,
             ],
         ];
 

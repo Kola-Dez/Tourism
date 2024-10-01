@@ -34,7 +34,7 @@ class GroupTourSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'travel_destination_id' => 4,
+                'travel_destination_id' => 2,
                 'title' => 'TestPrivateTours2',
                 'image' => 'Test2.png',
                 'images' => json_encode(['Test1.png', 'Test1.jpg']),
@@ -82,7 +82,7 @@ class GroupTourSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'travel_destination_id' => 11,
+                'travel_destination_id' => 1,
                 'title' => 'TestPrivateTours5',
                 'image' => 'Test5.png',
                 'images' => json_encode(['Test1.png', 'Test1.jpg']),
@@ -98,7 +98,7 @@ class GroupTourSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'travel_destination_id' => 12,
+                'travel_destination_id' => 3,
                 'title' => 'TestPrivateTours6',
                 'image' => 'Test6.png',
                 'images' => json_encode(['Test1.png', 'Test1.jpg']),
