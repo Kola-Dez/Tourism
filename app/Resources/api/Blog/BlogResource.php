@@ -2,6 +2,8 @@
 
 namespace App\Resources\api\Blog;
 
+use App\Models\Language\Language;
+use App\Resources\api\Destination\DestinationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,8 +26,15 @@ class BlogResource extends JsonResource
             'id' => $this->id,
             'title' =>  $this->title,
             'image' => $this->image,
-            'destination' => $this->destination->translated_code,
             'description' => $this->description,
+            'destination' => new DestinationResource($this->destination),
         ];
+    }
+
+    private function getLanguageId()
+    {
+        $locale = app()->getLocale();
+
+        return Language::where('code', $locale)->value('id');
     }
 }

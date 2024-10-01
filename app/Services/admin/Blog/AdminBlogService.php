@@ -19,7 +19,7 @@ class AdminBlogService
             ->when($search, function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%")
                     ->orWhereHas('destination', function ($q) use ($search) {
-                        $q->where('code', 'like', "%{$search}%"); // Поиск по полю 'code' в связанном 'destination'
+                        $q->where('name', 'like', "%{$search}%"); // Поиск по полю 'code' в связанном 'destination'
                     });
             });
 

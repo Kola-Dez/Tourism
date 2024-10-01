@@ -3,98 +3,73 @@
 namespace Database\Seeders\pushData;
 
 use App\Models\Destination\Destination;
+use App\Models\Language\Language;
 use App\Models\TravelDestination\TravelDestination;
+use App\Models\TravelDestinationTranslation\TravelDestinationTranslation;
 use Illuminate\Database\Seeder;
 
 class TravelDestinationSeeder extends Seeder
 {
+    /**
+     * Заполнить таблицу travel_destinations данными.
+     */
     public function run(): void
     {
-        $cities = [
-            // Kyrgyzstan
+        // Получаем все направления
+        $destinations = Destination::all();
+
+        // Проверяем, есть ли направления
+        if ($destinations->isEmpty()) {
+            return; // Выход, если нет направлений для создания travel destinations
+        }
+
+        // Пример данных для travel destinations
+        $travelDestinations = [
             [
-                'destination_id' => Destination::where('code', 'KG')->first()->id,
-                'cities' => [
-                    ['name' => 'Altyn Arashan', 'slug' => 'altyn arashan'],
-                    ['name' => 'Arslanbob', 'slug' => 'arslanbob'],
-                    ['name' => 'Batken', 'slug' => 'batken'],
-                    ['name' => 'Bishkek', 'slug' => 'bishkek'],
-                    ['name' => 'Burana Tower', 'slug' => 'burana tower'],
-                    ['name' => 'Cholpon-Ata', 'slug' => 'cholpon ata'],
-                    ['name' => 'Chon-Kemin', 'slug' => 'chon kemin'],
-                    ['name' => 'Issyk-Kul', 'slug' => 'issyk kul'],
-                    ['name' => 'Jalalabad', 'slug' => 'jalalabad'],
-                    ['name' => 'Karakol', 'slug' => 'karakol'],
-                ],
+                'name' => 'Eiffel Tower Tour',
+                'image' => 'eiffel_tower.jpg',
+                'description' => 'Enjoy a guided tour of the Eiffel Tower.',
+                'destination_id' => 1, // Пример с первым направлением
             ],
-            // Kazakhstan
             [
-                'destination_id' => Destination::where('code', 'KZ')->first()->id,
-                'cities' => [
-                    ['name' => 'Almaty', 'slug' => 'almaty'],
-                    ['name' => 'Astana', 'slug' => 'astana'],
-                    ['name' => 'Shymkent', 'slug' => 'shymkent'],
-                    ['name' => 'Karaganda', 'slug' => 'karaganda'],
-                    ['name' => 'Pavlodar', 'slug' => 'pavlodar'],
-                    ['name' => 'Aktobe', 'slug' => 'aktobe'],
-                    ['name' => 'Semey', 'slug' => 'semey'],
-                    ['name' => 'Taraz', 'slug' => 'taraz'],
-                ],
+                'name' => 'Tokyo City Tour',
+                'image' => 'tokyo_city.jpg',
+                'description' => 'Experience the beauty of Tokyo on a guided tour.',
+                'destination_id' => 2, // Получаем id по названию
             ],
-            // Uzbekistan
             [
-                'destination_id' => Destination::where('code', 'UZ')->first()->id,
-                'cities' => [
-                    ['name' => 'Tashkent', 'slug' => 'tashkent'],
-                    ['name' => 'Samarkand', 'slug' => 'samarkand'],
-                    ['name' => 'Bukhara', 'slug' => 'bukhara'],
-                    ['name' => 'Khiva', 'slug' => 'khiva'],
-                    ['name' => 'Fergana', 'slug' => 'fergana'],
-                    ['name' => 'Namangan', 'slug' => 'namangan'],
-                    ['name' => 'Andijan', 'slug' => 'andijan'],
-                    ['name' => 'Nukus', 'slug' => 'nukus'],
-                ],
+                'name' => 'Statue of Liberty Tour',
+                'image' => 'statue_of_liberty.jpg',
+                'description' => 'Visit the iconic Statue of Liberty in New York.',
+                'destination_id' => 3,
             ],
-            // Tajikistan
             [
-                'destination_id' => Destination::where('code', 'TJ')->first()->id,
-                'cities' => [
-                    ['name' => 'Dushanbe', 'slug' => 'dushanbe'],
-                    ['name' => 'Khujand', 'slug' => 'khujand'],
-                    ['name' => 'Kurgan-Tyube', 'slug' => 'kurgan tyube'],
-                    ['name' => 'Istravshan', 'slug' => 'istravshan'],
-                    ['name' => 'Garm', 'slug' => 'garm'],
-                    ['name' => 'Panjakent', 'slug' => 'panjakent'],
-                    ['name' => 'Kulob', 'slug' => 'kulob'],
-                ],
+                'name' => 'Tour name',
+                'image' => 'statue_of_liberty.jpg',
+                'description' => 'Visit the iconic Statue of Liberty in New York.',
+                'destination_id' => 3,
             ],
-            // Turkmenistan
             [
-                'destination_id' => Destination::where('code', 'TM')->first()->id,
-                'cities' => [
-                    ['name' => 'Ashgabat', 'slug' => 'ashgabat'],
-                    ['name' => 'Turkmenabat', 'slug' => 'turkmenabat'],
-                    ['name' => 'Mary', 'slug' => 'mary'],
-                    ['name' => 'Dashoguz', 'slug' => 'dashoguz'],
-                    ['name' => 'Balkanabat', 'slug' => 'balkanabat'],
-                    ['name' => 'Turbat', 'slug' => 'turbat'],
-                ],
+                'name' => 'Tour name2',
+                'image' => 'statue_of_liberty.jpg',
+                'description' => 'Visit the iconic Statue of Liberty in New York.',
+                'destination_id' => 1,
             ],
         ];
 
-        foreach ($cities as $countryCities) {
-            $this->createCities($countryCities['destination_id'], $countryCities['cities']);
-        }
-    }
+        // Заполняем таблицу travel_destinations
+        foreach ($travelDestinations as $travelDestinationData) {
+            $travelDestinations = TravelDestination::create($travelDestinationData);
 
-    public function createCities(int $destinationId, array $cities): void
-    {
-        foreach ($cities as $city) {
-            TravelDestination::create([
-                'name' => $city['name'],
-                'slug' => $city['slug'],
-                'destination_id' => $destinationId,
-            ]);
+            // Добавляем переводы для каждого направления
+            foreach (Language::all() as $language) {
+                $translatedName = $travelDestinationData['name'] . ' (' . $language->name . ')';
+                TravelDestinationTranslation::create([
+                    'travel_destination_id' => $travelDestinations->id,
+                    'language_id' => $language->id,
+                    'translate_name' => $translatedName,
+                ]);
+            }
         }
     }
 }

@@ -2,16 +2,12 @@
 
 namespace App\Models\Category;
 
+use App\Models\CategoryTranslation\CategoryTranslation;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 
 /**
@@ -25,7 +21,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'image'];
+    protected $fillable = ['title', 'description', 'slug', 'image'];
 
     public function groupTours(): HasMany
     {
@@ -37,34 +33,26 @@ class Category extends Model
         return $this->hasMany(PrivateTour::class);
     }
 
-    public function getTranslatedTitleAttribute(): Application|array|string|Translator|null
+    public function translations(): HasMany
     {
-        return __('messages.categories.' . $this->getAttribute('title')) !== 'messages.categories.' . $this->getAttribute('title')
-            ? __('messages.categories.' . $this->getAttribute('title'))
-            : $this->getAttribute('title');
-
+        return $this->hasMany(CategoryTranslation::class);
     }
 
-    public function getSlugAttribute(): string
+    public static function boot(): void
     {
-        return Str::slug($this->attributes['id'] . ' ' . $this->attributes['slug']);
-    }
+        parent::boot();
 
-    public function resolveRouteBinding($value, $field = null)
-    {
-        $model = $this->resolveRouteBindingQuery($this, $value, $field)->first();
+        static::creating(function(Category $category) {
+            $category->slug = Str::slug($category->title, '-');
+        });
 
-        if (!$model) {
-            throw (new ModelNotFoundException)->setModel(static::class, $value);
-        }
+        static::created(function(Category $category) {
+            $category->slug = $category->id . '-' . $category->slug;
+            $category->save();
+        });
 
-        return $model;
-    }
-
-    public function resolveRouteBindingQuery($query, $value, $field = null): Model|Relation|Builder
-    {
-        [$id] = explode('-', $value);
-
-        return $query->where($field ?? $this->getRouteKeyName(), $id);
+        static::updating(function(Category $category) {
+            $category->slug = $category->id . '-' . Str::slug($category->title, '-');
+        });
     }
 }

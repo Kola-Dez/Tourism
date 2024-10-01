@@ -12,14 +12,10 @@ class GalleryController extends Controller
 {
     public function index(): JsonResponse
     {
-        $galleries = Gallery::all();
-
-        if (!$galleries->toArray()) {
-            return Response::json(status: 204);
-        }
-
-        $galleries = GalleryResource::collection($galleries);
-
-        return Response::json(['status' => 200, 'success' => true, 'data' => $galleries]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => GalleryResource::collection(Gallery::all())->toArray(request())
+        ]);
     }
 }

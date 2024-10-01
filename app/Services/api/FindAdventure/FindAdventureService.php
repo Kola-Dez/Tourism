@@ -6,6 +6,8 @@ use App\Models\Category\Category;
 use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
+use App\Resources\api\Tours\GroupTourResource;
+use App\Resources\api\Tours\PrivateTourResource;
 
 class FindAdventureService
 {
@@ -34,6 +36,7 @@ class FindAdventureService
         $monthName = $request->input('month');
         $destination = $this->getDestinationBySlug($request->input('destination'));
         $category = $this->getCategoryBySlug($request->input('category'));
+
 
         $monthNumber = $monthName ? date('m', strtotime($monthName)) : null;
 
@@ -90,18 +93,7 @@ class FindAdventureService
             $query->whereMonth('departing', $monthNumber);
         }
 
-        return $query->get()->map(function ($groupTour) {
-            return [
-                'id' => $groupTour->id,
-                'travel_destination' => $groupTour->travelDestination->translated_name,
-                'destination' => $groupTour->travelDestination->destination->translated_code,
-                'category' => $groupTour->category->translated_title,
-                'price' => intval($groupTour->price),
-                'title' => $groupTour->title,
-                'image' => $groupTour->image,
-                'date' => $groupTour->duration,
-            ];
-        });
+        return GroupTourResource::collection($query->get());
     }
 
     private function findPrivateTours(?Destination $destination = null, ?Category $category = null, ?int $monthNumber = null)
@@ -122,16 +114,6 @@ class FindAdventureService
             $query->whereMonth('departing', $monthNumber);
         }
 
-        return $query->get()->map(function ($privateTour) {
-            return [
-                'id' => $privateTour->id,
-                'travel_destination' => $privateTour->travelDestination->translated_name,
-                'destination' => $privateTour->travelDestination->destination->translated_code,
-                'category' => $privateTour->category->translated_title,
-                'title' => $privateTour->title,
-                'image' => $privateTour->image,
-                'date' => $privateTour->duration,
-            ];
-        });
+        return PrivateTourResource::collection($query->get());
     }
 }

@@ -20,7 +20,7 @@ class AdminTravelDestinationService
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%")
                     ->orWhereHas('destination', function ($q) use ($search) {
-                        $q->where('code', 'like', "%{$search}%");
+                        $q->where('name', 'like', "%{$search}%");
                     })
                     ->orWhereHas('destination', function ($q) use ($search) {
                         $q->where('slug', 'like', "%{$search}%");
@@ -29,6 +29,7 @@ class AdminTravelDestinationService
 
         return $query->get();
     }
+
     public function store(StoreRequest $request): void
     {
         $data = $request->validated();
@@ -41,9 +42,6 @@ class AdminTravelDestinationService
         }
 
         $travelDestination = TravelDestination::create($data);
-
-        $travelDestination->slug = $travelDestination->name;
-        $travelDestination->save();
     }
 
     public function edit(array $data, $id): void
@@ -67,8 +65,6 @@ class AdminTravelDestinationService
         } else {
             $data['image'] = $travelDestination->image;
         }
-
-        $travelDestination['slug'] = $travelDestination['name'];
 
         $travelDestination->update($data);
     }

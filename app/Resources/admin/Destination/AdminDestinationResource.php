@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $translated_code
  * @property mixed $id
  * @property mixed $code
+ * @property mixed $name
  */
 class AdminDestinationResource extends JsonResource
 {
@@ -22,10 +23,10 @@ class AdminDestinationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
-            'code' => $this->code,
-            'name' => $this->translated_code,
+            'name' => $this->name,
+            'name_original' => $this->name,
             'image' => $this->image,
+            'slug' => $this->slug,
             'description' => $this->description,
         ];
     }

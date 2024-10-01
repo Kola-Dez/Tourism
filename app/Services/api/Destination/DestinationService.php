@@ -10,34 +10,34 @@ use App\Models\TravelDestination\TravelDestination;
 use App\Resources\api\Tours\GroupTourResource;
 use App\Resources\api\Tours\PrivateTourResource;
 use App\Resources\api\Transport\TransportResource;
+use App\Resources\api\TravelDestination\TravelDestinationResource;
 
 class DestinationService
 {
     public function getTravelDestinations(Destination $destination): array
     {
-        return TravelDestination::where('destination_id', $destination->id)->get()->map(function ($travelDestination) {
-            return [
-                'slug' => $travelDestination->slug,
-                'name' => $travelDestination->translated_name,
-            ];
-        })->toArray();
+        $travelDestination = TravelDestination::where('destination_id', $destination->id)->get();
+
+        return TravelDestinationResource::collection($travelDestination)->toArray(request());
     }
 
     public function getGroupTours(Destination $destination): array
     {
-        return TravelDestination::where('destination_id', $destination->id)->get()->flatMap(function ($travelDestination) {
-            $groupTours = GroupTour::where('travel_destination_id', $travelDestination->id)->get();
-            return GroupTourResource::collection($groupTours)->toArray(request());
-        })->toArray();
+        $travelDestination = TravelDestination::where('destination_id', $destination->id)->get();
+
+        $groupTours = GroupTour::whereIn('travel_destination_id', $travelDestination->pluck('id'))->get();
+
+        return GroupTourResource::collection($groupTours)->toArray(request());
     }
 
 
     public function getPrivateTours(Destination $destination): array
     {
-        return TravelDestination::where('destination_id', $destination->id)->get()->flatMap(function ($travelDestination) {
-            $privateTours = PrivateTour::where('travel_destination_id', $travelDestination->id)->get();
-            return PrivateTourResource::collection($privateTours)->toArray(request());
-        })->toArray();
+        $travelDestination = TravelDestination::where('destination_id', $destination->id)->get();
+
+        $privateTours = PrivateTour::whereIn('travel_destination_id', $travelDestination->pluck('id'))->get();
+
+        return PrivateTourResource::collection($privateTours)->toArray(request());
     }
 
     public function getPopularTours(Destination $destination): array

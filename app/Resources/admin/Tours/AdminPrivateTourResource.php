@@ -36,7 +36,7 @@ class AdminPrivateTourResource extends JsonResource
             'id' => $this->id,
             'travel_destination' => $this->travelDestination->name,
             'travel_destination_slug' => $this->travelDestination->slug,
-            'destination' => $this->travelDestination->destination->translated_code,
+            'destination' => $this->travelDestination->destination->name,
             'destination_slug' => $this->travelDestination->destination->slug,
             'category' => $this->category->title,
             'category_slug' => $this->category->slug,

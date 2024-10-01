@@ -19,7 +19,8 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable',
+            'name' => 'required|string',
+            'description' => 'required|string',
             'image' => [
                 'nullable',
                 File::types(['png', 'jpg', 'jpeg'])

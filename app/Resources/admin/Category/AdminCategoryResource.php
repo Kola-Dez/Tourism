@@ -10,6 +10,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $image
  * @property mixed $translated_title
  * @property mixed $id
+ * @property mixed $description
+ * @property mixed $title
  */
 class AdminCategoryResource extends JsonResource
 {
@@ -20,9 +22,11 @@ class AdminCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->translated_title,
-            'slug' => $this->slug,
+            'title' => $this->title,
             'image' => $this->image,
+            'slug' => $this->slug,
+            'description' => $this->description,
         ];
     }
+
 }

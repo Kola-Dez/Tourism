@@ -30,9 +30,9 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(property="success", type="boolean", example=true),
  *             @OA\Property(property="data", type="array",
  *                 @OA\Items(type="object",
- *                     @OA\Property(property="slug", type="string", example="1-kyrgyzstan"),
  *                     @OA\Property(property="name", type="string", example="Кыргызстан"),
  *                     @OA\Property(property="image", type="string", example="Test.png"),
+ *                     @OA\Property(property="slug", type="string", example="1-kyrgyzstan"),
  *                     @OA\Property(property="destination", type="string", example="Кыргызстан"),
  *                 )
  *             )
@@ -82,9 +82,9 @@ use App\Http\Controllers\Controller;
  *               @OA\Property(property="status", type="integer", example=200),
  *               @OA\Property(property="success", type="boolean", example=true),
  *               @OA\Property(property="data", type="object",
- *                     @OA\Property(property="slug", type="string", example="1-kyrgyzstan"),
  *                      @OA\Property(property="name", type="string", example="Кыргызстан"),
  *                      @OA\Property(property="image", type="string", example="Test.png"),
+ *                     @OA\Property(property="slug", type="string", example="1-kyrgyzstan"),
  *                      @OA\Property(property="destination", type="string", example="Кыргызстан"),
  *               )
  *           )

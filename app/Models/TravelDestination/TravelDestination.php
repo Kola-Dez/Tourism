@@ -5,6 +5,7 @@ namespace App\Models\TravelDestination;
 use App\Models\Destination\Destination;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
+use App\Models\TravelDestinationTranslation\TravelDestinationTranslation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,8 @@ use Illuminate\Support\Str;
  * @property mixed $destination_id
  * @property mixed $destination
  * @property mixed $slug
+ * @property mixed $name
+ * @property mixed $id
  */
 class TravelDestination extends Model
 {
@@ -51,33 +54,26 @@ class TravelDestination extends Model
         return $this->belongsTo(Destination::class);
     }
 
-    public function getTranslatedNameAttribute(): string
+    public function translations(): HasMany
     {
-        return __('messages.travel_destination.' . $this->getAttribute('name')) !== 'messages.travel_destination.' . $this->getAttribute('name')
-            ? __('messages.travel_destination.' . $this->getAttribute('name'))
-            : $this->getAttribute('name');
+        return $this->hasMany(TravelDestinationTranslation::class);
     }
 
-    public function getSlugAttribute(): string
+    public static function boot(): void
     {
-        return Str::slug($this->attributes['id'] . ' ' . $this->attributes['slug']);
-    }
+        parent::boot();
 
-    public function resolveRouteBinding($value, $field = null)
-    {
-        $model = $this->resolveRouteBindingQuery($this, $value, $field)->first();
+        static::creating(function(TravelDestination $travelDestination) {
+            $travelDestination->slug = Str::slug($travelDestination->name, '-');
+        });
 
-        if (!$model) {
-            throw (new ModelNotFoundException)->setModel(static::class, $value);
-        }
+        static::created(function(TravelDestination $travelDestination) {
+            $travelDestination->slug = $travelDestination->id . '-' . $travelDestination->slug;
+            $travelDestination->save();
+        });
 
-        return $model;
-    }
-
-    public function resolveRouteBindingQuery($query, $value, $field = null): Model|Relation|Builder
-    {
-        [$id] = explode('-', $value);
-
-        return $query->where($field ?? $this->getRouteKeyName(), $id);
+        static::updating(function(TravelDestination $travelDestination) {
+            $travelDestination->slug = $travelDestination->id . '-' . Str::slug($travelDestination->name, '-');
+        });
     }
 }

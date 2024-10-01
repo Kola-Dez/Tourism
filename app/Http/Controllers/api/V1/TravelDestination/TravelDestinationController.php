@@ -13,22 +13,20 @@ class TravelDestinationController extends Controller
 
     public function index(): JsonResponse
     {
-        $travelDestinations = TravelDestination::all();
-
-        if (!$travelDestinations) {
-            return Response::json(status: 204);
-        }
-
-        $travelDestinations = TravelDestinationResource::collection($travelDestinations)->toArray(request());
-
-        return Response::json(['status' => 200, 'success' => true ,'data' => $travelDestinations]);
+        return Response::json([
+            'status' => 200,
+            'success' => true ,
+            'data' => TravelDestinationResource::collection(TravelDestination::all())->toArray(request())
+        ]);
     }
 
     public function show(TravelDestination $travelDestination): JsonResponse
     {
-        $travelDestination = TravelDestinationResource::make($travelDestination)->toArray(request());
-
-        return Response::json(['status' => 200, 'success' => true ,'data' => $travelDestination]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => TravelDestinationResource::make($travelDestination)->toArray(request())
+        ]);
     }
 
 }

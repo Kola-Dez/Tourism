@@ -37,7 +37,6 @@ class AdminGroupTourController extends Controller
     public function index(Request $request): Factory|View|Application
     {
         $tours = $this->service->index($request);
-
         $tours = AdminGroupTourResource::collection($tours)->toArray($request);
 
         return view('admin.tours.group.index', compact('tours'));

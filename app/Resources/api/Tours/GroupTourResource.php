@@ -2,6 +2,10 @@
 
 namespace App\Resources\api\Tours;
 
+use App\Models\Language\Language;
+use App\Resources\api\Category\CategoryResource;
+use App\Resources\api\Destination\DestinationResource;
+use App\Resources\api\TravelDestination\TravelDestinationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,6 +21,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $duration
  * @property mixed $id
  * @property mixed $category
+ * @property mixed $destination
  */
 class GroupTourResource extends JsonResource
 {
@@ -24,9 +29,6 @@ class GroupTourResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'travel_destination' => $this->travelDestination->translated_name,
-            'destination' => $this->travelDestination->destination->translated_code,
-            'category' => $this->category->translated_name,
             'image' => $this->image,
             'date' => $this->duration,
             'images' => $this->images ?? [],
@@ -35,6 +37,15 @@ class GroupTourResource extends JsonResource
             'peoples' => $this->how_many_peoples,
             'inclusions' => $this->inclusions,
             'exclusions' => $this->exclusions,
+            'travel_destination' => new TravelDestinationResource($this->travelDestination),
+            'category' => new CategoryResource($this->category),
         ];
+    }
+
+    private function getLanguageId()
+    {
+        $locale = app()->getLocale();
+
+        return Language::where('code', $locale)->value('id');
     }
 }

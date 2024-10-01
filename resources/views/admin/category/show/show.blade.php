@@ -95,6 +95,13 @@
                         <label>Title: {{ $category['title'] }}</label>
                     </div>
                 </div>
+                <div class="col-sm-4">
+                    <!-- Описание -->
+                    <div class="form-group">
+                        <label>Description</label>
+                        <p>{{ $category['description'] }}</p>
+                    </div>
+                </div>
             </div>
 
             <div class="row">

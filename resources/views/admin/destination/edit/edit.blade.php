@@ -33,7 +33,7 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Edit Travel Destination: {{ $destination['code'] }}</h3>
+            <h3 class="card-comment">Edit Travel Destination: {{ $destination['name'] }}</h3>
         </div>
         <a href="{{ route('admin.destinations.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
@@ -41,7 +41,22 @@
             <form action="{{ route('admin.destinations.update', $destination['id']) }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @method('Patch')
                 @csrf
+
+
                 <div class="row">
+                    <div class="col-sm-6">
+                        <!-- Name input -->
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter ..." value="{{ $destination['name'] !== null ? $destination['name'] : old('name') }}">
+                            @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="col-sm-4">
                         <!-- New file input field -->
                         <div class="form-group">
@@ -78,6 +93,8 @@
                         </div>
                     </div>
                 </div>
+
+
 
                 <button type="submit" class="btn btn-warning">Edite</button>
             </form>

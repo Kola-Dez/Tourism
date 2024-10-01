@@ -14,29 +14,26 @@ class PrivateTourController extends Controller
 {
     public function index(): JsonResponse
     {
-        $privateTour = PrivateTour::all();
-
-        if (!$privateTour) {
-            return Response::json(status: 204);
-        }
-
-        $privateTour = PrivateTourResource::collection($privateTour)->toArray(request());
-
-        return Response::json(['status' => 200,'success' => true, 'data' => $privateTour]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => PrivateTourResource::collection(PrivateTour::all())->toArray(request())
+        ]);
     }
 
     public function show(PrivateTour $privateTour): JsonResponse
     {
         $itinerary = PrivateTourItinerary::all()->where('tour_id', $privateTour->id);
 
-        $itinerary = ItineraryResource::collection($itinerary)->toArray(request());
-
         $privateTour->hits += 1;
         $privateTour->save();
 
-        $privateTour = (new PrivateTourResource($privateTour))->toArray(request());
-
-        return Response::json(['status' => 200, 'success' => true, 'data' => $privateTour, 'itinerary' => $itinerary]);
+        return Response::json([
+            'status' => 200,
+            'success' => true,
+            'data' => PrivateTourResource::make($privateTour)->toArray(request()),
+            'itinerary' => ItineraryResource::collection($itinerary)->toArray(request())
+        ]);
     }
 
 }
