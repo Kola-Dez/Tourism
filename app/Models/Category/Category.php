@@ -5,14 +5,9 @@ namespace App\Models\Category;
 use App\Models\CategoryTranslation\CategoryTranslation;
 use App\Models\Tours\GroupTour;
 use App\Models\Tours\PrivateTour;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 
 /**
@@ -26,7 +21,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'image'];
+    protected $fillable = ['title', 'description', 'slug', 'image'];
 
     public function groupTours(): HasMany
     {

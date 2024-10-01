@@ -15,32 +15,32 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Travel destinations languages Table</h3>
+                    <h3 class="card-title">Category languages Table</h3>
                 </div>
                 <!-- /.card-header -->
-                <a href="{{ route('admin.travel_destination_languages.create') }}" class="btn btn-create">Create</a>
+                <a href="{{ route('admin.category_languages.create') }}" class="btn btn-create">Create</a>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>name</th>
-                            <th>translate name</th>
+                            <th>title</th>
+                            <th>translate title</th>
                             <th>code</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($travelDestinationsLanguages as $travelDestinationsLanguage)
+                        @foreach($categoryLanguages as $categoryLanguage)
                             <tr>
-                                <td>{{ $travelDestinationsLanguage['id'] }}</td>
-                                <td>{{ $travelDestinationsLanguage['name'] }}</td>
-                                <td>{{ $travelDestinationsLanguage['translate_name'] }}</td>
-                                <td>{{ $travelDestinationsLanguage['code'] }}</td>
+                                <td>{{ $categoryLanguage['id'] }}</td>
+                                <td>{{ $categoryLanguage['title'] }}</td>
+                                <td>{{ $categoryLanguage['translate_title'] }}</td>
+                                <td>{{ $categoryLanguage['code'] }}</td>
                                 <td>
-                                    <a href="{{ route('admin.travel_destination_languages.show', $travelDestinationsLanguage['id']) }}" class="btn btn-outline-info">Show</a>
-                                    <a href="{{ route('admin.travel_destination_languages.edit', $travelDestinationsLanguage['id']) }}" class="btn btn-outline-warning">Edit</a>
-                                    <form action="{{ route('admin.travel_destination_languages.destroy', $travelDestinationsLanguage['id']) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('admin.category_languages.show', $categoryLanguage['id']) }}" class="btn btn-outline-info">Show</a>
+                                    <a href="{{ route('admin.category_languages.edit', $categoryLanguage['id']) }}" class="btn btn-outline-warning">Edit</a>
+                                    <form action="{{ route('admin.category_languages.destroy', $categoryLanguage['id']) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger">Delete</button>

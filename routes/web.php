@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\blog\AdminBlogController;
 use App\Http\Controllers\admin\Category\AdminCategoryController;
+use App\Http\Controllers\admin\CategoryLanguage\AdminCategoryLanguageController;
 use App\Http\Controllers\admin\Destination\AdminDestinationController;
 use App\Http\Controllers\admin\DestinationLanguage\AdminDestinationLanguageController;
 use App\Http\Controllers\admin\Gallery\AdminGalleryController;
@@ -50,6 +51,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])->name('edit');
             Route::patch('/{category}', [AdminCategoryController::class, 'update'])->name('update');
             Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('category_languages')->name('category_languages.')->group(function () {
+            Route::get('/', [AdminCategoryLanguageController::class, 'index'])->name('index');
+            Route::get('/create', [AdminCategoryLanguageController::class, 'create'])->name('create');
+            Route::post('/', [AdminCategoryLanguageController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdminCategoryLanguageController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [AdminCategoryLanguageController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [AdminCategoryLanguageController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AdminCategoryLanguageController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('travel_destinations')->name('travel_destinations.')->group(function () {

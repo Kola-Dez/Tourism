@@ -25,9 +25,9 @@ class CategoryResource extends JsonResource
 
         return [
             'title' => $translation ? $translation->translate_name : $this->title,
-            'image' => $this->image,
+            'description' => $translation ? $translation->translate_description : $this->description,
             'slug' => $this->slug,
-            'description' => $this->description,
+            'image' => $this->image,
         ];
     }
 

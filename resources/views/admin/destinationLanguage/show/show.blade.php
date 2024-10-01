@@ -42,7 +42,7 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Travel Destination: {{ $destinationTranslation['name'] }}</h3>
+            <h3 class="card-comment">Destination language: {{ $destinationTranslation['name'] }}</h3>
         </div>
         <a href="{{ route('admin.destination_languages.index') }}" class="btn btn-info card">Back</a>
         <div class="card-body">

@@ -18,7 +18,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // Убедитесь, что это значение соответствует вашей логике авторизации
+        return true;
     }
 
     /**
@@ -30,6 +30,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'description' => 'required|string',
             'image' => [
                 'required',
                 File::types(['png', 'jpg', 'jpeg'])

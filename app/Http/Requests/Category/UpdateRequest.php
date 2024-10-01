@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'description' => 'required|string',
             'image' => [
                 'nullable',
                 File::types(['png', 'jpg', 'jpeg'])

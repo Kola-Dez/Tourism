@@ -19,7 +19,7 @@ class AdminCategoryService
             $filePath = $file->store('images/category', 'public');
             $data['image'] = '/storage/' . $filePath;
         }
-        $category = Category::create($data);
+        Category::create($data);
     }
 
     public function edit(array $data, $id): void

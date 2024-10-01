@@ -41,12 +41,12 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Create Language for Destination</h3>
+            <h3 class="card-comment">Create Language for Travel Destination</h3>
         </div>
-        <a href="{{ route('admin.destination_languages.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.travel_destination_languages.index') }}" class="btn btn-info card">Back</a>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="{{ route('admin.destination_languages.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
+            <form action="{{ route('admin.travel_destination_languages.store') }}" method="post" enctype="multipart/form-data" id="dynamicForm">
                 @csrf
                 <div class="row">
                     <div class="col-sm-4">
@@ -64,13 +64,13 @@
                         <!-- Category select -->
                         <div class="form-group">
                             <label>Select country</label>
-                            <select class="form-control @error('category_id') is-invalid @enderror" id="category-select" name="destination_id">
+                            <select class="form-control @error('category_id') is-invalid @enderror" id="category-select" name="travel_destination_id">
                                 <option value="">country</option>
-                                @foreach($data['destinations'] as $destination)
-                                    <option value="{{ $destination['id'] }}" {{ old('destination_id') == $destination['id'] ? 'selected' : '' }}>{{ $destination['name'] }}</option>
+                                @foreach($data['travelDestinations'] as $travelDestinations)
+                                    <option value="{{ $travelDestinations['id'] }}" {{ old('travel_destination_id') == $travelDestinations['id'] ? 'selected' : '' }}>{{ $travelDestinations['name'] }}</option>
                                 @endforeach
                             </select>
-                            @error('destination')
+                            @error('travel_destination_id')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

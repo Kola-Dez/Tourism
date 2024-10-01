@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\admin\TravelDestinationLanguage;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DestinationLanguage\StoreRequest;
-use App\Http\Requests\DestinationLanguage\UpdateRequest;
-use App\Models\Destination\Destination;
-use App\Models\DestinationTranslation\DestinationTranslation;
+use App\Http\Requests\TravelDestinationLanguage\StoreRequest;
+use App\Http\Requests\TravelDestinationLanguage\UpdateRequest;
 use App\Models\Language\Language;
-use App\Resources\admin\Destination\AdminDestinationResource;
+use App\Models\TravelDestination\TravelDestination;
+use App\Models\TravelDestinationTranslation\TravelDestinationTranslation;
 use App\Resources\admin\DestinationLanguage\AdminDestinationLanguageResource;
 use App\Resources\admin\Language\AdminLanguageResource;
+use App\Resources\admin\TravelDestination\AdminTravelDestinationResources;
+use App\Resources\admin\TravelDestinationLanguage\AdminTravelDestinationLanguageResource;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -23,35 +24,35 @@ class AdminTravelDestinationLanguageController extends Controller
 
     public function index(): Factory|View|Application
     {
-        $destinationsLanguages = AdminDestinationLanguageResource::collection(DestinationTranslation::all())->toArray(request());
+        $travelDestinationsLanguages = AdminTravelDestinationLanguageResource::collection(TravelDestinationTranslation::all())->toArray(request());
 
-        return view('admin.destinationLanguage.index', compact('destinationsLanguages'));
+        return view('admin.travelDestinationLanguage.index', compact('travelDestinationsLanguages'));
     }
 
     public function show($id): View|Factory|Application
     {
-        $destinationTranslation = DestinationTranslation::find($id);
+        $travelDestinationsLanguage = TravelDestinationTranslation::find($id);
 
-        $destinationTranslation = AdminDestinationLanguageResource::make($destinationTranslation)->toArray(request());
+        $travelDestinationsLanguage = AdminTravelDestinationLanguageResource::make($travelDestinationsLanguage)->toArray(request());
 
-        return view('admin.destinationLanguage.show.show', compact('destinationTranslation'));
+        return view('admin.travelDestinationLanguage.show.show', compact('travelDestinationsLanguage'));
     }
 
     public function create(): Factory|View|Application
     {
-        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+        $data['travelDestinations'] = AdminTravelDestinationResources::collection(TravelDestination::all())->toArray(request());
         $data['languages'] = AdminLanguageResource::collection(Language::all())->toArray(request());
 
-        return view('admin.destinationLanguage.create.create', compact('data'));
+        return view('admin.travelDestinationLanguage.create.create', compact('data'));
     }
 
     public function store(StoreRequest $request): Application|Redirector|RedirectResponse
     {
         $validatedData = $request->validated();
 
-        DestinationTranslation::updateOrCreate(
+        TravelDestinationTranslation::updateOrCreate(
             [
-                'destination_id' => $validatedData['destination_id'],
+                'travel_destination_id' => $validatedData['travel_destination_id'],
                 'language_id' => $validatedData['language_id']
             ],
             [
@@ -60,37 +61,37 @@ class AdminTravelDestinationLanguageController extends Controller
             ]
         );
 
-        return redirect()->route('admin.destination_languages.index');
+        return redirect()->route('admin.travel_destination_languages.index');
     }
 
     public function edit($id): View|Factory|Application
     {
-        $destinationTranslation = DestinationTranslation::find($id);
+        $travelDestinationTranslation = TravelDestinationTranslation::find($id);
 
-        $data['destinationTranslation'] = AdminDestinationLanguageResource::make($destinationTranslation)->toArray(request());
-        $data['destinations'] = AdminDestinationResource::collection(Destination::all())->toArray(request());
+        $data['travelDestinationTranslation'] = AdminTravelDestinationLanguageResource::make($travelDestinationTranslation)->toArray(request());
+        $data['travel_destinations'] = AdminTravelDestinationResources::collection(TravelDestination::all())->toArray(request());
         $data['languages'] = AdminLanguageResource::collection(Language::all())->toArray(request());
 
-        return view('admin.destinationLanguage.edit.edit', compact('data'));
+        return view('admin.travelDestinationLanguage.edit.edit', compact('data'));
     }
 
     public function update(UpdateRequest $request, $id): RedirectResponse
     {
         $data = $request->all();
-        $destinationTranslate = DestinationTranslation::find($id);
+        $destinationTranslate = TravelDestinationTranslation::find($id);
 
         $destinationTranslate->update($data);
 
-        return redirect()->route('admin.destination_languages.index');
+        return redirect()->route('admin.travel_destination_languages.index');
     }
 
     public function destroy($id): Application|JsonResponse|Redirector|RedirectResponse
     {
-        $destinationTranslation = DestinationTranslation::find($id);
+        $travelDestinationsLanguage = TravelDestinationTranslation::find($id);
 
-        $destinationTranslation->delete();
+        $travelDestinationsLanguage->delete();
 
-        return redirect(route('admin.destination_languages.index'));
+        return redirect(route('admin.travel_destination_languages.index'));
     }
 
 }

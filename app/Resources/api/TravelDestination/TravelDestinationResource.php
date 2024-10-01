@@ -27,10 +27,9 @@ class TravelDestinationResource extends JsonResource
         return [
             'name' => $translation ? $translation->translate_name : $this->name,
             'slug' => $this->slug,
-            'image' => $this->image,
-            'description' => $this->description,
+            'description' =>  $translation ? $translation->translate_description : $this->description,
             'destination' => new DestinationResource($this->destination),
-            'destination_slug' => $this->destination->slug,
+            'image' => $this->image,
         ];
     }
 

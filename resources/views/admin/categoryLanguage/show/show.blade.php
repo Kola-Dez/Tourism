@@ -42,31 +42,31 @@
     </style>
     <div class="card card-green">
         <div class="card-header">
-            <h3 class="card-comment">Travel Destination language: {{ $travelDestinationsLanguage['name'] }}</h3>
+            <h3 class="card-comment">Category language: {{ $categoryLanguage['title'] }}</h3>
         </div>
-        <a href="{{ route('admin.travel_destination_languages.index') }}" class="btn btn-info card">Back</a>
+        <a href="{{ route('admin.category_languages.index') }}" class="btn btn-info card">Back</a>
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>Code: {{ $travelDestinationsLanguage['code'] }}</label>
+                        <label>Code: {{ $categoryLanguage['code'] }}</label>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label>Language: {{ $travelDestinationsLanguage['language'] }}</label>
+                        <label>Language: {{ $categoryLanguage['language'] }}</label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Name: {{ $travelDestinationsLanguage['name'] }}</label>
+                        <label>Title: {{ $categoryLanguage['title'] }}</label>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Translate name: {{ $travelDestinationsLanguage['translate_name'] }}</label>
+                        <label>Translate title: {{ $categoryLanguage['translate_title'] }}</label>
                     </div>
                 </div>
             </div>
@@ -76,14 +76,14 @@
                     <!-- Описание -->
                     <div class="form-group">
                         <label>Description</label>
-                        <p>{{ $travelDestinationsLanguage['description'] }}</p>
+                        <p>{{ $categoryLanguage['description'] }}</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <!-- Описание -->
                     <div class="form-group">
                         <label>Translate description</label>
-                        <p>{{ $travelDestinationsLanguage['translate_description'] }}</p>
+                        <p>{{ $categoryLanguage['translate_description'] }}</p>
                     </div>
                 </div>
             </div>

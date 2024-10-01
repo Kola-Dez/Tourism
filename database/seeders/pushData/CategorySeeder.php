@@ -30,7 +30,8 @@ class CategorySeeder extends Seeder
                 CategoryTranslation::create([
                     'category_id' => $category->id,
                     'language_id' => $language->id,
-                    'translate_name' => $translatedName,
+                    'translate_title' => $translatedName,
+                    'translate_description' => $translatedName,
                 ]);
             }
         }

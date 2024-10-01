@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\DestinationLanguage;
+namespace App\Http\Requests\CategoryLanguage;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Redirect;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Получить правила валидации, применимые к запросу.
@@ -18,9 +18,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'destination_id' => 'required|integer|exists:destinations,id',
+            'category_id' => 'required|integer|exists:categories,id',
             'language_id' => 'required|integer|exists:languages,id',
-            'translate_name' => 'required|string',
+            'translate_title' => 'required|string',
             'translate_description' => 'required|string',
         ];
     }
@@ -35,9 +35,9 @@ class StoreRequest extends FormRequest
     {
         $errors = $validator->errors();
 
-        $destinationLanguagesId = $this->route('id');
+        $categoryLanguagesId = $this->route('id');
 
-        $response = Redirect::route('admin.destination_languages.create', ['id' => $destinationLanguagesId])
+        $response = Redirect::route('admin.category_languages.edit', ['id' => $categoryLanguagesId])
             ->withErrors($errors)
             ->withInput();
 
