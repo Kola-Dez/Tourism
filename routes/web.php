@@ -4,11 +4,13 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\blog\AdminBlogController;
 use App\Http\Controllers\admin\Category\AdminCategoryController;
 use App\Http\Controllers\admin\Destination\AdminDestinationController;
+use App\Http\Controllers\admin\DestinationLanguage\AdminDestinationLanguageController;
 use App\Http\Controllers\admin\Gallery\AdminGalleryController;
 use App\Http\Controllers\admin\Lnaguage\AdminLanguageController;
 use App\Http\Controllers\admin\Tours\AdminGroupTourController;
 use App\Http\Controllers\admin\Tours\AdminPrivateTourController;
 use App\Http\Controllers\admin\TravelDestination\AdminTravelDestinationController;
+use App\Http\Controllers\admin\TravelDestinationLanguage\AdminTravelDestinationLanguageController;
 use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +62,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{travelDestination}', [AdminTravelDestinationController::class, 'destroy'])->name('destroy');
         });
 
+        Route::prefix('travel_destination_languages')->name('travel_destination_languages.')->group(function () {
+            Route::get('/', [AdminTravelDestinationLanguageController::class, 'index'])->name('index');
+            Route::get('/create', [AdminTravelDestinationLanguageController::class, 'create'])->name('create');
+            Route::post('/', [AdminTravelDestinationLanguageController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdminTravelDestinationLanguageController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [AdminTravelDestinationLanguageController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [AdminTravelDestinationLanguageController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AdminTravelDestinationLanguageController::class, 'destroy'])->name('destroy');
+        });
+
         Route::prefix('destinations')->name('destinations.')->group(function () {
             Route::get('/', [AdminDestinationController::class, 'index'])->name('index');
             Route::get('/create', [AdminDestinationController::class, 'create'])->name('create');
@@ -68,6 +80,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{destination}/edit', [AdminDestinationController::class, 'edit'])->name('edit');
             Route::patch('/{destination}', [AdminDestinationController::class, 'update'])->name('update');
             Route::delete('/{destination}', [AdminDestinationController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('destination_languages')->name('destination_languages.')->group(function () {
+            Route::get('/', [AdminDestinationLanguageController::class, 'index'])->name('index');
+            Route::get('/create', [AdminDestinationLanguageController::class, 'create'])->name('create');
+            Route::post('/', [AdminDestinationLanguageController::class, 'store'])->name('store');
+            Route::get('/{id}', [AdminDestinationLanguageController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [AdminDestinationLanguageController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [AdminDestinationLanguageController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AdminDestinationLanguageController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('galleries')->name('galleries.')->group(function () {

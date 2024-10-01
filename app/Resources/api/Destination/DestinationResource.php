@@ -24,9 +24,9 @@ class DestinationResource extends JsonResource
 
         return [
             'name' => $translation ? $translation->translate_name : $this->name,
-            'image' => $this->image,
+            'description' => $translation ? $translation->translate_description : $this->description,
             'slug' => $this->slug,
-            'description' => $this->description,
+            'image' => $this->image,
         ];
     }
 

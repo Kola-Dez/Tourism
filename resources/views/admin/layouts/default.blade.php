@@ -61,20 +61,50 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.travel_destinations.index') }}" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Travel Destination
+                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.travel_destinations.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Travel Destination</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.travel_destination_languages.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Travel Destination Translated</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.destinations.index') }}" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
                             <p>
                                 Destination
+                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.destinations.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Destination</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.destination_languages.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Destination Translated</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
